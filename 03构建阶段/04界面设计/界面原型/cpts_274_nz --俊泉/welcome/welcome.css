@@ -1,0 +1,118 @@
+body {
+    background-color: #f2f4f8;
+    font-size: 14px;
+}/*  整体风格的字体和图标大小 */
+
+#wrapper > nav > ul > li > a{
+    color: #ffffff;
+    text-decoration: none;
+}/* 导航栏上a标签无下划线以及白色风格的文字和图标*/
+
+
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+    background-color: #337ab7 !important;
+}/*响应式时宽度不够时的设置*/
+
+
+nav.top1.navbar.navbar-default.navbar-static-top {
+    margin-bottom: 0;
+    border-color:#ffffff;
+    background-color:#337ab7;
+}/* 导航栏上整体风格*/
+
+
+.navbar-default .navbar-brand {
+    color: #fff !important;
+    font-size: 21px;
+    font-weight: 500;
+}/* 导航栏上navbar-brand的整体设置*/
+
+
+.user-menu {
+    display: inline-block;
+    margin-top: 14px;
+    margin-right: 21px;
+    float: right;
+    list-style: none;
+    padding: 0;
+}/*导航栏上右侧部分的位置距离*/
+
+
+#wrapper > nav > ul > li > ul > li > a{
+    color:#337ab7;
+    font-size: 14px;
+}/*导航栏下拉菜单的列表项的大小和颜色*/
+
+
+.navbar-default.sidebar {
+    background-color: #ffffff;
+    margin-top:0;
+}/*侧边栏的背景颜色和紧贴顶部导航栏*/
+
+
+.table th, .table td {
+    text-align: center;
+}/*表格的标题和内容居中*/
+
+
+.sidebar ul > li > a {
+    color: #337ab7;
+}/*侧边栏上的a标签的颜色风格*/
+
+
+#side-menu li:hover{
+    background-color:#f2f4f8;
+}/*侧边栏上的a标签的颜色风格*/
+
+
+#side-menu li.active{
+    background-color:#337ab7;
+    color:#ffffff;
+}/*侧边栏上选中li项时的背景颜色*/
+
+
+#side-menu li.active > a{
+    color:#ffffff;
+}
+
+
+#side-menu li.active > ul{
+    background-color:#f2f4f8;
+    color:#337ab7;
+}
+
+
+#side-menu li ul{
+    padding-left: 20px;
+}/*侧边栏上选中li的子项整体左移*/
+
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: rgb(91, 192, 222) !important;
+    border-color: rgb(91, 192, 222) !important;
+}
+
+
+.box {
+    min-height: 100px;
+    background: #ffffff;
+    padding: 38px 15px 15px 15px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}/*卡片式风格的相关属性*/
+
+
+.r3_counter_box {
+    min-height: 0;
+}/*原有的卡片式风格最小高度限制*/
+
+
+span.input-group-addon.btn:hover{
+    background-color:#3399cc;
+}/*移动查询按钮时的背景色变化*/
+
+
+span.input-group-addon.btn{ 
+    color:#ffffff;
+    background-color: #5bc0de;
+}/*查询按钮常规设置*/

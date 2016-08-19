@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.TrainingProductInfoMapper">
+  
+   <select id="findTrainingProductInfoById" parameterType="int" resultType="TrainingProductInfo">
+  	SELECT *
+	 FROM training_products_info WHERE product_id = #{productId);
+  </select>
+  
+  <select id="findTrainingProductInfoByName" parameterType="String" resultType="TrainingProductInfo">
+  	SELECT *
+	 FROM training_products_info WHERE product_name = #{productName);
+  </select>
+  
+  <update id="updateTrainingProductInfo" parameterType="TrainingProductInfo" >
+  	UPDATE training_products_info 
+  	<set>
+  		<if test="product_name != null">
+  			product_name = #{productName},
+  		</if>
+  		<if test="product_price != null">
+  			product_price = #{productPrice},
+  		</if>
+  		<if test="product_manufacturer != null">
+  			product_manufacturer = #{productManufacturer},
+  		</if>
+  		<if test="product_parameter != null">
+  	 		product_parameter = #{productParameter}
+  		</if>
+  	</set>
+  	WHERE product_id = #{productId}
+  </update>
+  
+  <delete id="deleteTrainingProductInfo" parameterType="int">
+  	DELETE FROM training_products_info WHERE product_id =#{productId}
+  </delete>
+  
+  <insert id="addTrainingProductInfo" parameterType="TrainingProductInfo" useGeneratedKeys="true">
+  	INSERT INTO training_products_info(product_name, product_parameter, product_price, product_manufacturer)
+  	VALUES(#{productName}, #{productParameter}, #{productPrice}, #{productManufacturer})
+  </insert>
+</mapper>

@@ -1,0 +1,118 @@
+body {
+    background-color: #f2f4f8;
+    font-size: 14px;
+}/*  鏁翠綋椋庢牸鐨勫瓧浣撳拰鍥炬爣澶у皬 */
+
+#wrapper > nav > ul > li > a{
+    color: #ffffff;
+    text-decoration: none;
+}/* 瀵艰埅鏍忎笂a鏍囩鏃犱笅鍒掔嚎浠ュ強鐧借壊椋庢牸鐨勬枃瀛楀拰鍥炬爣*/
+
+
+.navbar-default .navbar-toggle {
+    border-color: #fff;
+    background-color: #337ab7 !important;
+}/*鍝嶅簲寮忔椂瀹藉害涓嶅鏃剁殑璁剧疆*/
+
+
+nav.top1.navbar.navbar-default.navbar-static-top {
+    margin-bottom: 0;
+    border-color:#ffffff;
+    background-color:#337ab7;
+}/* 瀵艰埅鏍忎笂鏁翠綋椋庢牸*/
+
+
+.navbar-default .navbar-brand {
+    color: #fff !important;
+    font-size: 21px;
+    font-weight: 500;
+}/* 瀵艰埅鏍忎笂navbar-brand鐨勬暣浣撹缃�*/
+
+
+.user-menu {
+    display: inline-block;
+    margin-top: 14px;
+    margin-right: 21px;
+    float: right;
+    list-style: none;
+    padding: 0;
+}/*瀵艰埅鏍忎笂鍙充晶閮ㄥ垎鐨勪綅缃窛绂�*/
+
+
+#wrapper > nav > ul > li > ul > li > a{
+    color:#337ab7;
+    font-size: 14px;
+}/*瀵艰埅鏍忎笅鎷夎彍鍗曠殑鍒楄〃椤圭殑澶у皬鍜岄鑹�*/
+
+
+.navbar-default.sidebar {
+    background-color: #ffffff;
+    margin-top:50px;
+}/*渚ц竟鏍忕殑鑳屾櫙棰滆壊鍜岀揣璐撮《閮ㄥ鑸爮*/
+
+
+.table th, .table td {
+    text-align: center;
+}/*琛ㄦ牸鐨勬爣棰樺拰鍐呭灞呬腑*/
+
+
+.sidebar ul > li > a {
+    color: #337ab7;
+}/*渚ц竟鏍忎笂鐨刟鏍囩鐨勯鑹查鏍�*/
+
+
+#side-menu li:hover{
+    background-color:#f2f4f8;
+}/*渚ц竟鏍忎笂鐨刟鏍囩鐨勯鑹查鏍�*/
+
+
+#side-menu li.active{
+    background-color:#337ab7;
+    color:#ffffff;
+}/*渚ц竟鏍忎笂閫変腑li椤规椂鐨勮儗鏅鑹�*/
+
+
+#side-menu li.active > a{
+    color:#ffffff;
+}
+
+
+#side-menu li.active > ul{
+    background-color:#f2f4f8;
+    color:#337ab7;
+}
+
+
+#side-menu li ul{
+    padding-left: 20px;
+}/*渚ц竟鏍忎笂閫変腑li鐨勫瓙椤规暣浣撳乏绉�*/
+
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+    background-color: rgb(91, 192, 222) !important;
+    border-color: rgb(91, 192, 222) !important;
+}
+
+
+.box {
+    min-height: 100px;
+    background: #ffffff;
+    padding: 38px 15px 15px 15px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+}/*鍗＄墖寮忛鏍肩殑鐩稿叧灞炴��*/
+
+
+.r3_counter_box {
+    min-height: 0;
+}/*鍘熸湁鐨勫崱鐗囧紡椋庢牸鏈�灏忛珮搴﹂檺鍒�*/
+
+
+span.input-group-addon.btn:hover{
+    background-color:#3399cc;
+}/*绉诲姩鏌ヨ鎸夐挳鏃剁殑鑳屾櫙鑹插彉鍖�*/
+
+
+span.input-group-addon.btn{ 
+    color:#ffffff;
+    background-color: #5bc0de;
+}/*鏌ヨ鎸夐挳甯歌璁剧疆*/

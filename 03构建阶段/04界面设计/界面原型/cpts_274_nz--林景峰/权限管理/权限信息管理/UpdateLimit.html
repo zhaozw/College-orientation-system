@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>权限信息管理</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+ <!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!----webfonts--->
+<link href='http://fonts.useso.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+<!---//webfonts--->  
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+</head>
+<body id="login">
+  <div class="login-logo">
+    <a href="index.html"><img src="images/logo.png" alt=""/></a>
+  </div>
+  <h2 class="form-heading">欢迎系统管理员</h2>
+  <form class="form-signin app-cam" action="index.html">
+      <p>修改权限信息</p>
+	  <input type="text" class="form-control1" placeholder="ID" autofocus="">
+      <input type="text" class="form-control1" placeholder="Name" autofocus="">
+	  <input type="text" class="form-control1" placeholder="Description" autofocus="">
+	  			<select class="form-control1 ng-invalid ng-invalid-required" ng-model="model.select" required=""  ><option value="? undefined:undefined ?">Level</option>
+                <option value="Select a pirate">1</option>
+                <option value="Monkey D. Luffy">2</option>
+                <option value="Roronoa Zoro">3</option>
+                <option value="Tony Tony Chopper">4</option>
+                <option value="Nico Robin">5</option>
+                <option value="Bon Clay">6</option>
+              </select>
+				<select class="form-control1 ng-invalid ng-invalid-required" ng-model="model.select" required=""  ><option value="? undefined:undefined ?">RoleID</option>
+                <option value="Select a pirate">系统管理员</option>
+                <option value="Monkey D. Luffy">校长</option>
+                <option value="Roronoa Zoro">学生</option>
+                <option value="Tony Tony Chopper">教师</option>
+                <option value="Nico Robin">啦啦啦</option>
+                <option value="Bon Clay">我是谁</option>
+              </select>
+      <div class="radios">
+        <label for="radio-01" class="label_radio">
+            <input type="radio" checked=""> 男
+        </label>
+        <label for="radio-02" class="label_radio">
+            <input type="radio"> 女
+        </label>
+	  </div>
+      <label class="checkbox-custom check-success">
+          <input type="checkbox" value="agree this condition" id="checkbox1"> <label for="checkbox1">我同意</label>
+      </label>
+      <button class="btn btn-lg btn-success1 btn-block" type="submit">提交</button>
+      <div class="registration">
+          Already Registered.
+          <a class="" href="login.html">
+              Login
+          </a>
+      </div>
+  </form>
+   <div class="copy_layout login register">
+      <p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+   </div>
+</body>
+</html>
