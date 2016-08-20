@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.OneCardPassMapper">
+  
+ 
+  
+   <select id="ViewOneCardPass"  resultType="OneCardPass">
+  	SELECT
+		*
+	FROM
+		one_card_pass
+  </select>
+  
+  <select id="findOneCardPassBySid" parameterType="int" resultType="OneCardPass">
+  	SELECT *
+	 FROM one_card_pass WHERE student_id = #{studentId);
+  </select>
+  
+  <update id="updateOneCardPass" parameterType="OneCardPass" >
+  	UPDATE one_card_pass 
+  	<set>
+  		<if test="student_id != null">
+  			student_id = #{studentId},
+  		</if>
+  		<if test="credit_card != null">
+  	 		credit_card = #{creditCard}
+  		</if>
+  	</set>
+  	WHERE one_card_pass_id = #{oneCardPassId}
+  </update>
+  
+  <delete id="deleteOneCardPass" parameterType="int" >
+  	DELETE FROM one_card_pass WHERE one_card_pass_id =#{oneCardPassId}
+  </delete>
+  
+  <insert id="addOneCardPass" parameterType="OneCardPass" useGeneratedKeys="true">
+  	INSERT INTO one_card_pass(student_id, credit_card)
+  	VALUES(#{studentId}, #{creditCard})
+  </insert>
+</mapper>

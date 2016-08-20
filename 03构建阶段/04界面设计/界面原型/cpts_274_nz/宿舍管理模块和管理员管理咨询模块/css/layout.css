@@ -1,0 +1,28 @@
+.center-cont{
+	width: 1000px;
+	margin-left: 50px;
+}
+s
+h2.center_h2 {
+	width: 1000px;
+	float: right;
+	color: #646464;
+	font-size: 16px;
+	line-height: 16px;
+	font-weight: bold;
+	margin: 20px 0 0 0;
+	padding: 0 0 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+h2.center_h2 a {
+	color: #646464;
+	text-decoration: none;
+}
+
+h2.center_h2 a.active { color: #c66653; }
+
+h2.center_h2 a:hover { text-decoration: underline; }
+
+
+input

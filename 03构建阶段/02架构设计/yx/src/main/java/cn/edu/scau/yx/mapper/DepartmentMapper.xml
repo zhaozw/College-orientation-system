@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.DepartmentMapper">
+  
+  <select id="departmentCount"  resultType="int">
+  	SELECT
+		COUNT(d.id)
+	FROM
+		department d
+  </select>
+  
+  <select id="findByDepartmentName" parameterType="String" resultType="Department" >
+  	SELECT
+		d.id,
+		d.name,
+		d.president,
+		d.vice_president,
+		d.address,
+		d.phone,
+		d.zip_code,
+		d.network_address,
+		d.description,
+	FROM
+		department d
+	WHERE
+        d.name = #{dpname}
+  </select>
+  
+  <delete id="deleteDepartment" parameterType="int" >
+  	DELETE FROM department WHERE id=#{dpid}
+  </delete>
+  
+  <insert id="insertDepartment" parameterType="Department" useGeneratedKeys="true">
+  	INSERT INTO department(id,name,president,vice_president,address,phone,zip_code,network_address,description)
+  	VALUES(#{id},#{name},#{president},#{vicePresident},#{address},#{phone},#{zipCode},#{networkAddress},#{description})
+  </insert>
+  
+   <update id="updateDepartment" parameterType="Department" >
+  	UPDATE department 
+  	<set>
+  		<if test="name != null">
+  			name = #{name},
+  		</if>
+  		<if test="president != null">
+  	 		president = #{president}
+  		</if>
+  		<if test="president != null">
+  	 		vice_president = #{vicePresident}
+  		</if>
+  		<if test="president != null">
+  	 		address = #{address}
+  		</if>
+  		<if test="president != null">
+  	 		phone = #{phone}
+  		</if>
+  		<if test="president != null">
+  	 		zip_code = #{zipCode}
+  		</if>
+  		<if test="president != null">
+  	 		network_address = #{networkAddress}
+  		</if>
+  		<if test="president != null">
+  	 		description = #{description}
+  		</if>
+  	</set>
+  	WHERE id = #{id}
+  </update>
+</mapper>
