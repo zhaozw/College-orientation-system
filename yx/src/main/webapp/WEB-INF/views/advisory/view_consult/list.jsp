@@ -307,8 +307,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <td>${pb.userInfoAsk.userName }</td>
                     <td>${pb.time }</td>
                     <td>
-                      <a type="button" class="btn-info btn-sm btn" href="#" data-toggle="modal" data-target="#detail" detailId="${pb.problemsId }" id="detail">详情</a>
-                      <a type="button" class="btn-info btn-sm btn" href="#" data-toggle="modal" data-target="#del"  delId="${pb.problemsId }">删除</a>
+                      <a type="button" class="btn-info btn-sm btn" href="#" 
+                      data-toggle="modal" data-target="#detail" detailId="${pb.problemsId}" 
+                      id="details">详情</a>
+                      <a type="button" class="btn-info btn-sm btn" href="#" 
+                      data-toggle="modal" data-target="#del"  delId="${pb.problemsId }" 
+                      id="dels">删除</a>
                     </td>
                   </tr>
                   </c:forEach>
@@ -413,30 +417,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 
                                 <tr>
                                     <th class="th1">主题分类</th>
-                                    <td colspan="3">${detail.problemsTheme.themeName }</td>
+                                    <td colspan="3" id="d_theme">专业课程</td>
                                 </tr>
                                 <tr>
                                     <th>咨询者</th>
-                                    <td colspan="3">李四</td>
+                                    <td colspan="3" id="d_asker">李四</td>
                                 </tr>
                                 <tr>
                                     <th class="th1">咨询内容</th>
-                                    <td colspan="3">请问软件工程专业有哪些课程？会开Android课吗？</td>
+                                    <td colspan="3" id="d_askContent">请问软件工程专业有哪些课程？会开Android课吗？</td>
                                 </tr>
                                 <tr>
                                     <th class="th1">咨询时间</th>
-                                    <td colspan="3">2016-8-18 13:58:17</td>
+                                    <td colspan="3" id="d_askTime">2016-8-18 13:58:17</td>
                                 </tr>
                                 <tr>
                                     <th>审核状态</th>
-                                    <td colspan="3">
+                                    <td colspan="3" id="d_audit">
                                     <span><input type="radio">通过</span>
                                     <span><input type="radio">不通过</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>权限状态</th>
-                                     <td colspan="3">
+                                     <td colspan="3" id="d_authority">
                                         <span><input type="radio">全部可见</span>
                                         <span><input type="radio">问题不显示</span>
                                         <span><input type="radio">仅学生可见</span>
@@ -444,7 +448,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </tr>
                                 <tr>
                                     <th>回复内容</th>
-                                    <td colspan="3">
+                                    <td colspan="3" id="d_ansContent">
                                         <textarea cols="40">
                                             
                                         </textarea>
@@ -452,11 +456,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </tr>
                                 <tr>
                                     <th class="th1">回复时间</th>
-                                    <td colspan="3">2016-8-19 13:58:17</td>
+                                    <td colspan="3" id="d_ansTime">2016-8-19 13:58:17</td>
                                 </tr>
                                 <tr>
                                     <th class="th1">回复人</th>
-                                    <td colspan="3">管理员1</td>
+                                    <td colspan="3" id="d_anser">管理员1</td>
                                 </tr>
                             </table>
                         </div><!-- /.table-responsive -->
@@ -542,13 +546,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 		}
 		
-		$("#detail").on('click',function(){
+		$("#details").on('click',function(){
 			var a = $(this);
-			var id = a.attr('detailId');
-			//alert(id);
+			var problemsId = a.attr('detailId');
+			console.log(problemsId);
+			details(problemsId);
 		});
-		function details(){
-			
+		function details(problemsId){
+			var url="/yx/advisory/" + problemsId + "/detail";
+			$.get(url,function(details){
+				//alert(details.time);
+				//console.log(details);
+				$("#d_theme").html(details.problemsTheme.themeName);
+				//$("#d_asker").html(details.usrInfoAsk.userName);
+				$("#d_askContent").html(details.content);
+				$("#d_askTime").html(details.time);
+				//$("#d_audit").html(details.);
+				//$("#d_authority").html(details.);
+				$("#d_ansContent").html(details.answer);
+				$("#d_ansTime").html(details.ansTime);
+				//$("#d_anser").html(details.userInfoAns.userName);
+			},"json");
 		}
 
 </script>

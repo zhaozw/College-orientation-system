@@ -52,14 +52,14 @@ public class AdvisoryController {
 	
 	//弹出详情页面
 	@RequestMapping(value="/{problemsId}/detail",method=RequestMethod.GET)
-	public String details(@PathVariable("problemsId") int problemsId,Model model){
+	public @ResponseBody Problems details(@PathVariable("problemsId") int problemsId){
 	
 		Problems detail = problemsService.getById(problemsId);
-		if(detail == null){
-			return "rediret:/advisory/list";
-		}
-		model.addAttribute("detail", detail);
-		return null;
+//		if(detail == null){
+//			return "rediret:/advisory/list";
+//		}
+		//model.addAttribute("detail", detail);
+		return detail;
 	}
 	
 	
@@ -77,7 +77,7 @@ public class AdvisoryController {
 	
 	@RequestMapping("/test")
 	public String test(){
-		return "dorm/test";
+		return "advisory/freshman_consult";
 	}
 	
 	@RequestMapping("/searchKey")
