@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.MajorMapper">
+    
+  <select id="findByMajorName" parameterType="String" resultType="Major" >
+  SELECT
+  m.id,
+  m.mjname,
+  m.introduce,
+  m.department_id,
+  m.dpname,
+  m.president,
+  m.vice_president,
+  m.address,
+  m.phone,
+  m.zip_code,
+  m.network_address,
+  m.description
+	FROM
+		(
+			SELECT
+				mj.id,
+				mj.`name` AS mjname,
+				mj.introduce,
+				mj.department_id,
+				dp.`name` AS dpname,
+				dp.president,
+				dp.vice_president,
+				dp.address,
+				dp.phone,
+				dp.zip_code,
+        dp.network_address,
+        dp.description
+			FROM
+				major mj
+			LEFT JOIN department dp ON mj.department_id = dp.id
+			ORDER BY mj.id DESC
+		) m
+	<where>
+		<if test="mjname !=null and mjname != ''">
+        m.mjname like #{mjname}
+		</if>
+	</where>
+  </select>
+  
+  <delete id="deleteMajor" parameterType="int" >
+  	DELETE FROM major WHERE id=#{mjid}
+  </delete>
+  
+  <insert id="insertMajor" parameterType="Major" useGeneratedKeys="true">
+  	INSERT INTO major(id,name,introduce,department_id)
+  	VALUES(#{id},#{name},#{introduce},#{department.id})
+  </insert>
+  
+   <update id="updateMajor" parameterType="Major" >
+  	UPDATE major 
+  	<set>
+  		<if test="name != null">
+  			name = #{name},
+  		</if>
+  		<if test="introduce != null">
+  	 		introduce = #{introduce}
+  		</if>
+  		<if test="department.id != null">
+  	 		department_id = #{department.id}
+  		</if>
+  	</set>
+  	WHERE id = #{id}
+  </update>
+</mapper>

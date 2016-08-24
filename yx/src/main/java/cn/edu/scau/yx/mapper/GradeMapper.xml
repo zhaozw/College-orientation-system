@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.GradeMapper">
+  
+  <select id="stuCount"  resultType="int">
+  	SELECT
+		SUM(c.stu_num)
+	FROM
+		class c
+	WHERE
+	    c.grade_id = #{gdid}
+  </select>
+   
+  <select id="findByGradeName" parameterType="String" resultType="Grade" >
+  	SELECT
+		g.id,
+		g.name,
+		g.stu_num
+	FROM
+		grade g
+	<where>
+		<if test="grname !=null and grname != ''">
+        g.name like #{gdname}
+		</if>
+	</where>
+  </select>
+  
+  <delete id="deleteGrade" parameterType="int" >
+  	DELETE FROM grade WHERE id=#{gdid}
+  </delete>
+  
+  <insert id="insertGrade" parameterType="Grade" useGeneratedKeys="true">
+  	INSERT INTO grade(id,name,stu_num)
+  	VALUES(#{id},#{name},#{stuNum})
+  </insert>
+  
+   <update id="updateGrade" parameterType="Grade" >
+  	UPDATE grade 
+  	<set>
+  		<if test="name != null">
+  			name = #{name},
+  		</if>
+  		<if test="stuNum != null">
+  	 		stu_num = #{stuNum}
+  		</if>
+  	</set>
+  	WHERE id = #{id}
+  </update>
+</mapper>

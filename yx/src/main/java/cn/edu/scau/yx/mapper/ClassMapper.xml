@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.ClassMapper">
+  
+<!--   <select id="stuCount"  resultType="int">
+  	SELECT
+		COUNT(stu.id)
+	FROM
+		student stu
+	WHERE
+	    stu.class_id = #{clid}
+  </select>
+--> 
+  
+  <select id="findByClassName" parameterType="String" resultType="Class" >
+  	SELECT
+		w.id,
+		w.clname,
+		w.clstu_num,
+		w.grade_id "grade.id",
+		w.grname "grade.name",
+		w.grstu_num "grade.stuNum",
+		w.major_id "major.id",
+		w.maname "major.name",
+		w.introduce "major.introduce",
+	FROM
+		(
+			SELECT
+				cl.id,
+				cl.`name` AS clname,
+				cl.teacher,
+				cl.stu_num AS clstu_num,
+				cl.grade_id,
+				gr.`name` AS grname,
+				gr.stu_num AS grstu_num,
+				cl.major_id,
+				ma.`name` AS maname,
+				ma.introduce,
+				ma.department_id
+			FROM
+				class cl
+			LEFT JOIN grade gr ON cl.grade_id = gr.id
+			LEFT JOIN major ma ON cl.major_id = ma.id
+			ORDER BY cl.id DESC
+		) w
+	<where>
+		<if test="clname !=null and clname != ''">
+        w.clname like #{clname}
+		</if>
+	</where>
+  </select>
+  
+  <delete id="deleteClass" parameterType="int" >
+  	DELETE FROM class WHERE id=#{clid}
+  </delete>
+  
+  <insert id="insertClass" parameterType="Class" useGeneratedKeys="true">
+  	INSERT INTO class(id,name,teacher,stu_num,major_id,grade_id)
+  	VALUES(#{id},#{name},#{teacher},#{stuNum},#{major.id},#{grade.id})
+  </insert>
+  
+   <update id="updateClass" parameterType="Class" >
+  	UPDATE department 
+  	<set>
+  		<if test="name != null">
+  			name = #{name},
+  		</if>
+  		<if test="teacher != null">
+  	 		teacher = #{teacher}
+  		</if>
+  		<if test="stuNum != null">
+  	 		stu_num = #{stuNum}
+  		</if>
+  		<if test="major.id != null">
+  	 		major_id = #{major.id}
+  		</if>
+  		<if test="grade.id != null">
+  	 		grade_id = #{grade.id}
+  		</if>
+  	</set>
+  	WHERE id = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.ProblemsThemeDao">
+	
+	<select id="findAll" resultType="ProblemsTheme">
+		SELECT
+			problems_theme_id,
+			theme_name
+		FROM problems_theme
+	</select>
+	
+	<update id="updateThemesById">
+		
+	</update>
+	
+</mapper>

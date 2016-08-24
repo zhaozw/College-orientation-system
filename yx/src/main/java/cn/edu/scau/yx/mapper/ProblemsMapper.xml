@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.ProblemsMapper">
+	
+	<select id="findById" resultType="Problems" parameterType="int">
+	<!-- 根据id查询咨询内容详情   把结果映射到Problems同时映射problemsTheme属性和userInfo属性-->
+	SELECT
+		p.problems_id,
+		p.time,
+		p.content,
+		p.audit,
+		p.authority,
+		p.is_del,
+		p.answer,
+		p.ans_time,
+		p.user_id,
+		p.ans_person_id,
+		p.problems_theme_id,
+		u.user_id 'userInfoAsk.user_id',
+		u.user_name 'userInfoAsk.user_name',
+		ap.user_id 'userInfoAns.ans_person_id',
+		ap.user_name 'userInfoAns.ans_person_name',
+		t.problems_theme_id 'problemsTheme.problems_theme_id',
+		t.theme_name 'problemsTheme.theme_name'
+
+	FROM
+		(
+			SELECT
+				problems_id,
+				user_id,
+				time,
+				content,
+				problems_theme_id,
+				audit,
+				authority,
+				is_del,
+				answer,
+				ans_time,
+				ans_person_id
+			FROM
+				problems
+			WHERE
+				problems_id =#{problemsId}
+		) p
+	LEFT JOIN user_info u ON p.user_id = u.user_id
+	LEFT JOIN user_info ap ON p.ans_person_id = ap.user_id
+	LEFT JOIN problems_theme t ON p.problems_theme_id = t.problems_theme_id
+	
+	</select>
+	
+	<insert id="insertProblems" parameterType="Problems">
+		INSERT INTO problems (
+			`problems_id`,
+			`user_id`,
+			`time`,
+			`content`,
+			`problems_theme_id`,
+			`audit`,
+			`authority`,
+			`is_del`,
+			`answer`,
+			`ans_time`,
+			`ans_person_id`
+		)
+		VALUES
+			(
+				#{problemsId},
+				#{user.userId},
+				#{time},
+				#{content},
+				#{problemsThemeId},
+				#{audit},
+				#{authority},
+				#{isDel},
+				#{answer},
+				#{ansTime},
+				#{user.ansPersonId}
+			);
+	</insert>
+	
+	<delete id="delProblemsById" parameterType="int">
+		DELETE
+		FROM
+			problems
+		WHERE
+			problems_id = #{problemsId}
+	</delete>
+	
+	<update id="updateContentById" parameterType="int">
+		UPDATE problems
+		SET audit = #{audit},
+			authority = #{authority}',
+			answer = #{answer},
+			ans_time = #{ansTime},
+			ans_person_id = #{ansPersonId}
+		WHERE
+			problems_id = #{problemsId};
+	</update>
+	
+	<select id="findAll" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+	</select>
+	
+	<select id="findWithKey" parameterType="string" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time,
+			p.audit,
+			p.authority
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		<where>
+			
+			<if test="keyWord!=null and keyWord!=''">
+				 <!-- AND CONCAT(`content`,`audit`,`authority`,`answer`) LIKE #{keyWord} --> 
+				(p.`content` LIKE CONCAT('%',#{keyWord},'%')
+				OR audit LIKE CONCAT('%',#{keyWord},'%')
+				OR authority LIKE CONCAT('%',#{keyWord},'%')
+				OR answer LIKE CONCAT('%',#{keyWord},'%')
+				OR problems_id LIKE CONCAT('%',#{keyWord},'%')
+				OR u.user_name LIKE CONCAT('%',#{keyWord},'%')
+				OR pt.theme_name LIKE CONCAT('%',#{keyWord},'%')
+				)
+			</if>
+			<if test="audit!=null and audit!=''">
+				AND audit LIKE #{audit}
+			</if>
+			<if test="authority!=null and authority!=''">
+				AND	authority LIKE #{authority}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 
+	<select id="findByAudit" parameterType="String" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		WHERE
+			audit LIKE #{audit};
+	</select>
+	
+	<select id="findByAuthority" parameterType="String" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		WHERE
+			authority LIKE #{authority};
+	</select>
+	
+	<select id="findByKeyWord" parameterType="String" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		WHERE
+			keyWord LIKE #{keyWord};
+	</select>
+	
+	<select id="findByAuditWithAuthority" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		WHERE
+			audit LIKE #{audit}
+		AND authority LIKE #{authority};
+	</select>
+	
+	<select id="findByAuditWithKeyWord" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		WHERE
+			audit LIKE #{audit}
+		AND keyWord LIKE #{keyWord};
+	</select>
+	
+	<select id="findByAuthorityWithKeyWord" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		WHERE
+			authority LIKE #{authority}
+		AND keyWord LIKE #{keyWord};
+	</select>
+	
+	<select id="findWithAllKey" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			u.user_name 'userInfoAsk.user_name',
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		WHERE
+			audit LIKE #{audit}
+		AND	authority LIKE #{authority}
+		AND keyWord LIKE #{keyWord};
+	</select>
+	-->
+	
+</mapper>

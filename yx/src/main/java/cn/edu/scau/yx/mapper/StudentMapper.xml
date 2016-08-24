@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.StudentMapper">
+  
+  
+  <select id="findByStuIdAndName"  parameterType="Student" resultType="Student"> 		
+  		SELECT
+				s.id,
+				s.student_name,
+				s.stu_id,
+				s.age,
+				c.name                    'class1.name'
+				
+			 from  
+                	 student 			  s 
+                left join  class  		  c    on  s.class_id       = 	 c.id
+			where 
+	 			s.stu_id		 = #{stuId} and 
+	 			s.student_name = #{studentName}
+  </select>
+  
+  <select id="findById"  parameterType="Student" resultType="Student">
+            SELECT
+				s.id,
+				s.student_name,
+				s.stu_id,
+				s.age,
+				c.name                    'class1.name'
+				
+			 from  
+                	 student 			  s 
+                left join  class  		  c    on  s.class_id       = 	 c.id
+			where 
+	 			s.id = #{id}
+  </select>
+ 
+  
+  <select id="findOneCardPassStatus"  parameterType="map" resultType="Student">
+           select 
+           		c.name                   'class1.name',
+           		s.student_name  ,
+           		ocp.one_card_pass_id     'oneCardPass.oneCardPassId' ,
+           		ss.one_card              'studentStatus.oneCard'
+           from  
+                	       student        s 
+                left join  class  		  c    on  s.class_id       = 	 c.id
+                left join  one_card_pass  ocp  on  s.stu_id 		= 	 ocp.stu_id
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
+                left join  grade          g    on  g.id				=    c.grade_id
+                left join  major          m    on  m.id             =    c.major_id   
+                left join  department     d    on  d.id				=    m.department_id
+            where
+                d.name =    #{department}  and
+                m.name =    #{major}       and
+                g.name= 	#{grade}       and
+                c.name= 	#{Class}
+                
+  </select>
+  
+  
+  <select id="findFeeInfoById"  parameterType="map"  resultType="Student">
+           select 
+           		s.id            ,
+           		s.student_name  ,
+           		c.name								'class1.name'	       ,
+           		ptf.schooling   					'payTheFee.schooling'  ,
+           		ptf.textbooks   					'payTheFee.textbooks'  ,
+           		ptf.administrative_fee  			'payTheFee.administrativeFee',
+           		ptf.medical_insurance_fee   		'payTheFee.medicalInsuranceFee',
+           		ptf.militare_training_clothes_fee   'payTheFee.militaryTrainingClothesFee',
+           		ptf.had_paid_the_fee				'payTheFee.hadPaidTheFee'
+           from  
+                	       student        s 
+                left join  pay_the_fees   ptf  on  s.stu_id         = 	 ptf.student_id
+                left join  class  		  c    on  s.class_id       = 	 c.id
+            where
+                s.id =      #{id}  
+                
+  </select>
+  
+  <select id="findFeeInfoStuIdAndName"  parameterType="map"  resultType="Student">
+           select 
+           		s.id            ,
+           		s.student_name  ,
+           		c.name								'class1.name'	       ,
+           		ptf.schooling   					'payTheFee.schooling'  ,
+           		ptf.textbooks   					'payTheFee.textbooks'  ,
+           		ptf.administrative_fee  			'payTheFee.administrativeFee',
+           		ptf.medical_insurance_fee   		'payTheFee.medicalInsuranceFee',
+           		ptf.militare_training_clothes_fee   'payTheFee.militaryTrainingClothesFee',
+           		ptf.had_paid_the_fee				'payTheFee.hadPaidTheFee'
+           from  
+                	 student s 
+                left join  pay_the_fees   ptf  on  s.stu_id         = 	 ptf.student_id
+                left join  class  		  c    on  s.class_id       = 	 c.id
+            where
+                s.stu_id 			=      #{stuId}   and
+                s.student_name      =      #{stuName}
+  </select>
+  
+  
+  <select id="loadFileSubmitStatusById"  parameterType="map"  resultType="Student">
+           select 
+           		s.id            ,
+           		c.name								'class1.name'	       ,
+           		s.stu_id,
+           		s.student_name  ,
+           		ss.file_submit   					'studentStatus.fileSubmit'  
+           from  
+                	 student 			  s 
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
+                left join  class  		  c    on  s.class_id       = 	 c.id
+            where
+                s.id   =   #{id}  
+  </select>
+  
+   <select id="loadFileSubmitStatusByStuIdAndName"  parameterType="map"  resultType="Student">
+           select 
+           		s.id            ,
+           		c.name								'class1.name'	       ,
+           		s.stu_id,
+           		s.student_name  ,
+           		ss.file_submit   					'studentStatus.fileSubmit'  
+           from  
+                	 student 			  s 
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
+                left join  class  		  c    on  s.class_id       = 	 c.id
+            where
+                s.stu_id 			=      #{stuId}   and
+                s.student_name      =      #{stuName}
+  </select>
+  
+  
+  <select id="loadRegisterStateById"  parameterType="map"  resultType="Student">
+           select 
+           		s.id            ,
+           		c.name								'class1.name'	       ,
+           		s.stu_id,
+           		s.student_name  ,
+           		ss.register   					     'studentStatus.register'  
+           from  
+                	 student 			  s 
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
+                left join  class  		  c    on  s.class_id       = 	 c.id
+            where
+                s.id   =   #{id}  
+  </select>
+  
+  <select id="loadRegisterStateByStuIdAndName"  parameterType="map"  resultType="Student">
+           select 
+           		s.id            ,
+           		c.name								'class1.name'	       ,
+           		s.stu_id,
+           		s.student_name  ,
+           		ss.register   					     'studentStatus.register'  
+           from  
+                	 student 			  s 
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
+                left join  class  		  c    on  s.class_id       = 	 c.id
+            where
+                s.stu_id 			=      #{stuId}   and
+                s.student_name      =      #{stuName}
+  </select>
+  
+</mapper>
