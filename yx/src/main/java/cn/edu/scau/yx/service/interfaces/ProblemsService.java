@@ -19,6 +19,7 @@ public interface ProblemsService {
 	 * @param problemsId
 	 * @return
 	 */
+//	List<Problems> getById(int problemsId);
 	Problems getById(int problemsId);
 	
 	/**

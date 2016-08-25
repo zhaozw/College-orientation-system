@@ -40,6 +40,7 @@ public interface ProblemsMapper {
 	 * @param problemsId
 	 * @return
 	 */
+//	List<Problems> findById(int problemsId);
 	Problems findById(int problemsId);
 	
 

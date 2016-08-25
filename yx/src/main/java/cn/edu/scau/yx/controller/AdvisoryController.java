@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +35,7 @@ public class AdvisoryController {
 		return "advisory/view_consult/list";
 	}
 	
+	
 	//搜索咨询列表
 	@RequestMapping(value="/search",method=RequestMethod.GET)
 	@ResponseBody
@@ -54,6 +56,7 @@ public class AdvisoryController {
 	@RequestMapping(value="/{problemsId}/detail",method=RequestMethod.GET)
 	public @ResponseBody Problems details(@PathVariable("problemsId") int problemsId){
 	
+//		List<Problems> detail = problemsService.getById(problemsId);
 		Problems detail = problemsService.getById(problemsId);
 //		if(detail == null){
 //			return "rediret:/advisory/list";
@@ -62,12 +65,22 @@ public class AdvisoryController {
 		return detail;
 	}
 	
+	//删除单条数据
+	@RequestMapping(value="/{problemsId}/del",method=RequestMethod.POST)
+	@ResponseBody
+	public int del(@PathVariable("problemsId") int problemsId){
+		int delCount=problemsService.delById(problemsId);
+		return delCount;
+	}
 	
+	/*//删除时重新加载数据
+	@RequestMapping(value="/show",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Problems> show(){
+		List<Problems> list=problemsService.getList();
+		return list;
+	}
 	
-	/**
-	 * 
-	 * @return url
-	 */
 //	@RequestMapping("/search")
 //	public String search(){
 //		return "advisory/view_consult/search_consult";
@@ -102,4 +115,5 @@ public class AdvisoryController {
 		
 		return problems;
 	}
+	*/
 }

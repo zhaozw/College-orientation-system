@@ -23,6 +23,9 @@ public class ProblemsServiceImpl implements ProblemsService{
 		return delCount;
 	}
 
+//	public List<Problems> getById(int problemsId) {
+//		return problemsMapper.findById(problemsId);
+//	}
 	public Problems getById(int problemsId) {
 		return problemsMapper.findById(problemsId);
 	}

@@ -282,7 +282,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               </div>
             </div>
             <div class="panel-body no-padding" style="display: block;">
-              <table class="table table-striped  table-bordered">
+              <table class="table table-striped  table-bordered" id="propblem-list">
                 <thead>
                   <tr class="success">
                     <th>
@@ -307,12 +307,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <td>${pb.userInfoAsk.userName }</td>
                     <td>${pb.time }</td>
                     <td>
-                      <a type="button" class="btn-info btn-sm btn" href="#" 
+                      <a type="button" class="btn-info btn-sm btn details" href="#" 
                       data-toggle="modal" data-target="#detail" detailId="${pb.problemsId}" 
-                      id="details">详情</a>
-                      <a type="button" class="btn-info btn-sm btn" href="#" 
+              	>详情</a>
+                      <a type="button" class="btn-info btn-sm btn dels" href="#" 
                       data-toggle="modal" data-target="#del"  delId="${pb.problemsId }" 
-                      id="dels">删除</a>
+                      >删除</a>
                     </td>
                   </tr>
                   </c:forEach>
@@ -391,7 +391,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">确定删除</button>
+                    <button type="button" class="btn btn-primary" id="confirmDel">确定删除</button>
                   </div>
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
@@ -400,7 +400,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             
             <!-- 5 -->
             <!-- 基于模态框实现对话框 -->
-            <div class="modal fade" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade  modal-fixed-footer" id="detail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
@@ -417,19 +417,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 
                                 <tr>
                                     <th class="th1">主题分类</th>
-                                    <td colspan="3" id="d_theme">专业课程</td>
+                                    <td colspan="3" id="d_theme"></td>
                                 </tr>
                                 <tr>
                                     <th>咨询者</th>
-                                    <td colspan="3" id="d_asker">李四</td>
+                                    <td colspan="3" id="d_asker"></td>
                                 </tr>
                                 <tr>
                                     <th class="th1">咨询内容</th>
-                                    <td colspan="3" id="d_askContent">请问软件工程专业有哪些课程？会开Android课吗？</td>
+                                    <td colspan="3" id="d_askContent"></td>
                                 </tr>
                                 <tr>
                                     <th class="th1">咨询时间</th>
-                                    <td colspan="3" id="d_askTime">2016-8-18 13:58:17</td>
+                                    <td colspan="3" id="d_askTime"></td>
                                 </tr>
                                 <tr>
                                     <th>审核状态</th>
@@ -456,11 +456,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 </tr>
                                 <tr>
                                     <th class="th1">回复时间</th>
-                                    <td colspan="3" id="d_ansTime">2016-8-19 13:58:17</td>
+                                    <td colspan="3" id="d_ansTime"></td>
                                 </tr>
                                 <tr>
                                     <th class="th1">回复人</th>
-                                    <td colspan="3" id="d_anser">管理员1</td>
+                                    <td colspan="3" id="d_anser"></td>
                                 </tr>
                             </table>
                         </div><!-- /.table-responsive -->
@@ -498,6 +498,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		var searchKey=$("#search-key").val();
 		alert(searchKey);
 		});*/
+		//功能1:ajax请求数据并重写
 		$("#searchBtn").on('click', function() {
 			search();
 		});
@@ -520,14 +521,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					var input=$("<input></input>");
 					input.attr({name:"check",type:"checkbox",class:"checkbox"});
 					var a1=$("<a></a>");
-					a1.attr({href:"#",type:"button",class:"btn-info btn-sm btn"});
+					a1.attr({href:"#",type:"button",class:"btn-info btn-sm btn details"});
 					a1.attr("data-toggle","modal")
 					 .attr("data-target","#detail")
+					 .attr("detailId",datas.problemsId)
 					 ;
 					var a2=$("<a></a>");
-					a2.attr({href:"#",type:"button",class:"btn-info btn-sm btn"});
+					a2.attr({href:"#",type:"button",class:"btn-info btn-sm btn dels"});
 					a2.attr("data-toggle","modal")
 					 .attr("data-target","#del")
+					 .attr("delId",datas.problemsId)
 					 ;
 					var td=$("<td></td>");
 					tr.append($("<td></td>").append(input));
@@ -546,29 +549,81 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			
 		}
 		
-		$("#details").on('click',function(){
+		//功能2：ajax请求数据并加载在模态框中
+		$("#propblem-list").on('click','.details', function(){
 			var a = $(this);
 			var problemsId = a.attr('detailId');
-			console.log(problemsId);
+			//console.log(problemsId);
 			details(problemsId);
 		});
 		function details(problemsId){
 			var url="/yx/advisory/" + problemsId + "/detail";
 			$.get(url,function(details){
 				//alert(details.time);
-				//console.log(details);
+				//console.log(details);    
 				$("#d_theme").html(details.problemsTheme.themeName);
-				//$("#d_asker").html(details.usrInfoAsk.userName);
+				$("#d_asker").html(details.userInfoAsk.userName);
 				$("#d_askContent").html(details.content);
 				$("#d_askTime").html(details.time);
 				//$("#d_audit").html(details.);
 				//$("#d_authority").html(details.);
-				$("#d_ansContent").html(details.answer);
-				$("#d_ansTime").html(details.ansTime);
-				//$("#d_anser").html(details.userInfoAns.userName);
+				if(details.answer){
+					$("#d_ansContent").html(details.answer);
+				}else{
+					
+					//$("#d_ansContent").html();
+					
+					var td1=$("#detail > div > div > div.modal-body > div > table > tbody > tr:nth-child(7) > #d_ansContent");
+					td1.remove();
+					var tr=$("#detail > div > div > div.modal-body > div > table > tbody > tr:nth-child(7)");
+					var td2=$("<td></td>");
+					td2.attr({"colspan":3,"id":"d_ansContent"});
+					var t=$("<textarea></textarea>");
+					t.attr("cols",'40');
+					
+					tr.append(td2.append(t));
+					
+				}
+				
+				if(details.ansTime){
+					$("#d_ansTime").html(details.ansTime);
+				}else{
+					$("#d_ansTime").html(null);
+				}
+				if (details.userInfoAns){
+					$("#d_anser").html(details.userInfoAns.userName);
+				}else{
+					$("#d_anser").html(null);
+				}
 			},"json");
 		}
-
+		
+		//功能3：删除数据并使用ajax重写
+		$("#propblem-list").on('click','.dels',function(){
+			var a=$(this);
+			var problemsId=a.attr('delId');
+			//alert(problemsId + 'del..');
+			console.log(problemsId);
+			$("#confirmDel").on('click',function(){
+				$('#del').modal('hide');
+				$('#del').on('hidden.bs.modal',function(){
+					//alert("del test"); 
+					delData(problemsId);
+				});
+			});
+		});
+		function delData(problemsId){
+			var url="/yx/advisory/" + problemsId + "/del";
+			$.post(url,function(delCount){
+				if(delCount!=0){
+					search();
+				}else{
+					alert("删除失败");
+				}
+			},"text");
+		}
+		
+		
 </script>
 
 </body>

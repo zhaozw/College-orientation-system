@@ -21,7 +21,7 @@
 		u.user_id 'userInfoAsk.user_id',
 		u.user_name 'userInfoAsk.user_name',
 		ap.user_id 'userInfoAns.ans_person_id',
-		ap.user_name 'userInfoAns.ans_person_name',
+		ap.user_name 'userInfoAns.userName',
 		t.problems_theme_id 'problemsTheme.problems_theme_id',
 		t.theme_name 'problemsTheme.theme_name'
 
