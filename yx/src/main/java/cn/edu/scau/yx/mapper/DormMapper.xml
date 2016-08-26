@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.DormMapper">
+	<!-- 以下部分为宿舍区的增删查改 -->
+	<insert id="insertDormArea" parameterType="DormArea">
+		INSERT INTO dorm_area_info (
+			area_id,
+			area_name,
+			building_count
+		)
+		VALUE
+			(#{areaId}, #{areaName}, #{buildingCount});
+	</insert>
+	<delete id="delDormAreaById" parameterType="int">
+		DELETE
+		FROM
+			dorm_area_info
+		WHERE
+			area_id = #{areaId};
+	</delete>
+	<select id="findDormArea" parameterType="DormArea">
+		SELECT
+		*
+	FROM
+		dorm_area_info
+	</select>
+	<update id="updateDormAreaById" parameterType="int">
+		UPDATE dorm_area_info
+		SET 
+		 area_name = #{areaName},
+		 building_count = #{buildingCount}
+		WHERE area_id=#{areaId}
+		
+	</update>
+	
+	<!-- 以下部分为楼栋的增删查改 -->
+	<insert id="insertBuilding" parameterType="Building">
+		INSERT INTO building_info (
+			building_id,
+			building_name,
+			floor_count
+		)
+		VALUE
+			(#{buildingId}, #{buildingName}, #{floorCount});
+	</insert>
+	<delete id="delBuildingById" parameterType="int">
+		DELETE
+		FROM
+			building_info
+		WHERE
+			building_id = #{buildingId};
+	</delete>
+	<select id="findBuilding" resultType="Building">
+		SELECT
+			b.building_id,
+			b.floor_count,
+			dai.area_name 'dormArea.area_name'
+		FROM
+			building_info b
+		LEFT JOIN dorm_area_info dai ON b.area_id = dai.area_id
+		
+	</select>
+	<update id="updateBuildingById" parameterType="int">
+		
+	</update>
+	
+	
+	<!--以下部分为楼层的增删查改  -->
+	<insert id="insertFloor" parameterType="Floor">
+		INSERT INTO floor_info (
+			floor_id,
+			dorm_count
+			building_id,
+			area_id
+		)
+		VALUE
+			(#{floorId}, #{dormCount}, #{buildingId},#{areaId});
+	</insert>
+	<delete id="delFloorById" parameterType="int">
+		DELETE
+		FROM
+			floor_info
+		WHERE
+			floor_id = #{floorId};
+	</delete>
+	<select id="findFloor" resultType="Floor">
+		SELECT
+			f.floor_id,
+			f.dorm_count,
+			b.building_id 'building.building_id',
+			dai.area_name 'dormArea.area_name'
+		FROM
+			floor_info f
+		LEFT JOIN building_info b ON f.building_id=b.building_id
+		LEFT JOIN dorm_area_info dai ON f.area_id = dai.area_id
+	</select>
+	<update id="updateFloorById" parameterType="int">
+	
+	</update>
+	
+	
+	<!-- 以下部分为宿舍基本信息的增删查改 -->
+	<insert id="insertDormitory" parameterType="Dormitory">
+		INSERT INTO dorm_basic_info (
+			dorm_id,
+			bedding_count,
+			floor_id
+		)
+		VALUE
+			(#{dormId}, #{beddingCount},#{floorId});
+	</insert>
+	<delete id="delDormitoryById" parameterType="int">
+		DELETE
+		FROM
+			dorm_basic_info
+		WHERE
+			dorm_id = #{dormId};
+	</delete>
+	<select id="findDormitory" resultType="Dormitory">
+		SELECT
+			dbi.dorm_id,
+			dbi.bedding_count,
+			fi.floor_id 'floor.floor_id',
+			fi.dorm_count 'floor.dorm_count',
+			b.building_id 'building.building_id',
+			dai.area_name 'dormArea.area_name'
+		FROM
+			dorm_basic_info dbi
+		LEFT JOIN floor_info fi ON dbi.floor_id=fi.floor_id
+		LEFT JOIN building_info b ON dbi.building_id=b.building_id
+		LEFT JOIN dorm_area_info dai ON dbi.area_id = dai.area_id
+	</select>
+	<update id="updateDormitoryById" parameterType="int">
+	
+	</update>
+	
+	
+	
+	<!-- 以下部分为宿舍学生信息的增删查改 -->
+	<insert id="insertDormStudent" parameterType="DormStudent">
+		INSERT INTO dorm_student_info (
+			dorm_student_id,
+			dorm_id,
+			student_id,
+			have_product
+		)
+		VALUE
+			(#{dormStudentId}, #{dormId}, #{studentId},#{haveProuct});
+	</insert>
+	<delete id="delDormStudentById" parameterType="int">
+		DELETE
+		FROM
+			dorm_student_info
+		WHERE
+			dorm_student_id = #{dormStudentId};
+	</delete>
+	<select id="finDormStudent" resultType="DormStudent">
+		SELECT
+			dsi.dorm_student_id,
+			s.student_name 'student.student_name',
+			s.stu_id 'student.stu_id',
+			dbi.dorm_id 'dormitory.dorm_id',
+			dbi.bedding_count 'dormitory.bedding_count',
+			fi.floor_id 'floor.floor_id',
+			fi.dorm_count 'floor.dorm_count',
+			b.building_id 'dormitory.floor.building.building_id',
+			dai.area_name 'dormArea.area_name'
+		FROM
+			dorm_student_info dsi
+		LEFT JOIN student s ON dsi.student_id=s.stu_id
+		LEFT JOIN dorm_basic_info dbi ON dsi.dorm_id=dbi.dorm_id
+		LEFT JOIN floor_info fi ON dsi.floor_id=fi.floor_id
+		LEFT JOIN building_info b ON dsi.building_id=b.building_id
+		LEFT JOIN dorm_area_info dai ON dsi.area_id = dai.area_id
+	</select>
+	<update id="updateDormStudentById" parameterType="int">
+		
+	</update>
+	
+	
+	
+	<!-- 以下部分为宿舍迎新物品的增删查改 -->
+	<insert id="insertDormWelcome" parameterType="DormWelcome">
+		INSERT INTO dorm_welcome_info (
+			dorm_res_id,
+			res_name,
+			res_number,
+			dorm_id
+		)
+		VALUE
+			(#{dormResId}, #{resName}, #{resNumber},#{dormId});
+	</insert>
+	<delete id="delDormWelcomeById" parameterType="int">
+		DELETE
+		FROM
+			dorm_welcome_info
+		WHERE
+			dorm_res_id = #{dormResId};
+	</delete>
+	<select id="findDormWelcome" resultType="DormWelcome">
+		SELECT
+			dwi.dorm_res_id,
+			dwi.res_number,
+			dwi.res_name,
+			dbi.dorm_id 'dormitory.dorm_id',
+			dbi.bedding_count 'dormitory.bedding_count',
+			fi.floor_id 'floor.floor_id',
+			fi.dorm_count 'floor.dorm_count',
+			b.building_id 'dormitory.floor.building.building_id',
+			dai.area_name 'dormArea.area_name'
+		FROM
+			dorm_welcome_info dwi
+		LEFT JOIN dorm_basic_info dbi ON dwi.dorm_id=dbi.dorm_id
+		LEFT JOIN floor_info fi ON dwi.floor_id=fi.floor_id
+		LEFT JOIN building_info b ON dwi.building_id=b.building_id
+		LEFT JOIN dorm_area_info dai ON dwi.area_id = dai.area_id
+	</select>
+	<update id="updateDormWelcomeById" parameterType="int">
+		UPDATE dorm_welcome_info
+		SET res_name = #{resName},
+			res_number = #{resNumber},
+			dorm_id = #{dormId},
+			floor_id = #{floorId},
+			building_id = #{buildingId},
+			area_id = #{areaId}
+		WHERE dorm_res_id=#{dormResId}
+	</update>
+	
+	
+	
+</mapper>
