@@ -2,10 +2,10 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>cn.edu.scau</groupId>
-  <artifactId>yx</artifactId>
+  <artifactId>COS</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
-  <name>yx Maven Webapp</name>
+  <name>COS Maven Webapp</name>
   <url>http://maven.apache.org</url>
 <dependencies>
     <dependency>
@@ -199,7 +199,7 @@
     
   </dependencies>
   <build>
-    <finalName>yx</finalName>
+    <finalName>COS</finalName>
     <plugins>
     	<plugin>
     		<groupId>org.eclipse.jetty</groupId>
@@ -207,7 +207,7 @@
 		    <version>9.3.8.v20160314</version>
 		    <configuration>
 		    	<httpConnector>
-		    		<port>80</port>
+		    		<port>8080</port>
 		    	</httpConnector>
 		    </configuration>
     	</plugin>

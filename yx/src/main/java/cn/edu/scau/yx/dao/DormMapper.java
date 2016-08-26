@@ -25,7 +25,7 @@ public interface DormMapper {
 	int insertDormArea(DormArea dormArea);
 	int delDormAreaById(int areaId);
 	List<DormArea> findDormArea();//查询宿舍区信息列表
-	int updateDormAreaById(int areaId);
+//	int updateDormAreaById(int areaId);
 	
 	/**
 	 * 以下部分为楼栋的增删查改
@@ -33,7 +33,7 @@ public interface DormMapper {
 	int insertBuilding(Building building);
 	int delBuildingById(int buildingId);
 	List<Building> findBuilding();
-	int updateBuildingById(int buildingId);
+//	int updateBuildingById(int buildingId);
 	
 	/**
 	 * 以下部分为楼层的增删查改
@@ -41,7 +41,7 @@ public interface DormMapper {
 	int insertFloor(Floor floor);
 	int delFloorById(int floorId);
 	List<Floor> findFloor();
-	int updateFloorById(int floorId);
+//	int updateFloorById(int floorId);
 	
 	/**
 	 * 以下部分为宿舍基本信息的增删查改
@@ -49,7 +49,7 @@ public interface DormMapper {
 	int insertDormitory(Dormitory dormitory);
 	int delDormitoryById(int dormId);
 	List<Dormitory> findDormitory();
-	int updateDormitoryById(int dormId);
+//	int updateDormitoryById(int dormId);
 	
 	
 	/**
@@ -58,14 +58,15 @@ public interface DormMapper {
 	int insertDormStudent(DormStudent dormStudent);
 	int delDormStudentById(int dormStudentId);
 	List<DormStudent> finDormStudent();
-	int updateDormStudentById(int dormStudentId);
+	int updateDormStudentById(DormStudent dormStudent);
 	
 	/**
 	 * 以下部分为宿舍迎新物品的增删查改
 	 */
 	int insertDormWelcome(DormWelcome dormWelcome);
 	int delDormWelcomeById(int dormResId);
+	DormWelcome findDormWelcomeById(int dormResId);
 	List<DormWelcome> findDormWelcome();
-	int updateDormWelcomeById(int dormResId);
+	int updateDormWelcomeById(DormWelcome dormWelcome);
 	
 }

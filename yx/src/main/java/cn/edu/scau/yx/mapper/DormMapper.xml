@@ -217,7 +217,27 @@
 		LEFT JOIN building_info b ON dwi.building_id=b.building_id
 		LEFT JOIN dorm_area_info dai ON dwi.area_id = dai.area_id
 	</select>
-	<update id="updateDormWelcomeById" parameterType="int">
+	<select id="findDormWelcomeById" resultType="DormWelcome">
+		SELECT
+			dwi.dorm_res_id,
+			dwi.res_name,
+			dwi.res_number,
+			dwi.dorm_id,
+			dwi.floor_id,
+			dwi.building_id,
+			dai.area_name 'dormArea.area_name'
+		FROM
+			(
+				SELECT
+					*
+				FROM
+					dorm_welcome_info
+				WHERE
+					dorm_res_id =#{dormResId}
+			) dwi
+		LEFT JOIN dorm_area_info dai ON dwi.area_id = dai.area_id
+	</select>
+	<update id="updateDormWelcomeById" parameterType="DormWelcome">
 		UPDATE dorm_welcome_info
 		SET res_name = #{resName},
 			res_number = #{resNumber},

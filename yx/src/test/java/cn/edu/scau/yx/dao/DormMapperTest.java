@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.edu.scau.yx.entity.Building;
 import cn.edu.scau.yx.entity.DormArea;
+import cn.edu.scau.yx.entity.DormWelcome;
+import cn.edu.scau.yx.entity.Dormitory;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/spring-context.xml"})
@@ -43,5 +45,21 @@ public class DormMapperTest {
 	public void find(){
 		List<Building> building= dormMapper.findBuilding();
 		System.out.println("楼栋信息为="+building);
+	}
+	
+	@Test
+	public void update(){
+		int dormResId=777;
+		DormWelcome data = dormMapper.findDormWelcomeById(dormResId);
+		System.out.println("修改前的数据为="+data);
+		data.setResName("华农奶牛");
+		data.setResNumber(5);
+		data.setDormId(666);
+		data.setFloorId(6);
+		data.setBuildingId(9);
+		data.setAreaId(100);
+		int updateCount = dormMapper.updateDormWelcomeById(data);
+		System.out.println("影响行数="+updateCount);
+		System.out.println("修改的后的数据为="+data);
 	}
 }
