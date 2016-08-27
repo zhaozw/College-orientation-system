@@ -10,7 +10,7 @@
 			area_name,
 			building_count
 		)
-		VALUE
+		VALUES
 			(#{areaId}, #{areaName}, #{buildingCount});
 	</insert>
 	<delete id="delDormAreaById" parameterType="int">
@@ -20,10 +20,12 @@
 		WHERE
 			area_id = #{areaId};
 	</delete>
-	<select id="findDormArea" parameterType="DormArea">
+	<select id="findDormArea" resultType="DormArea">
 		SELECT
-		*
-	FROM
+		area_id,
+		area_name,
+		building_count
+		FROM
 		dorm_area_info
 	</select>
 	<update id="updateDormAreaById" parameterType="int">
@@ -39,11 +41,11 @@
 	<insert id="insertBuilding" parameterType="Building">
 		INSERT INTO building_info (
 			building_id,
-			building_name,
+			area_id,
 			floor_count
 		)
 		VALUE
-			(#{buildingId}, #{buildingName}, #{floorCount});
+			(#{buildingId}, (select area_id from dorm_area_info where area_name = #{dormArea.areaName}) <!-- #{dormArea.areaId}  -->,#{floorCount});
 	</insert>
 	<delete id="delBuildingById" parameterType="int">
 		DELETE
@@ -71,12 +73,12 @@
 	<insert id="insertFloor" parameterType="Floor">
 		INSERT INTO floor_info (
 			floor_id,
-			dorm_count
+			dorm_count,
 			building_id,
 			area_id
 		)
 		VALUE
-			(#{floorId}, #{dormCount}, #{buildingId},#{areaId});
+			(#{floorId}, #{dormCount}, #{building.buildingId},(select area_id from dorm_area_info where area_name = #{dormArea.areaName}));
 	</insert>
 	<delete id="delFloorById" parameterType="int">
 		DELETE
@@ -106,10 +108,12 @@
 		INSERT INTO dorm_basic_info (
 			dorm_id,
 			bedding_count,
-			floor_id
+			floor_id,
+			building_id,
+			area_id
 		)
 		VALUE
-			(#{dormId}, #{beddingCount},#{floorId});
+			(#{dormId}, #{beddingCount},#{floor.floorId},#{building.buildingId},(select area_id from dorm_area_info where area_name = #{dormArea.areaName}));
 	</insert>
 	<delete id="delDormitoryById" parameterType="int">
 		DELETE
@@ -141,13 +145,15 @@
 	<!-- 以下部分为宿舍学生信息的增删查改 -->
 	<insert id="insertDormStudent" parameterType="DormStudent">
 		INSERT INTO dorm_student_info (
-			dorm_student_id,
-			dorm_id,
 			student_id,
+			dorm_id,
+			floor_id,
+			building_id,
+			area_id,
 			have_product
 		)
 		VALUE
-			(#{dormStudentId}, #{dormId}, #{studentId},#{haveProuct});
+			( #{student.stuId},#{dormitory.dormId},#{floor.floorId},#{building.buildingId},(select area_id from dorm_area_info where area_name = #{dormArea.areaName}), #{haveProduct});
 	</insert>
 	<delete id="delDormStudentById" parameterType="int">
 		DELETE
@@ -165,7 +171,7 @@
 			dbi.bedding_count 'dormitory.bedding_count',
 			fi.floor_id 'floor.floor_id',
 			fi.dorm_count 'floor.dorm_count',
-			b.building_id 'dormitory.floor.building.building_id',
+			b.building_id 'building.building_id',
 			dai.area_name 'dormArea.area_name'
 		FROM
 			dorm_student_info dsi

@@ -14,6 +14,22 @@ public class Dormitory {
 	private String dormName;//宿舍名
 	private int beddingCount;//（每间宿舍）床位数量
 	private Floor floor;//复合属性，楼层
+	private Building building;
+	private DormArea dormArea;
+	
+	
+	public Building getBuilding() {
+		return building;
+	}
+	public void setBuilding(Building building) {
+		this.building = building;
+	}
+	public DormArea getDormArea() {
+		return dormArea;
+	}
+	public void setDormArea(DormArea dormArea) {
+		this.dormArea = dormArea;
+	}
 	public int getDormId() {
 		return dormId;
 	}

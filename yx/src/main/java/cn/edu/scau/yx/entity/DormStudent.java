@@ -12,8 +12,31 @@ public class DormStudent {
 
 	private int dormStudentId;//宿舍学生Id
 	private Dormitory dormitory;//复合属性，宿舍基本信息
+	private Floor floor;
+	private Building building;
+	private DormArea dormArea;
 	private Student student;//复合属性，学生信息
 	private int haveProduct;//是否拥有迎新物品
+	
+	
+	public Floor getFloor() {
+		return floor;
+	}
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
+	public Building getBuilding() {
+		return building;
+	}
+	public void setBuilding(Building building) {
+		this.building = building;
+	}
+	public DormArea getDormArea() {
+		return dormArea;
+	}
+	public void setDormArea(DormArea dormArea) {
+		this.dormArea = dormArea;
+	}
 	public int getDormStudentId() {
 		return dormStudentId;
 	}

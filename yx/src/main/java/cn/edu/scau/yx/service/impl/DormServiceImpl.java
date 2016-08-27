@@ -22,109 +22,118 @@ public class DormServiceImpl implements DormService {
 	
 	@Override
 	public int addDormArea(DormArea dormArea) {
-		return 0;
+		int addCount=dormMapper.insertDormArea(dormArea);
+		return addCount;
 	}
 
 	@Override
 	public int delDormAreaById(int areaId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int delCount=dormMapper.delDormAreaById(areaId);
+		return delCount;
 	}
 
 	@Override
 	public List<DormArea> getDormAreaList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<DormArea> dormArea = dormMapper.findDormArea();
+		return dormArea;
 	}
 
 	@Override
 	public int addBuilding(Building building) {
-		// TODO Auto-generated method stub
-		return 0;
+		int addCount =dormMapper.insertBuilding(building);
+		return addCount;
 	}
 
 	@Override
 	public int delBuildingById(int buildingId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int delCount=dormMapper.delBuildingById(buildingId);
+		return delCount;
 	}
 
 	@Override
 	public List<Building> getBuildingList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Building> building = dormMapper.findBuilding();
+		return building;
 	}
 
 	@Override
 	public int addFloor(Floor floor) {
-		// TODO Auto-generated method stub
-		return 0;
+		int addCount =dormMapper.insertFloor(floor);
+		return addCount;
 	}
 
 	@Override
 	public int delFloorById(int floorId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int delCount=dormMapper.delFloorById(floorId);
+		return delCount;
 	}
 
 	@Override
 	public List<Floor> getFloorList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Floor> floors=dormMapper.findFloor();
+		return floors;
 	}
 
 	@Override
 	public int addDormitory(Dormitory dormitory) {
-		// TODO Auto-generated method stub
-		return 0;
+		int addCount =dormMapper.insertDormitory(dormitory);
+		return addCount;
 	}
 
 	@Override
 	public int delDormitoryById(int dormId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int delCount=dormMapper.delDormitoryById(dormId);
+		return delCount;
 	}
 
 	@Override
 	public List<Dormitory> getDormitory() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Dormitory> dormitory=dormMapper.findDormitory();
+		return dormitory;
 	}
 
 	@Override
 	public int addDormStudent(DormStudent dormStudent) {
-		// TODO Auto-generated method stub
-		return 0;
+		int addCount =dormMapper.insertDormStudent(dormStudent);
+		return addCount;
 	}
 
 	@Override
 	public int delDormStudentById(int dormStudentId) {
-		// TODO Auto-generated method stub
-		return 0;
+		int delCount=dormMapper.delDormStudentById(dormStudentId);
+		return delCount;
 	}
 
 	@Override
 	public List<DormStudent> getDormStudentList() {
-		// TODO Auto-generated method stub
-		return null;
+		List<DormStudent> dormStudent=dormMapper.finDormStudent();
+		return dormStudent;
 	}
 
 	@Override
-	public int addDormWelcome(DormWelcome dormWelcoem) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int addDormWelcome(DormWelcome dormWelcome) {
+		int addCount =dormMapper.insertDormWelcome(dormWelcome);
+		return addCount;
 	}
 
 	@Override
-	public int delDormWelcome(int dormWelcomeId) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int delDormWelcome(int dormResId) {
+		int delCount=dormMapper.delDormWelcomeById(dormResId);
+		return delCount;
 	}
 
 	@Override
 	public List<DormWelcome> getDormWelcome() {
-		// TODO Auto-generated method stub
-		return null;
+		List<DormWelcome> dormWelcome=dormMapper.findDormWelcome();
+		return dormWelcome;
 	}
+
+	@Override
+	public int updateDormWelcomeById(DormWelcome dormWelcome) {
+		int updateCount = dormMapper.updateDormWelcomeById(dormWelcome);
+		return updateCount;
+	}
+	
+	
 
 }

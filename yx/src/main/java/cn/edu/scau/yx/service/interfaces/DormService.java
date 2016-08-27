@@ -60,4 +60,5 @@ public interface DormService {
 	int addDormWelcome(DormWelcome dormWelcoem);
 	int delDormWelcome(int dormWelcomeId);
 	List<DormWelcome> getDormWelcome();
+	int updateDormWelcomeById(DormWelcome dormWelcome);
 }

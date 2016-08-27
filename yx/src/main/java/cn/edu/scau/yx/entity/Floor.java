@@ -14,6 +14,14 @@ public class Floor {
 	private int floorNum;//楼层号
 	private int dormCount;//（每一层）宿舍数量
 	private Building building;//复合属性，楼栋
+	private DormArea dormArea;//复合属性，宿舍区
+	
+	public DormArea getDormArea() {
+		return dormArea;
+	}
+	public void setDormArea(DormArea dormArea) {
+		this.dormArea = dormArea;
+	}
 	public int getFloorId() {
 		return floorId;
 	}

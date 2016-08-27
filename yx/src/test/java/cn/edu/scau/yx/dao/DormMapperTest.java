@@ -36,8 +36,8 @@ public class DormMapperTest {
 	
 	@Test
 	public void del(){
-		int areaId=100;
-		int delCount = dormMapper.delDormAreaById(areaId);
+		int dormStudentId=1000;
+		int delCount = dormMapper.delDormStudentById(dormStudentId);
 		System.out.println("影响行数="+delCount);
 	}
 	
