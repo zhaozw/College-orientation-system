@@ -54,10 +54,6 @@ public class DormMapperTest {
 		System.out.println("修改前的数据为="+data);
 		data.setResName("华农奶牛");
 		data.setResNumber(5);
-		data.setDormId(666);
-		data.setFloorId(6);
-		data.setBuildingId(9);
-		data.setAreaId(100);
 		int updateCount = dormMapper.updateDormWelcomeById(data);
 		System.out.println("影响行数="+updateCount);
 		System.out.println("修改的后的数据为="+data);

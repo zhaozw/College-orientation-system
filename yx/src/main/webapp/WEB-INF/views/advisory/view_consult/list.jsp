@@ -51,15 +51,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </button>
             <a class="navbar-brand" href="../cd_index.html">迎新系统</a>
         </div>
-        <!-- /.navbar-header -->
-        <div class="navbar-default sidebar" role="navigation">
+         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
 
                     <li>
                         <a href="#"><i class="fa"></i>宿舍管理模块<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
+                        	<li>
+                                <a href="#"><i class="fa"></i>宿舍信息管理<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                        <a href="/yx/dormModule/dorm/list">查询宿舍信息列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/yx/dormModule/dorm/addDorm">添加宿舍信息</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
                             <li>
+                                <a href="#"><i class="fa"></i>住宿学生信息管理<span class="fa arrow"></span></a>
+                                <ul class="nav nav-third-level">
+                                    <li>
+                                       <a href="/yx/dormModule/dormStu/list">住宿学生信息列表</a>
+                                    </li>
+                                    <li>
+                                        <a href="/yx/dormModule/dormStu/addDormStu">添加住宿学生信息</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                             <!-- <li>
                                 <a href="#"><i class="fa"></i>宿舍区信息管理<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
@@ -150,7 +173,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                           <li>
                                 <a href="#"><i class="fa"></i>宿舍迎新物品信息管理<span class="fa arrow"></span></a>
                                 <ul class="nav nav-third-level">
                                     <li>
@@ -179,6 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                     </li>
                                 </ul>
                             </li>
+                            -->
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
@@ -187,16 +211,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <a href="#"><i class="fa"></i>管理员管理咨询模块<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="../view_consult/search_consult.html">搜索咨询记录</a>
-                            </li>
-                            <li>
-                                <a href="../view_consult/del_consult.html">删除咨询记录</a>
-                            </li>
-                            <li>
-                                <a href="../view_consult/reply_update_consult.html">回复修改咨询记录</a>
-                            </li>
-                            <li>
-                                <a href="../view_consult/type_config.html">类型配置</a>
+                                <a href="/yx/advisory/list">咨询记录管理</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->

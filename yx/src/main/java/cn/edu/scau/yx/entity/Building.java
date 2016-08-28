@@ -12,8 +12,16 @@ public class Building {
 
 	private int buildingId;//楼栋id
 	private String buildingName;//楼栋名称
-	private DormArea dormArea;//复合属性,宿舍区
 	private int floorCount;//楼层数量
+	private Floor floor;//
+	
+	
+	public Floor getFloor() {
+		return floor;
+	}
+	public void setFloor(Floor floor) {
+		this.floor = floor;
+	}
 	public int getBuildingId() {
 		return buildingId;
 	}
@@ -26,12 +34,6 @@ public class Building {
 	public void setBuildingName(String buildingName) {
 		this.buildingName = buildingName;
 	}
-	public DormArea getDormArea() {
-		return dormArea;
-	}
-	public void setDormArea(DormArea dormArea) {
-		this.dormArea = dormArea;
-	}
 	public int getFloorCount() {
 		return floorCount;
 	}
@@ -40,10 +42,9 @@ public class Building {
 	}
 	@Override
 	public String toString() {
-		return "Building [buildingId=" + buildingId + ", buildingName=" + buildingName + ", dormArea=" + dormArea
-				+ ", floorCount=" + floorCount + "]";
+		return "Building [buildingId=" + buildingId + ", buildingName=" + buildingName + ", floorCount=" + floorCount
+				+ ", floor=" + floor + "]";
 	}
-	
 	
 	
 	

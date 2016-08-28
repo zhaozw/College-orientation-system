@@ -100,8 +100,8 @@ public class DormController {
 	 */
 	@RequestMapping("/floor/list")
 	public String getFloorList(Model model){
-		List<Floor> list = dormService.getFloorList();
-		model.addAttribute("list", list);
+		List<Floor> floor = dormService.getFloorList();
+		//model.addAttribute("list", list);
 		return "dorm/views6/list";
 	}
 	

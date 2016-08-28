@@ -11,43 +11,22 @@ package cn.edu.scau.yx.entity;
 public class DormStudent {
 
 	private int dormStudentId;//宿舍学生Id
-	private Dormitory dormitory;//复合属性，宿舍基本信息
-	private Floor floor;
-	private Building building;
-	private DormArea dormArea;
 	private Student student;//复合属性，学生信息
 	private int haveProduct;//是否拥有迎新物品
+	private DormWelcome dormWelcome;//复合属性，迎新物品
 	
 	
-	public Floor getFloor() {
-		return floor;
+	public DormWelcome getDormWelcome() {
+		return dormWelcome;
 	}
-	public void setFloor(Floor floor) {
-		this.floor = floor;
-	}
-	public Building getBuilding() {
-		return building;
-	}
-	public void setBuilding(Building building) {
-		this.building = building;
-	}
-	public DormArea getDormArea() {
-		return dormArea;
-	}
-	public void setDormArea(DormArea dormArea) {
-		this.dormArea = dormArea;
+	public void setDormWelcome(DormWelcome dormWelcome) {
+		this.dormWelcome = dormWelcome;
 	}
 	public int getDormStudentId() {
 		return dormStudentId;
 	}
 	public void setDormStudentId(int dormStudentId) {
 		this.dormStudentId = dormStudentId;
-	}
-	public Dormitory getDormitory() {
-		return dormitory;
-	}
-	public void setDormitory(Dormitory dormitory) {
-		this.dormitory = dormitory;
 	}
 	public Student getStudent() {
 		return student;
@@ -63,9 +42,11 @@ public class DormStudent {
 	}
 	@Override
 	public String toString() {
-		return "DormStudent [dormStudentId=" + dormStudentId + ", dormitory=" + dormitory + ", student=" + student
-				+ ", haveProduct=" + haveProduct + "]";
+		return "DormStudent [dormStudentId=" + dormStudentId + ", student=" + student + ", haveProduct=" + haveProduct
+				+ ", dormWelcome=" + dormWelcome + "]";
 	}
+	
+
 	
 	
 	

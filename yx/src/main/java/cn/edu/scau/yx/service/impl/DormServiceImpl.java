@@ -71,6 +71,14 @@ public class DormServiceImpl implements DormService {
 	@Override
 	public List<Floor> getFloorList() {
 		List<Floor> floors=dormMapper.findFloor();
+		
+//		for (Floor floor : floors) {
+//			
+//		}
+//		
+//		
+//		List<Building> building=dormMapper.findBuilding();
+//		floors.
 		return floors;
 	}
 

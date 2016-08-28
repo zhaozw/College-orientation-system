@@ -69,4 +69,7 @@ public interface DormMapper {
 	List<DormWelcome> findDormWelcome();
 	int updateDormWelcomeById(DormWelcome dormWelcome);
 	
+	
+	//List<Floor> findFloorByAreaAndBuilding(int area, int buildingId);
+	
 }

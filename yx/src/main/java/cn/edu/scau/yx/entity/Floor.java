@@ -13,14 +13,14 @@ public class Floor {
 	private int floorId;//楼层id
 	private int floorNum;//楼层号
 	private int dormCount;//（每一层）宿舍数量
-	private Building building;//复合属性，楼栋
-	private DormArea dormArea;//复合属性，宿舍区
+	private Dormitory dormitory; //
 	
-	public DormArea getDormArea() {
-		return dormArea;
+	
+	public Dormitory getDormitory() {
+		return dormitory;
 	}
-	public void setDormArea(DormArea dormArea) {
-		this.dormArea = dormArea;
+	public void setDormitory(Dormitory dormitory) {
+		this.dormitory = dormitory;
 	}
 	public int getFloorId() {
 		return floorId;
@@ -40,16 +40,10 @@ public class Floor {
 	public void setDormCount(int dormCount) {
 		this.dormCount = dormCount;
 	}
-	public Building getBuilding() {
-		return building;
-	}
-	public void setBuilding(Building building) {
-		this.building = building;
-	}
 	@Override
 	public String toString() {
-		return "Floor [floorId=" + floorId + ", floorNum=" + floorNum + ", dormCount=" + dormCount + ", building="
-				+ building + "]";
+		return "Floor [floorId=" + floorId + ", floorNum=" + floorNum + ", dormCount=" + dormCount + ", dormitory="
+				+ dormitory + "]";
 	}
 	
 	

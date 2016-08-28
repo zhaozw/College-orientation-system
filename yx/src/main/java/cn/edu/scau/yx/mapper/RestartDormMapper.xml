@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.RestartDormMapper">
+
+	<!-- 增加宿舍信息 -->
+	<insert id="insertD" parameterType="D" >
+		INSERT INTO dormitory (
+			area_id,
+			area_name,
+			building_id,
+			floor_id,
+			dorm_id
+		)
+		VALUES
+			(#{areaId}, #{areaName},#{buildingId},#{floorId},#{dormId});
+	</insert>
+	
+	<!--根据id删除宿舍信息-->
+	<delete id="delDById" parameterType="int">
+		DELETE
+		FROM
+			dormitory
+		WHERE
+			area_id = #{areaId}
+		AND building_id = #{buildingId}
+		AND floor_id = #{floorId}
+		AND dorm_id = #{dormId}
+	</delete>
+		
+	<!--//查询所有宿舍信息-->
+	<select id="findAllD" resultType="D">
+		SELECT
+			d_id,
+			area_id,
+			area_name,
+			building_id,
+			floor_id,
+			dorm_id
+		FROM
+			dormitory
+	</select>
+		
+	<!--//增加宿舍学生信息-->
+	<insert id="insertDS" parameterType="DS">
+		INSERT INTO dormstu (student_id, d_id)
+		VALUES
+			(
+				#{student.stuId},
+				(
+					SELECT
+						d_id
+					FROM
+						dormitory
+					WHERE
+						(
+							SELECT
+								area_id
+							FROM
+								dormitory
+							WHERE
+								area_name = #{d.areaName}
+						)
+					AND building_id = #{d.buildingId}
+					AND floor_id = #{d.floorId}
+					AND dorm_id = #{d.dormId}
+				)
+			)
+	</insert>
+		
+	<!--//根据id删除宿舍学生信息-->
+	<delete id="delDsById" parameterType="int" >
+		DELETE
+		FROM
+			dormstu
+		WHERE
+			s_id = #{sId}
+	</delete>
+	
+	<!--//查询所有学生信息-->
+	<select id="findAllDs" resultType="DS">
+		SELECT
+			ds.s_id,
+			s.student_name "student.student_name",
+			s.stu_id "student.stu_id",
+			d.dorm_id "d.dorm_id",
+			d.floor_id "d.floor_id",
+			d.building_id "d.building_id",
+			d.area_name "d.area_name"
+		FROM
+			dormstu ds
+		LEFT JOIN student s ON ds.student_id = s.stu_id
+		LEFT JOIN dormitory d ON ds.d_id = d.d_id
+	</select>
+	
+	
+	<!--//根据id查看单个宿舍学生信息-->
+	<select id="findDsById" parameterType="int" resultType="DS">
+		SELECT
+			s.student_name "student.student_name",
+			s.stu_id "student.stu_id",
+			d.dorm_id "d.dorm_id",
+			d.floor_id "d.floor_id",
+			d.building_id "d.building_id",
+			d.area_name "d.area_name"
+		FROM
+			(
+				SELECT
+					s_id,
+					student_id,
+					d_id
+				FROM
+					dormstu
+				WHERE
+					s_id = #{ds.sId}
+			) ds
+		LEFT JOIN student s ON ds.student_id = s.stu_id
+		LEFT JOIN dormitory d ON ds.d_id = d.d_id
+	</select>
+	
+	<!--//根据id修改宿舍学生信息-->
+	<update id="updateDsById" parameterType="DS">
+		UPDATE dormstu
+		SET student_id = #{student.stuId},
+		 d_id = (
+			SELECT
+				d_id
+			FROM
+				dormitory
+			WHERE
+				area_name = #{area_name}
+			AND building_id = #{buildingId}
+			AND floor_id = #{floorId}
+			AND dorm_id = #{dormId}
+		)
+		WHERE s_id=#{sId}
+	</update>
+
+
+	<!-- 
+	<insert id="insertDormitory" parameterType="Dormitory">
+		INSERT INTO dorm_basic_info (
+			dorm_id,
+			bedding_count,
+			dormStudentId 'dormtStudent.dormStudentId'
+		)
+		VALUE
+			(#{dormId}, #{beddingCount},#{dormtStudent.dormStudentId});
+	</insert>
+	<insert id="insertFloor" parameterType="Floor">
+		INSERT INTO floor_info (
+			floor_id,
+			dorm_count,
+			dorm_id
+		)
+		VALUE
+			(#{floorId}, #{dormCount},#{dormitory.dormId});
+	</insert>
+	<insert id="insertBuilding" parameterType="Building">
+		INSERT INTO building_info (
+			building_id,
+			floor_count,
+			floor_id
+		)
+		VALUE
+			(#{buildingId},#{floorCount},#{floorId});
+	</insert>
+	<insert id="insertDormArea" parameterType="DormArea">
+		INSERT INTO dorm_area_info (
+			area_id,
+			area_name,
+			building_count,
+			building_id
+		)
+		VALUES
+			(#{areaId}, #{areaName}, #{buildingCount},#{building.buildingId});
+	</insert>
+	<insert id="insertDormStudent" parameterType="DormStudent">
+		INSERT INTO dorm_student_info (
+			dorm_student_id,
+			have_product,
+			student_id,
+			dorm_res_id
+		)
+		VALUES
+			(#{dormStudentId}, #{haveProduct}, #{student.studentId},#{dormWelcome.dormResId});
+	</insert>
+	<insert id="insertDormWelcome" parameterType="DormWelcome">
+		INSERT INTO dorm_welcome_info (
+			dorm_res_id,
+			res_number,
+			res_name,
+			
+		)
+		VALUES
+			(#{dormResId}, #{resNumber}, #{resName});
+	</insert>
+	
+	
+	
+	
+	<delect id="delDormStudentById" parameterType="int">
+		DELETE
+		FROM
+			dorm_welcome_info
+		WHERE
+			dorm_student_id = #{dormStudentId};
+	</delect>
+	<delect id="delDormWelcomeById" parameterType="int">
+		DELETE
+		FROM
+			dorm_student_info
+		WHERE
+			dorm_res_id = #{dormResId};
+	</delect>
+	
+	
+	
+	
+	<select id="findAllDorm" resultType="DormArea">
+		SELECT
+			dai.area_name,
+			dai.building_count,
+			bi.building_id,
+			bi.floor_count,
+			fi.floor_id,
+			fi.dorm_count,
+			dbi.dorm_id,
+			dbi.bedding_count
+		FROM
+			dorm_area_info dai
+		LEFT JOIN building_info bi ON dai.building_id = bi.building_id
+		LEFT JOIN floor_info fi ON bi.floot_id = fi.floor_id
+		LEFT JOIN dorm_basic_info dbi ON fi.dorm_id = dbi.dorm_id
+	</select>
+	<select id="findAllDormStu" resultType="DormArea">
+		SELECT
+			dai.area_name,
+			bi.building_id,
+			fi.floor_id,
+			dbi.dorm_id,
+			dsi.student_id,
+			s.student_name,
+			dwi.res_name,
+			dwi.res_number
+		FROM
+			dorm_area_info dai
+		LEFT JOIN building_info bi ON dai.building_id = bi.building_id
+		LEFT JOIN floor_info fi ON bi.floot_id = fi.floor_id
+		LEFT JOIN dorm_basic_info dbi ON fi.dorm_id = dbi.dorm_id
+		LEFT JOIN dorm_student_info dsi ON dbi.dorm_student_id = dsi.student_id
+		LEFT JOIN student s ON dsi.student_id=s.stu_id
+		LEFT JOIN dorm_welcome_info dwi ON dsi.dorm_res_id
+	</select>
+	<select id="findAllDormWel" resultType="DormWelcome">
+		SELECT
+			dwi.dorm_res_id,
+			dwi.res_name,
+			dwi.res_number
+		FROM
+			dorm_welcome_info dwi
+	</select>
+	<select id="findWithCondition" resultType="DormArea">
+		SELECT
+			dai.area_name,
+			bi.building_id,
+			fi.floor_id,
+			dbi.dorm_id,
+			dsi.student_id,
+			s.student_name,
+			dwi.res_name,
+			dwi.res_number
+		FROM
+			dorm_area_info dai
+		LEFT JOIN building_info bi ON dai.building_id = bi.building_id
+		LEFT JOIN floor_info fi ON bi.floot_id = fi.floor_id
+		LEFT JOIN dorm_basic_info dbi ON fi.dorm_id = dbi.dorm_id
+		LEFT JOIN dorm_student_info dsi ON dbi.dorm_student_id = dsi.student_id
+		LEFT JOIN student s ON dsi.student_id=s.stu_id
+		LEFT JOIN dorm_welcome_info dwi ON dsi.dorm_res_id
+		<where>
+			
+			<if test="keyWord!=null and keyWord!=''">   -->
+				 <!-- AND CONCAT(`content`,`audit`,`authority`,`answer`) LIKE #{keyWord} --> 
+			<!-- (dai.area_name LIKE CONCAT('%',#{keyWord},'%')
+				OR bi.building_id LIKE CONCAT('%',#{keyWord},'%')
+				OR fi.floor_id LIKE CONCAT('%',#{keyWord},'%')
+				OR s.student_name LIKE CONCAT('%',#{keyWord},'%')
+				OR dbi.dorm_id LIKE CONCAT('%',#{keyWord},'%')
+				OR s.stu_id LIKE CONCAT('%',#{keyWord},'%')
+				)
+			</if>
+			<if test="areaId!=null and areaId!=''">
+				AND area_id LIKE #{areaId}
+			</if>
+			<if test="buildingId!=null and buildingId!=''">
+				AND building_id LIKE #{buildingId}
+			</if>
+			<if test="floorId!=null and floorId!=''">
+				AND	floor_id LIKE #{floorId}
+			</if>
+		</where>
+	</select>
+	<select id="findById" resultType="DormArea">
+		SELECT
+			dai.area_name,
+			bi.building_id,
+			fi.floor_id,
+			dbi.dorm_id,
+			dsi.student_id,
+			s.student_name,
+			dwi.res_name,
+			dwi.res_number
+		FROM
+			(  -->	
+				<!-- SELECT
+					dai.area_id,
+					dai.area_name,
+					dai.building_id
+				FROM
+					dorm_area_info 
+				WHERE dai.area_id=#{areaId}
+				-->
+			<!-- SELECT
+					*
+				FROM dorm_student_info 
+				WHERE dsi.student_id=#{studentId}
+					
+			) dsi
+		LEFT JOIN dorm_area_info dai ON dai.area_id=
+		LEFT JOIN building_info bi ON dai.building_id = bi.building_id
+		LEFT JOIN floor_info fi ON bi.floot_id = fi.floor_id
+		LEFT JOIN dorm_basic_info dbi ON fi.dorm_id = dbi.dorm_id
+		LEFT JOIN dorm_student_info dsi ON dbi.dorm_student_id = dsi.dorm_student_id
+		LEFT JOIN student s ON dsi.student_id=s.stu_id
+		LEFT JOIN dorm_welcome_info dwi ON dsi.dorm_res_id
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	<update id="updateById" parameterType="int">
+		
+	</update>
+	 -->	
+	
+	
+</mapper>

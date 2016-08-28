@@ -12,6 +12,15 @@ public class DormArea {
 	private int areaId;//宿舍区Id
 	private String areaName;//宿舍区名字
 	private int buildingCount;//楼栋数量
+	private Building building;//
+	
+	
+	public Building getBuilding() {
+		return building;
+	}
+	public void setBuilding(Building building) {
+		this.building = building;
+	}
 	public int getAreaId() {
 		return areaId;
 	}
@@ -32,7 +41,8 @@ public class DormArea {
 	}
 	@Override
 	public String toString() {
-		return "DormArea [areaId=" + areaId + ", areaName=" + areaName + ", buildingCount=" + buildingCount + "]";
+		return "DormArea [areaId=" + areaId + ", areaName=" + areaName + ", buildingCount=" + buildingCount
+				+ ", building=" + building + "]";
 	}
 	
 	
