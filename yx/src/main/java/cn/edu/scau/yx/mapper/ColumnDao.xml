@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.ColumnDao">
+
+<insert id="insertColumn" parameterType="Column" >
+  	INSERT INTO column_info(ci_name, ci_alias_name, ci_key)
+	VALUES (#{ciName},#{ciAliasName},#{ciKey})
+  </insert>
+
+<delete id="delColumnById" parameterType="int">
+		DELETE
+		FROM
+			column_info
+		WHERE
+			ci_id = #{ciId}
+	</delete>
+
+<update id="updateColumn" parameterType="Column">
+		UPDATE column_info
+		SET 
+		ci_name=#{ciName}, 
+		ci_alias_name=#{ciAliasName},
+		
+		ci_key=#{ciKey}
+		WHERE
+			ci_id = #{ciId};
+	</update>
+
+<select id="findAll" resultType="Column">
+		SELECT
+			ci_id,
+			ci_name,
+			ci_alias_name,
+			ci_ico,
+			ci_key
+		FROM
+			column_info
+	</select>
+	
+<select id="findByColumnKey" parameterType="String" resultType="Column">
+		SELECT
+			ci_id,
+			ci_name,
+			ci_alias_name,
+			ci_ico,
+			ci_key
+		FROM
+			column_info
+		WHERE
+			ci_key LIKE '%${ciKey}%';
+</select>
+<select id="sortColumn">
+		SELECT
+			ci_id,
+			ci_name,
+			ci_alias_name,
+			ci_ico,
+			ci_key
+		FROM
+			column_info
+		order by ci_name
+	</select>
+
+
+
+
+
+
+
+
+</mapper>

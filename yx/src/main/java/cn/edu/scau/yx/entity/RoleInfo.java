@@ -1,6 +1,7 @@
 package cn.edu.scau.yx.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 
@@ -19,27 +20,22 @@ public class RoleInfo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int roleId;
-	private String userName;
-	private int rolePid;
+	private String roleName;
+	public String getRoleName() {
+		return roleName;
+	}
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
 	private String description;
+	private ArrayList<PowerInfo> powerList;
+	
 	
 	public int getRoleId() {
 		return roleId;
 	}
 	public void setRoleId(int roleId) {
 		this.roleId = roleId;
-	}
-	public String getUserName() {
-		return userName;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public int getRolePid() {
-		return rolePid;
-	}
-	public void setRolePid(int rolePid) {
-		this.rolePid = rolePid;
 	}
 	public String getDescription() {
 		return description;
@@ -61,9 +57,8 @@ public class RoleInfo implements Serializable {
 		result = prime * result
 				+ ((description == null) ? 0 : description.hashCode());
 		result = prime * result + roleId;
-		result = prime * result + rolePid;
 		result = prime * result
-				+ ((userName == null) ? 0 : userName.hashCode());
+				+ ((roleName == null) ? 0 : roleName.hashCode());
 		return result;
 	}
 	@Override
@@ -82,19 +77,23 @@ public class RoleInfo implements Serializable {
 			return false;
 		if (roleId != other.roleId)
 			return false;
-		if (rolePid != other.rolePid)
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
+		if (roleName == null) {
+			if (other.roleName != null)
 				return false;
-		} else if (!userName.equals(other.userName))
+		} else if (!roleName.equals(other.roleName))
 			return false;
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "RoleInfo [roleId=" + roleId + ", userName=" + userName
-				+ ", rolePid=" + rolePid + ", description=" + description + "]";
+		return "RoleInfo [roleId=" + roleId + ", userName=" + roleName
+				+ ", rolePid=" +  ", description=" + description + "]";
+	}
+	public ArrayList<PowerInfo> getPowerList() {
+		return powerList;
+	}
+	public void setPowerList(ArrayList<PowerInfo> powerList) {
+		this.powerList = powerList;
 	}
 	
 	

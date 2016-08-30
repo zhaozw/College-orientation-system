@@ -1,5 +1,6 @@
 package cn.edu.scau.yx.service.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.scau.yx.entity.Major;
@@ -17,7 +18,14 @@ public interface MajorService {
 	 * @param mjname 要查找的专业名
 	 * @return 专业实体
 	 */
-	public List<Major> findByMajorName(String mjname);
+	public List<Major> findByName(String mjname);
+	
+	/**
+	 * 根据输入的id查找专业
+	 * @param mjid 要查找的专业id
+	 * @return 专业实体
+	 */
+	public Major findById(int mjid);
 	
 	/**
 	 * 根据输入的专业信息添加到数据库
@@ -39,4 +47,9 @@ public interface MajorService {
 	 * @return Boolean
 	 */
 	public Boolean deleteMajor(int mjid);
+	
+	
+	ArrayList<String> findAllMajorNameByDeaprtmentName(String departmentName);
+
+	ArrayList<Major> findMajorsByDepartment(int departmentId);
 }

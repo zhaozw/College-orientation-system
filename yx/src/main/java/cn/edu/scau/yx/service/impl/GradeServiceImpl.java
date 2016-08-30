@@ -1,20 +1,24 @@
 package cn.edu.scau.yx.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import cn.edu.scau.yx.dao.GradeMapper;
 import cn.edu.scau.yx.entity.Grade;
 import cn.edu.scau.yx.service.interfaces.GradeService;
 
 /**
- *@author 赵文俊 
+ *@author 赵文俊
  *@email 1142265923@qq.com
  *@description TODO
- *@date 2016年8月23日上午11:10:56
+ *@date 2016年8月23日下午8:03:49
  *@version v1.0
  */
+@Service
 public class GradeServiceImpl implements GradeService {
 
 	@Autowired
@@ -24,34 +28,49 @@ public class GradeServiceImpl implements GradeService {
 	 * @see cn.edu.scau.yx.service.interfaces.GradeService#findByGradeName(java.lang.String)
 	 */
 	@Override
-	public List<Grade> findByGradeName(String gdname) {
-		List<Grade> grades = gradeMapper.findByGradeName(gdname);
+	public List<Grade> findByName(String gdname) {
+		List<Grade> grades = gradeMapper.findByName(gdname);
 		return grades;
 	}
 
+	@Override
+	public Grade findById(int gdid) {
+		if(gdid == 0)
+			throw new RuntimeException("error!");
+		Grade grade = gradeMapper.findById(gdid);
+		return grade;
+	}
+	
 	/* (non-Javadoc)
 	 * @see cn.edu.scau.yx.service.interfaces.GradeService#insertGrade(cn.edu.scau.yx.entity.Grade)
 	 */
+	@Transactional
 	@Override
 	public Boolean insertGrade(Grade grade) {
-		int stucount = gradeMapper.stuCount(grade.getId());
-		grade.setStuNum(stucount);
 		int count = gradeMapper.insertGrade(grade);
 		if(count != 1){
 			throw new RuntimeException("error");
 		}
-		// TODO Auto-generated method stub
+		String gdname = grade.getName();
+        Grade graded = gradeMapper.findByNameSingle(gdname);
+		int stucount = gradeMapper.stuCount(graded.getId());
+		grade.setStuNum(stucount);
+		count = gradeMapper.updateGrade(grade);
+		if(count != 1){
+			throw new RuntimeException("error");
+		}
 		return true;
 	}
 
 	/* (non-Javadoc)
 	 * @see cn.edu.scau.yx.service.interfaces.GradeService#updateGrade(cn.edu.scau.yx.entity.Grade)
 	 */
+	@Transactional
 	@Override
 	public Boolean updateGrade(Grade grade) {
 		int stucount = gradeMapper.stuCount(grade.getId());
 		grade.setStuNum(stucount);
-		int count = gradeMapper.insertGrade(grade);
+		int count = gradeMapper.updateGrade(grade);
 		if(count != 1){
 			throw new RuntimeException("error");
 		}
@@ -69,5 +88,13 @@ public class GradeServiceImpl implements GradeService {
 		}
 		return true;
 	}
+
+	@Override
+	public ArrayList<Grade> findAllGrade() {
+		ArrayList<Grade> gradeList=gradeMapper.findAllGrade();
+		return gradeList;
+	}
+
+
 
 }

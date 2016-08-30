@@ -72,4 +72,10 @@ public class RestartDormServiceImpl implements RestartDormService {
 		return updateCount;
 	}
 
+	@Override
+	public List<DS> getListByCondition(String areaName, String keyWord) {
+		List<DS> ds = restartDormMapper.findWithKey(areaName, keyWord);
+		return ds;
+	}
+
 }

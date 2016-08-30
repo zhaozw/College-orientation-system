@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.MyCollectionDao">
+<insert id="insertCollection" parameterType="MyCollection" >
+  	INSERT INTO collection(co_id,pi_id,nu_id)
+	VALUES (#{coId},#{piId},#{nuId})
+  </insert>
+  
+  <delete id="delCollectionById" parameterType="int">
+  	DELETE FROM collection WHERE co_id=#{coId}
+  </delete>
+  
+  <select id="findByVistorId" parameterType="int">
+  	SELECT aid,email, nick_name, `password`, follow, fans, weibo, pic 
+  	FROM collection inner join notice_user on collection.nu_id=notice_user.nu_id
+  	WHERE nu_id = #{nuId}
+  </select>
+</mapper>

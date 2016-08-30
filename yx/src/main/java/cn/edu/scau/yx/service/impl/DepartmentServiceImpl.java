@@ -1,5 +1,6 @@
 package cn.edu.scau.yx.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +24,26 @@ public class DepartmentServiceImpl implements DepartmentService {
     private DepartmentMapper departmentMapper; 
     
 	/* 
-	 * @see cn.edu.scau.yx.service.interfaces.DepartmentService#findByDepartmentName(java.lang.String)
+	 * @see cn.edu.scau.yx.service.interfaces.DepartmentService#findByName(java.lang.String)
 	 */
-	public List<Department> findByDepartmentName(String dpname) {
-		List<Department> departments = departmentMapper.findByDepartmentName(dpname);
+	public List<Department> findByName(String dpname) {
+		if(dpname == null){
+			dpname = "";
+		}
+		List<Department> departments = departmentMapper.findByName(dpname);
 		return departments;
+	}
+	
+	@Override
+	public Department findById(int dpid) {
+		if(dpid == 0)
+			throw new RuntimeException("error!");
+		Department department = departmentMapper.findById(dpid);
+		return department;
 	}
 
 	/* 
-	 * @see cn.edu.scau.yx.service.interfaces.DepartmentService#insertDepartmentName(cn.edu.scau.yx.entity.Department)
+	 * @see cn.edu.scau.yx.service.interfaces.DepartmentService#insertDepartment(cn.edu.scau.yx.entity.Department)
 	 */
 	public Boolean insertDepartment(Department department) {
 		int count = departmentMapper.insertDepartment(department);
@@ -58,4 +70,14 @@ public class DepartmentServiceImpl implements DepartmentService {
 		return true;
 	}
 
+	@Override
+	public ArrayList<String> findAllDepartmentName() {
+		ArrayList<String> departmentList=departmentMapper.findAllDepartmentName();
+		return departmentList;
+	}
+	
+	public ArrayList<Department> findAllDepartment() {
+		ArrayList<Department> departmentList=departmentMapper.findAllDepartment();
+		return departmentList;
+	}
 }

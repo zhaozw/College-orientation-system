@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.UserInfoMapper">
+   <insert id="insertUserRoleInfo" parameterType="map">
+    INSERT INTO 
+           user_role_info(user_id,role_id)
+    VALUES
+   <foreach item="item" index="index" collection="list"
+      separator="," >
+    
+  	 (#{userId},#{item})
+  </foreach>
+  	 
+   </insert>
+  <delete id="deleteUserRoleList" parameterType="int" >
+  	 DELETE FROM user_role_info WHERE user_id =#{userId}
+   </delete>
+
+
+   <select id="findUserByName"  parameterType="String" resultType="UserInfo">
+     <bind name="userName" value="'%' + _parameter + '%'"/>
+  	select
+		ui.user_id     'userId',
+		ui.user_name   'userName',
+		ui.age         'age',
+		ui.pwd         'pwd'
+	from
+		user_info ui
+    where
+     	user_name  like #{userName}
+  </select>
+  
+  <select id="findRoleListByUserId"  parameterType="int" resultType="RoleInfo">
+  	select
+  		ri.role_id    'roleId',
+  		ri.role_name  'roleName'
+	from
+			       user_role_info   uri
+		left join  role_info  		 ri        on   ri.role_id   =  uri.role_id
+    where
+     	uri.user_id  = #{userId}
+  </select>
+  
+   <select id="findByUserId" parameterType="int" resultType="UserInfo">
+     SELECT *
+	 FROM user_info WHERE user_id = #{userId);
+   </select>
+   
+   <select id="findByUserIdAndPwd" resultType="UserInfo">
+     SELECT *
+	 FROM user_info WHERE user_id = #{userId} and pwd = #{pwd} ;
+   </select>
+  
+   <delete id="deleteUserInfo" parameterType="int" >
+  	 DELETE FROM user_info WHERE user_id =#{userId}
+   </delete>
+  
+   <update id="updateUserInfo" parameterType="UserInfo" >
+	 UPDATE user_info 
+	 <set>
+	     <if test="userId != null">
+	  		 user_id = #{userId},
+	  	 </if>
+	  	 <if test="userName != null">
+	  		 user_name = #{userName},
+	  	 </if>
+	  	 <if test="age != null">
+	  	 	 age = #{age}
+	  	 </if>
+	  	 <if test="pwd != null">
+	  	 	 pwd = #{pwd}
+	  	 </if>
+	  	</set>
+	  	WHERE user_id = #{userId}
+   </update>
+  
+   <insert id="insertUserInfo" parameterType="UserInfo">
+  	 INSERT INTO user_info(user_id,user_name,age,pwd)
+  	 VALUES(#{userId}, #{userName}, #{age},#{pwd})
+   </insert>
+   
+   <select id="viewUserInfo"  resultType="userInfo">
+	  SELECT *
+	  FROM user_info
+   </select>
+</mapper>

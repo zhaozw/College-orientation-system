@@ -1,5 +1,6 @@
 package cn.edu.scau.yx.service.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.edu.scau.yx.entity.Department;
@@ -18,7 +19,14 @@ public interface DepartmentService {
 	 * @param dpname 要查找的学院名
 	 * @return 学院实体
 	 */
-	public List<Department> findByDepartmentName(String dpname);
+	public List<Department> findByName(String dpname);
+	
+	/**
+	 * 根据输入的id查找学院
+	 * @param dpid 要查找的学院id
+	 * @return 学院实体
+	 */
+	public Department findById(int dpid);
 	
 	/**
 	 * 根据输入的学院信息添加到数据库
@@ -41,4 +49,7 @@ public interface DepartmentService {
 	 */
 	public Boolean deleteDepartment(int dpid);
 	
+	ArrayList<String> findAllDepartmentName();
+
+	ArrayList<Department> findAllDepartment();
 }

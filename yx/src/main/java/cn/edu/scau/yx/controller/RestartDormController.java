@@ -8,9 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.scau.yx.entity.D;
 import cn.edu.scau.yx.entity.DS;
+import cn.edu.scau.yx.entity.Problems;
 import cn.edu.scau.yx.entity.Student;
 import cn.edu.scau.yx.service.interfaces.RestartDormService;
 
@@ -79,7 +81,7 @@ public class RestartDormController {
 	public String addDormStu(){
 		return "restartDorm/dormStu/add";
 	}
-	@RequestMapping(value="/add2",method=RequestMethod.POST)
+	@RequestMapping(value="/add2")
 	public String add2(String stuName,String stuId,String areaId,String areaName,String buildingId, String floorId,String dormId){
 		
 		DS ds=new DS();
@@ -121,14 +123,42 @@ public class RestartDormController {
 		//return detail;
 		return "restartDorm/dormStu/update";
 	}
-	@RequestMapping(value="/dormStu/{sId}/update")
-	public String updateById(@PathVariable("sId") int sId,DS ds){
+	@RequestMapping(value="/dormStu/update/{sId}")
+	public String updateById(@PathVariable("sId") int sId,String stuName,String stuId,String areaId,String areaName,String buildingId, String floorId,String dormId){
+		
+		DS ds=new DS();
+		Student stu= new Student();
+		D d=new D();
+		stu.setStuId(Integer.parseInt(stuId));
+		stu.setStudentName(stuName);
+		d.setAreaId(Integer.parseInt(areaId));
+		d.setAreaName(areaName);
+		d.setBuildingId(Integer.parseInt(buildingId));
+		d.setFloorId(Integer.parseInt(floorId));
+		d.setDormId(Integer.parseInt(dormId));
+		
+		ds.setD(d);
+		ds.setStudent(stu);
+		
 		int updateCount = restartDormService.updateById(sId, ds);
 		if(updateCount!=0){
 			return "redirect:/dormModule/dormStu/list";
 		}else{
-			return null;
+			return "redirect:/dormModule/dormStu/list";
 		}
 	}
 	
+	//根据条件查询宿舍学生信息。
+	@RequestMapping(value="/dormStu/search",method=RequestMethod.GET)
+	@ResponseBody
+	public List<DS> search(String areaName,String keyWord,Model model){
+		if(areaName!=null||keyWord!=null){
+			List<DS> list=restartDormService.getListByCondition(areaName, keyWord);
+			return list;
+		}else{
+			//获取列表
+			List<DS> list=restartDormService.getDormStuList();
+			return list;
+		}
+	}
 }

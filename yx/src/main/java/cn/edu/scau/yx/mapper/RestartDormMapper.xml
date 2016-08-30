@@ -48,20 +48,14 @@
 		VALUES
 			(
 				#{student.stuId},
+				
 				(
 					SELECT
 						d_id
 					FROM
 						dormitory
 					WHERE
-						(
-							SELECT
-								area_id
-							FROM
-								dormitory
-							WHERE
-								area_name = #{d.areaName}
-						)
+					area_name = #{d.areaName}
 					AND building_id = #{d.buildingId}
 					AND floor_id = #{d.floorId}
 					AND dorm_id = #{d.dormId}
@@ -87,7 +81,8 @@
 			d.dorm_id "d.dorm_id",
 			d.floor_id "d.floor_id",
 			d.building_id "d.building_id",
-			d.area_name "d.area_name"
+			d.area_name "d.area_name",
+			d.area_id "d.area_id"
 		FROM
 			dormstu ds
 		LEFT JOIN student s ON ds.student_id = s.stu_id
@@ -103,7 +98,9 @@
 			d.dorm_id "d.dorm_id",
 			d.floor_id "d.floor_id",
 			d.building_id "d.building_id",
-			d.area_name "d.area_name"
+			d.area_name "d.area_name",
+			d.area_id "d.area_id",
+			ds.s_id
 		FROM
 			(
 				SELECT
@@ -121,21 +118,55 @@
 	
 	<!--//根据id修改宿舍学生信息-->
 	<update id="updateDsById" parameterType="DS">
-		UPDATE dormstu
-		SET student_id = #{student.stuId},
+		UPDATE dormstu 
+		SET student_id = #{ds.student.stuId},
 		 d_id = (
 			SELECT
 				d_id
 			FROM
 				dormitory
 			WHERE
-				area_name = #{area_name}
-			AND building_id = #{buildingId}
-			AND floor_id = #{floorId}
-			AND dorm_id = #{dormId}
+				area_name = #{ds.d.areaName}
+			AND building_id = #{ds.d.buildingId}
+			AND floor_id = #{ds.d.floorId}
+			AND dorm_id = #{ds.d.dormId}
 		)
 		WHERE s_id=#{sId}
 	</update>
+	
+	<!-- 根据条件查询宿舍学生信息  -->
+	<select id="findWithKey" resultType="DS">
+		SELECT
+			ds.s_id,
+			s.student_name "student.student_name",
+			s.stu_id "student.stu_id",
+			d.dorm_id "d.dorm_id",
+			d.floor_id "d.floor_id",
+			d.building_id "d.building_id",
+			d.area_name "d.area_name",
+			d.area_id "d.area_id"
+		FROM
+			dormstu ds
+		LEFT JOIN student s ON ds.student_id = s.stu_id
+		LEFT JOIN dormitory d ON ds.d_id = d.d_id
+		<where>
+			
+			<if test="keyWord!=null and keyWord!=''">
+				 <!-- AND CONCAT(`content`,`audit`,`authority`,`answer`) LIKE #{keyWord} --> 
+				(s.student_name LIKE CONCAT('%',#{keyWord},'%')
+				OR s.stu_id LIKE CONCAT('%',#{keyWord},'%')
+				OR d.area_name LIKE CONCAT('%',#{keyWord},'%')
+				OR d.dorm_id LIKE CONCAT('%',#{keyWord},'%')
+				OR d.building_id LIKE CONCAT('%',#{keyWord},'%')
+				OR d.floor_id LIKE CONCAT('%',#{keyWord},'%')
+				)
+			</if>
+			<if test="areaName!=null and areaName!=''">
+				AND d.area_name LIKE #{d.areaName}
+			</if>
+		</where>
+	</select>
+	
 
 
 	<!-- 

@@ -34,6 +34,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="/yx/assets/css/dorm.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/yx/assets/css/layout.css">
     <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/dorm/hjd.css"/>
+    
     <!-- <link rel="stylesheet" type="text/css" href="/yx/assets/css/all.css"> -->
 
 </head>
@@ -50,6 +53,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </button>
             <a class="navbar-brand" href="../cd_index.html">迎新系统</a>
         </div>
+             <ul class="user-menu">
+        <li class="dropdown pull-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            User
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-user"></span>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-cog"></span>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
          <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
@@ -297,10 +329,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                      <div class="row">
-		                <div class="col-sm-8 col-sm-offset-2">
-		                    <button class="btn-success btn" type="submit" id="submit">Submit</button>
-		                    <button class="btn-default btn">Cancel</button>
-		                    <button class="btn-inverse btn">Reset</button>
+		                 <div class="col-sm-8 col-sm-offset-3">
+		                  <button class="btn-default btn">Cancel</button>
+		                   <button class="btn-info btn" type="submit" id="submit">Submit</button>
 		                </div>
 		            </div>
                 </form>

@@ -1,6 +1,7 @@
 package cn.edu.scau.yx.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * 
@@ -22,7 +23,7 @@ public class UserInfo implements Serializable {
 	private String userName;
 	private int age;
 	private String pwd;
-	
+	private ArrayList<RoleInfo> roleList;
 	
 	
 	public int getUserId() {
@@ -92,6 +93,12 @@ public class UserInfo implements Serializable {
 	public String toString() {
 		return "UserInfo [userId=" + userId + ", userName=" + userName
 				+ ", age=" + age + ", pwd=" + pwd + "]";
+	}
+	public ArrayList<RoleInfo> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(ArrayList<RoleInfo> roleList) {
+		this.roleList = roleList;
 	}
 	
 	

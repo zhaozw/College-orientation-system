@@ -34,6 +34,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="/yx/assets/css/dorm.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/yx/assets/css/layout.css">
     <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/dorm/hjd.css"/>
     <!-- <link rel="stylesheet" type="text/css" href="/yx/assets/css/all.css"> -->
 
 </head>
@@ -285,10 +287,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div>
                     </div>
                      <div class="row">
-		                <div class="col-sm-8 col-sm-offset-2">
-		                    <button class="btn-success btn" type="submit" id="submit">Submit</button>
-		                    <button class="btn-default btn">Cancel</button>
-		                    <button class="btn-inverse btn">Reset</button>
+		                <div class="col-sm-8 col-sm-offset-3">
+		                  <button class="btn-default btn">Cancel</button>
+		                   <button class="btn-info btn" type="submit" id="submit">Submit</button>
 		                </div>
 		            </div>
                 </form>

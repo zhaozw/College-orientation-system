@@ -1,3 +1,4 @@
+
 package cn.edu.scau.yx.entity;
 
 import java.io.Serializable;
@@ -18,10 +19,12 @@ public class PowerInfo implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private int powerId;
-	private int roleId;
 	private String powerName;
 	private int powerLevel;
 	private String powerDescription;
+	
+	
+	
 	
 	
 	public int getPowerId() {
@@ -29,12 +32,6 @@ public class PowerInfo implements Serializable {
 	}
 	public void setPowerId(int powerId) {
 		this.powerId = powerId;
-	}
-	public int getRoleId() {
-		return roleId;
-	}
-	public void setRoleId(int roleId) {
-		this.roleId = roleId;
 	}
 	public String getPowerName() {
 		return powerName;
@@ -54,10 +51,9 @@ public class PowerInfo implements Serializable {
 	public void setPowerDescription(String powerDescription) {
 		this.powerDescription = powerDescription;
 	}
-	
-	
-	
-	
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -69,7 +65,7 @@ public class PowerInfo implements Serializable {
 		result = prime * result + powerLevel;
 		result = prime * result
 				+ ((powerName == null) ? 0 : powerName.hashCode());
-		result = prime * result + roleId;
+		result = prime * result ;
 		return result;
 	}
 	@Override
@@ -95,13 +91,12 @@ public class PowerInfo implements Serializable {
 				return false;
 		} else if (!powerName.equals(other.powerName))
 			return false;
-		if (roleId != other.roleId)
-			return false;
+	
 		return true;
 	}
 	@Override
 	public String toString() {
-		return "PowerInfo [powerId=" + powerId + ", roleId=" + roleId
+		return "PowerInfo [powerId=" + powerId + ", roleId=" 
 				+ ", powerName=" + powerName + ", powerLevel=" + powerLevel
 				+ ", powerDescription=" + powerDescription + "]";
 	}

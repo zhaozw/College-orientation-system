@@ -33,7 +33,7 @@ public interface ProblemsMapper {
 	 * @param problemsId
 	 * @return
 	 */
-	int updateContentById(int problemsId);
+	int updateContentById(@Param("problemsId") int problemsId,@Param("problems") Problems problems);
 	
 	/**
 	 * 根据id查询咨询内容，进行“详情”操作的时候用到该查询

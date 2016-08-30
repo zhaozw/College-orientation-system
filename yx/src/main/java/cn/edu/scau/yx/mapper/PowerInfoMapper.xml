@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.PowerInfoMapper">
+
+
+	<select id="findPowerListByName" parameterType="String"
+		resultType="PowerInfo">
+		<bind name="powerName" value="'%' + _parameter + '%'" />
+		select
+			pi.power_id 'powerId',
+			pi.power_name 'powerName',
+			pi.power_level 'powerLevel',
+			pi.power_description 'powerDescription'
+		from
+			power_info pi
+		where
+			power_name like #{powerName}
+	</select>
+
+
+
+
+
+	<select id="findByPowerId" parameterType="int" resultType="PowerInfo">
+		SELECT *
+		FROM power_info WHERE power_id = #{powerId);
+	</select>
+
+	<delete id="deletePowerInfo" parameterType="int">
+		DELETE FROM power_info WHERE power_id =#{powerId}
+	</delete>
+
+	<update id="updatePowerInfo" parameterType="PowerInfo">
+		UPDATE power_info
+		<set>
+			<if test="powerId != null">
+				power_id = #{powerId},
+			</if>
+			<if test="powerName != null">
+				power_name = #{powerName},
+			</if>
+			<if test="powerLevel != null">
+				power_level = #{powerLevel},
+			</if>
+			<if test="powerDescription != null">
+				power_description = #{powerDescription}
+			</if>
+		</set>
+		WHERE power_id = #{powerId}
+	</update>
+
+	<insert id="insertPowerInfo" parameterType="PowerInfo">
+		INSERT INTO
+		power_info(power_id,power_name,power_level,power_description)
+		VALUES(#{powerId}, #{powerName},
+		#{powerLevel},#{powerDescription})
+	</insert>
+
+	<select id="viewPowerInfo" resultType="powerInfo">
+		SELECT *
+		FROM power_info
+	</select>
+</mapper>

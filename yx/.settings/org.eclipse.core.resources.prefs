@@ -1,8 +1,14 @@
 eclipse.preferences.version=1
-encoding//src/main/webapp/WEB-INF/views/advisory/freshman_consult.html=UTF-8
-encoding//src/main/webapp/WEB-INF/views/advisory/view_consult/list.jsp=UTF-8
+encoding//src/main/java/cn/edu/scau/yx/dao/GradeMapper.java=UTF-8
+encoding//src/main/java/cn/edu/scau/yx/service/impl/GradeServiceImpl.java=UTF-8
+encoding//src/main/webapp/WEB-INF/views/dormAndAsk/view_consult/search_consult.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/welcome/cardManagement.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/welcome/fileSubmission.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/welcome/militarySuppliesManagement.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/welcome/registerAndReport.jsp=UTF-8
 encoding//src/main/webapp/WEB-INF/views/welcome/sitePayment.jsp=UTF-8
+<<<<<<< HEAD
+encoding//src/main/webapp/layout/layout.jsp=UTF-8
+=======
+encoding/<project>=UTF-8
+>>>>>>> branch 'master' of https://github.com/1136535305/yx.git

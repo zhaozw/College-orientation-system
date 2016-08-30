@@ -1,7 +1,9 @@
 package cn.edu.scau.yx.service.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.scau.yx.entity.Department;
 import cn.edu.scau.yx.entity.Grade;
 
 /**
@@ -18,7 +20,14 @@ public interface GradeService {
 	 * @param gdname 要查找的年级名
 	 * @return 年级实体
 	 */
-	List<Grade> findByGradeName(String gdname);
+	List<Grade> findByName(String gdname);
+	
+	/**
+	 * 根据输入的id查找年级
+	 * @param gdid 要查找的年级id
+	 * @return 年级实体
+	 */
+	public Grade findById(int gdid);
 	
 	/**
 	 * 根据输入的年级信息添加到数据库
@@ -40,4 +49,6 @@ public interface GradeService {
 	 * @return
 	 */
 	Boolean deleteGrade(int gdid);
+
+	ArrayList<Grade> findAllGrade();
 }

@@ -7,7 +7,10 @@
  */
 package cn.edu.scau.yx.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import cn.edu.scau.yx.entity.Major;
 
@@ -20,13 +23,17 @@ import cn.edu.scau.yx.entity.Major;
  */
 public interface MajorMapper {
 	
-	List<Major> findByMajorName(String mjname);
+	List<Major> findByName(@Param("mjname")String mjname);
 	
-	//Class findByClassName(String mjname);
+	Major findById(int mjid);
 	
 	int deleteMajor(int mjid);
 	
 	int insertMajor(Major major);
 	
 	int updateMajor(Major major);
+	
+	ArrayList<String> findAllMajorNameByDeaprtmentName(String departmentName);
+	
+	ArrayList<Major> findMajorsByDepartment(@Param("departmentId")int departmentId);
 }

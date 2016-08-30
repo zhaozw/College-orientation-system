@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.weibo.dao.VistorDao">
+<insert id="insertVistor" parameterType="Vistor" >
+  	INSERT INTO notice_user(nu_id,nu_name, nu_phone, nu_email, nu_create_date)
+	VALUES (#{nuId},#{nuName},#{nuPhone},#{nuEmail},#{nuCreateDate})
+  </insert>
+
+<delete id="delVistorById" parameterType="int">
+		DELETE
+		FROM
+			notice_user
+		WHERE
+			nu_id = #{ciId}
+	</delete>
+</mapper>

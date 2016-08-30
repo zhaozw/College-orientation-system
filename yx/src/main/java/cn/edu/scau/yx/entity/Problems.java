@@ -2,6 +2,8 @@ package cn.edu.scau.yx.entity;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 /**
  * 问题咨询实体（对应着problems表）
  * @author Wongsir 2016年8月17日21:02:33
@@ -11,6 +13,7 @@ public class Problems {
 
 	private int problemsId; //咨询问题id
 //	private int userId; //咨询用户id
+	//@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")  
 	private Date time;//咨询时间
 	private String content;//咨询内容
 //	private int problemsThemeId;//问题类型id
@@ -18,6 +21,7 @@ public class Problems {
 	private String authority;//权限状态，默认“不限”
 	private int isDel;//是否删除，默认“0：未删除”，1为删除状态
 	private String answer;//回复内容
+	//@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") 
 	private Date ansTime;//回复时间
 //	private int ansPersonId;//回复人id
 	

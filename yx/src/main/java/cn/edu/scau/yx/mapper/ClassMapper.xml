@@ -14,10 +14,51 @@
   </select>
 --> 
   
-  <select id="findByClassName" parameterType="String" resultType="Class" >
+  <select id="findByName" parameterType="String" resultType="Class" >
+  <bind name="clname" value="'%' + clname + '%'"/>
+  	SELECT
+		w.id,
+		w.clname `name`,
+		w.teacher,
+		w.clstu_num `stu_num`,
+		w.grade_id "grade.id",
+		w.grname "grade.name",
+		w.grstu_num "grade.stuNum",
+		w.major_id "major.id",
+		w.maname "major.name",
+		w.introduce "major.introduce"
+	FROM
+		(
+			SELECT
+				cl.id,
+				cl.`name` AS clname,
+				cl.teacher,
+				cl.stu_num AS clstu_num,
+				cl.grade_id,
+				gr.`name` AS grname,
+				gr.stu_num AS grstu_num,
+				cl.major_id,
+				ma.`name` AS maname,
+				ma.introduce,
+				ma.department_id
+			FROM
+				class cl
+			LEFT JOIN grade gr ON cl.grade_id = gr.id
+			LEFT JOIN major ma ON cl.major_id = ma.id
+			ORDER BY cl.id DESC
+		) w
+	<where>
+		<if test="clname !=null and clname != ''">
+        w.clname like #{clname}
+		</if>
+	</where>
+  </select>
+  
+   <select id="findById" parameterType="int" resultType="Class" >
   	SELECT
 		w.id,
 		w.clname,
+		w.teacher,
 		w.clstu_num,
 		w.grade_id "grade.id",
 		w.grname "grade.name",
@@ -46,8 +87,8 @@
 			ORDER BY cl.id DESC
 		) w
 	<where>
-		<if test="clname !=null and clname != ''">
-        w.clname like #{clname}
+		<if test="clid !=null and clid != ''">
+        w.id = #{clid}
 		</if>
 	</where>
   </select>
@@ -62,19 +103,19 @@
   </insert>
   
    <update id="updateClass" parameterType="Class" >
-  	UPDATE department 
+  	UPDATE class
   	<set>
   		<if test="name != null">
   			name = #{name},
   		</if>
   		<if test="teacher != null">
-  	 		teacher = #{teacher}
+  	 		teacher = #{teacher},
   		</if>
   		<if test="stuNum != null">
-  	 		stu_num = #{stuNum}
+  	 		stu_num = #{stuNum},
   		</if>
   		<if test="major.id != null">
-  	 		major_id = #{major.id}
+  	 		major_id = #{major.id},
   		</if>
   		<if test="grade.id != null">
   	 		grade_id = #{grade.id}
@@ -82,4 +123,56 @@
   	</set>
   	WHERE id = #{id}
   </update>
+  
+  <select id="findAllClassNameByMajorName" resultType="String">
+         select 
+           		c.name
+           from  
+                	 class 			      c 
+                left join  major          m    on  m.id    =      c.major_id
+            where
+                m.name   =   #{majorName}
+  </select>
+  
+  <select id="findClass" parameterType="int" resultType="Class" >
+  	SELECT
+		w.id,
+		w.clname `name`,
+		w.teacher,
+		w.clstu_num `stu_num`,
+		w.grade_id "grade.id",
+		w.grname "grade.name",
+		w.grstu_num "grade.stuNum",
+		w.major_id "major.id",
+		w.maname "major.name",
+		w.introduce "major.introduce"
+	FROM
+		(
+			SELECT
+				cl.id,
+				cl.`name` AS clname,
+				cl.teacher,
+				cl.stu_num AS clstu_num,
+				cl.grade_id,
+				gr.`name` AS grname,
+				gr.stu_num AS grstu_num,
+				cl.major_id,
+				ma.`name` AS maname,
+				ma.introduce,
+				ma.department_id
+			FROM
+				class cl
+			LEFT JOIN grade gr ON cl.grade_id = gr.id
+			LEFT JOIN major ma ON cl.major_id = ma.id
+			ORDER BY cl.id DESC
+		) w
+	<where>
+		<if test="majorId !=null">
+        w.major_id = #{majorId}
+		</if>
+		<if test="gradeId !=null">
+        AND w.grade_id = #{gradeId}
+		</if>
+	</where>
+  </select>  
 </mapper>

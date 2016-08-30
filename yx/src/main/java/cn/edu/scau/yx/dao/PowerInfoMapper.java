@@ -1,9 +1,8 @@
-/**
- * 
- * Copyright 2016 hwadee.com Co.,Ltd. All Rights Reserved.
- * 
- */
 package cn.edu.scau.yx.dao;
+
+import java.util.ArrayList;
+
+import org.apache.ibatis.annotations.Param;
 
 import cn.edu.scau.yx.entity.PowerInfo;
 
@@ -19,6 +18,14 @@ import cn.edu.scau.yx.entity.PowerInfo;
 public interface PowerInfoMapper {
 
 	PowerInfo findByPowerId (int powerId);
+
+	int deletePowerInfo(int powerId);
 	
-	int reg (PowerInfo powerInfo);
+	int insertPowerInfo(PowerInfo powerInfo);
+	
+	int updatePowerInfo(PowerInfo powerInfo);
+	
+	ArrayList<PowerInfo> viewPowerInfo();
+	
+	ArrayList<PowerInfo>  findPowerListByName(String powerName);
 }

@@ -34,4 +34,7 @@ public interface ProblemsService {
 	 */
 	List<Problems> getListByCondition(String audit,String authority,String keyWord);
 	
+	//回复
+	int replyById(int problemsId,Problems problems);
+	
 }

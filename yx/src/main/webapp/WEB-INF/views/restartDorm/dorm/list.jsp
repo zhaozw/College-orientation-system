@@ -5,7 +5,7 @@
 <html>
 <head>
     <title>Home</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template,
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
@@ -35,6 +35,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="/yx/assets/css/dorm.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/yx/assets/css/layout.css">
     <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/dorm/hjd.css"/>
     <!-- <link rel="stylesheet" type="text/css" href="/yx/assets/css/all.css"> -->
 
 </head>
@@ -51,7 +53,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </button>
             <a class="navbar-brand" href="../cd_index.html">迎新系统</a>
         </div>
-        
+        <ul class="user-menu">
+        <li class="dropdown pull-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            User
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-user"></span>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-cog"></span>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
@@ -227,7 +257,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <!-- 以上为头部及左导航栏 -->
 
-
+<div class="container-fluid">
     <div id="page-wrapper">
         <div class="center-cont">
             <!--<h2 class="center_h2"><a href="#">宿舍区信息管理</a> &raquo; <a href="#" class="active">宿舍区信息列表</a></h2>-->
@@ -243,11 +273,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
             </div>
             
-            
-            
-            
-            
-            <div class="panel panel-warning" style="border-color: #5bc0b2;" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="">
+            <div class="col_1"  style="margin-top:-3em">
+            <div class="col-md-12">
+            <div class="panel panel-warning" style="border-color: #5bc0b2;" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="" >
             <div class="panel-heading" style="background-color: #5bc0de;border-color: #5bc0b2;">
               <h2>下面是宿舍基本信息列表</h2>
               <div class="panel-ctrls" data-actions-container="" data-action-collapse="{&quot;target&quot;: &quot;.panel-body&quot;}">
@@ -262,10 +290,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                   <tr class="success">
                     <th>
                        <input type="checkbox" class="checkbox" onclick="$('input[name*=\'check\']').prop('checked',this.checked);" />
-                    </th>
+                    </th> 
                     <th>宿舍区</th>
-                    <th>楼栋号(/栋)</th>
-                    <th>楼层号(/楼)</th>
+                    <th>楼栋号</th>
+                    <th>楼层号</th>
                     <th>宿舍号</th>
                     <th>操作</th>
                   </tr>
@@ -273,7 +301,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 <tbody>
                 <c:forEach var="d" items="${list}">
                   <tr>
-                    <td>
+                   <td>
                       <input name="check" type="checkbox" class="checkbox">
                     </td>
                     <td>${d.areaName}</td>
@@ -284,7 +312,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                       <!-- <a type="button" class="btn-info btn-sm btn details" href="#" 
                       data-toggle="modal" data-target="#detail" detailId="${pb.problemsId}" 
               	>详情</a>  -->
-                      <a type="button" class="btn-info btn-sm btn dels" href="#" 
+                      <a type="button" class="btn-danger btn-sm btn dels" href="#" 
                       data-toggle="modal" data-target="#del"  delId1="${d.areaId}" 
                       delId2="${d.buildingId}" delId3="${d.floorId}" delId4="${d.dormId}">删除</a>
                     </td>
@@ -345,6 +373,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               </nav>
 
             </div>
+            </div>
+        </div>
+            <div class="clearfix"></div>
           </div>       
 
             <!-- 4 -->
@@ -370,7 +401,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
         </div>
     </div>
-
+    </div>
 
 
 

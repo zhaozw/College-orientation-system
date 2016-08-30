@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.StudentStatusMapper">
+  
+   <update id="updateStudentStatusByStuId" parameterType="StudentStatus">
+		UPDATE 
+		    student_status
+	<set>
+  		<if test="printReport != 0">
+  			print_report = #{printReport},
+  		</if>
+  		<if test="oneCard != 0">
+  	 		one_card = #{oneCard},
+  		</if>
+  		<if test="medicalInsurance != 0">
+  	 		medical_insurance = #{medicalInsurance},
+  		</if>
+  		<if test="register != 0">
+  	 		register = #{register},
+  		</if>
+  		<if test="fileSubmit != 0">
+  	 		file_submit = #{fileSubmit},
+  		</if>
+  		<if test="getKey != 0">
+  	 		getkey = #{getKey}
+  		</if>
+  		<if test="militaryReceive != 0">
+  	 		military_receive = #{militaryReceive}
+  		</if>
+  	</set>
+		WHERE
+			student_id = #{studentId};
+	</update>
+  
+</mapper>

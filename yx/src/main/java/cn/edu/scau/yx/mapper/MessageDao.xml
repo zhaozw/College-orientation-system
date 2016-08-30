@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.MessageDao">
+  
+  <select id="findById" parameterType="int" resultType="Message">
+  	SELECT pi_id,ci_id, pi_title, ai_id, pi_date,pi_content 
+  	FROM publish_info 
+  	WHERE pi_id = #{piId}
+  </select>
+  
+  <select id="findAll">
+		SELECT
+			pi_id,
+			ci_id,
+			pi_title,
+			ai_id,
+			pi_date
+		FROM
+			publish_info
+	</select>
+	
+  <select id="findByMessageTitle" parameterType="String" resultType="Message">
+   <bind name="piTitle" value="'%' + piTitle + '%'"/>
+		SELECT
+			pi_id,
+			ci_id,
+			pi_title,
+			ai_id,
+			pi_date,
+			pi_content
+		FROM
+			publish_info
+	<where>
+		<if test="piTitle !=null and piTitle != ''">
+        pi_title like #{piTitle}
+		</if>
+	</where>		
+	</select>
+	
+	<insert id="insertMessage" parameterType="Message" >
+  	INSERT INTO publish_info(ci_id, pi_title, pi_date,pi_content)
+	VALUES (#{ciId},#{piTitle},NOW(),#{piContent})
+  </insert>
+  
+  <delete id="delMessageById" parameterType="int">
+		DELETE
+		FROM
+			publish_info
+		WHERE
+			pi_id = #{piId}
+	</delete>
+	
+  <update id="updateMessage" parameterType="Message">
+		UPDATE publish_info
+		SET pi_id=#{piId},
+		ci_id=#{ciId}, 
+		pi_title=#{piTitle}, 
+<!-- 		ai_id=#{aiId},  -->
+		pi_date=NOW(),
+		pi_content=#{piContent}
+		WHERE
+			pi_id = #{piId};
+	</update>
+  
+</mapper>

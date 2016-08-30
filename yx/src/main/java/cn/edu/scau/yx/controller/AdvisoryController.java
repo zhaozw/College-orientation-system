@@ -2,20 +2,17 @@ package cn.edu.scau.yx.controller;
 
 
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.edu.scau.yx.entity.Problems;
-import cn.edu.scau.yx.entity.ProblemsTheme;
 import cn.edu.scau.yx.entity.UserInfo;
 import cn.edu.scau.yx.service.interfaces.ProblemsService;
 
@@ -71,6 +68,23 @@ public class AdvisoryController {
 	public int del(@PathVariable("problemsId") int problemsId){
 		int delCount=problemsService.delById(problemsId);
 		return delCount;
+	}
+	
+	//回复咨询
+	@RequestMapping(value="/{replyId}/reply",method=RequestMethod.POST)
+	public @ResponseBody int reply(@PathVariable("replyId") Integer replyId,String audit,String authority,String answer,String ansPersonId){
+		
+		Problems problems =new Problems();
+		UserInfo user=new UserInfo();
+		user.setUserId(Integer.parseInt(ansPersonId));
+		problems.setAudit(audit);
+		problems.setAuthority(authority);
+		problems.setAnswer(answer);
+		problems.setUserInfoAns(user);
+		problems.setProblemsId(replyId);
+		
+		int updateCount = problemsService.replyById(Integer.valueOf(replyId),problems);
+		return updateCount;
 	}
 	
 	/*//删除时重新加载数据

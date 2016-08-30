@@ -16,6 +16,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   <link href='http://fonts.useso.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
   <script src="/yx/assets/js/bootstrap.min.js"></script>
   <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+  <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/yjq.css"/>
   <link href="/yx/assets/css/bootstrapValidator.min.css" rel="stylesheet">
   <script src="/yx/assets/js/bootstrapValidator.min.js"></script>
 
@@ -39,7 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               },
               name: {
                   validators: {
-                       notEmpty: {nmessage: '学生号不能为空'}
+                       notEmpty: {message: '学生号不能为空'}
                               }
                     }
           }
@@ -49,24 +50,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		     var stuId=$("#stuId").val();
 		     var url="/yx/welcome/load1/"+stuId+"/"+name;
 		        $.get(url,function(data){    
-		          var tr=$("<tr></tr>");
-		              tr.append($("<td></td>").html("1"));
-		              tr.append($("<td></td>").html(data.id));
-		              tr.append($("<td></td>").html(data.class1.name));
-		              tr.append($("<td></td>").html(data.stuId));
-		              tr.append($("<td></td>").html(data.studentName));
-		              tr.append($("<td></td>").html(data.age));
-		              tr.append($("<td></td>").html('<a type="button" class="btn-info btn-sm btn">报到</a>'));
-		              tr.append($("<td></td>").html('<a type="button" class="btn-info btn-sm btn">打印</a>'));
-		          
-		      var tbody=$("#page-wrapper > div > div > div > fieldset > div.panel.panel-warning > div.panel-body.no-padding > table > tbody");
-		          tbody.empty("tr");
-		          tbody.append(tr);
-		          
-		          var insert=$("#page-wrapper > div > div > div > fieldset > div.clearfix");
-		          $("#insert").remove();
-		          var info=$('<div id="insert" class="alert alert-success" role="alert"></div>').html('<strong>查询成功!</strong>');
-		          insert.after(info); 
+		        dataDeal(data);
 		        },"json");
 			
 		});
@@ -95,29 +79,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   	       var id=$("#id").val();
   	        var url="/yx/welcome/load2/"+id;
   	        $.get(url,function(data){   
-  	        	
-  	        	        	
-  	          var tr=$("<tr></tr>");
-  	          tr.append($("<td></td>").html("1"));
-  	          tr.append($("<td></td>").html(data.id));
-  	          tr.append($("<td></td>").html(data.class1.name));
-  	          tr.append($("<td></td>").html(data.stuId));
-  	          tr.append($("<td></td>").html(data.studentName));
-  	          tr.append($("<td></td>").html(data.age));
-  	          tr.append($("<td></td>").html('<a type="button" class="btn-info btn-sm btn">报到</a>'));
-  	          tr.append($("<td></td>").html('<a type="button" class="btn-info btn-sm btn">打印</a>'));
-  	            
-  	          var tbody=$("#page-wrapper > div > div > div > fieldset > div.panel.panel-warning > div.panel-body.no-padding > table > tbody");
-  	          tbody.empty("tr");
-  	          tbody.append(tr);
-  	          
-  	          
-  	          var insert=$("#page-wrapper > div > div > div > fieldset > div.clearfix");
-  	          $("#insert").remove();
-  	          var info=$('<div id="insert" class="alert alert-success" role="alert"></div>').html('<strong>查询成功!</strong>');
-  	          insert.after(info); 
-  	         
-  	          
+  	        	dataDeal(data);
   	        },"json");
   	        
   			
@@ -126,7 +88,67 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
       
       
 });
+  
+  
+  
+  function dataDeal(data){
+	  var tbody=$("#page-wrapper > div > div > div > fieldset > div.panel.panel-warning > div.panel-body.no-padding > table > tbody");
+	  var insert=$("#page-wrapper > div > div > div > fieldset > div.clearfix");
+	      tbody.empty("tr");
+	      $("#insert").remove();
+	      
+	      
+       if(data.resultMessage=="fail"){
+           var info=$('<div id="insert" class="alert alert-danger" role="alert"></div>').html('<strong>查询失败！</strong>查无此人！');
+               insert.after(info); 
+    	   return;
+       }	
+	  
+	  
+    var tr=$("<tr></tr>");
+        tr.append($("<td></td>").html("1"));
+        tr.append($("<td></td>").html(data.id));
+        tr.append($("<td></td>").html(data.class1.name));
+        tr.append($("<td></td>").html(data.stuId));
+        tr.append($("<td></td>").html(data.studentName));
+        tr.append($("<td></td>").html(data.age));
+        
+        
+        if (data.studentStatus.printReport == 0) {
+            var printReportStatus = "未打印";
+            tr.append($("<td></td>").attr("id", data.stuId).html(printReportStatus));
+            tr.append($("<td></td>").attr("id", 'btnId' + data.stuId).html("<a type='button' class='btn-info btn-sm btn'  onclick='updatePrintReportStatusByStuId(" + data.stuId + ")'>打印</a>"));
 
+        } else {
+
+            var printReportStatus = "已打印";
+            tr.append($("<td></td>").html(printReportStatus));
+            tr.append($("<td></td>").html('<a type="button" class="btn-info btn-sm btn" disabled=“disabled”>打印</a>'));
+
+        }
+        
+        
+        
+        tbody.append(tr);
+        
+        
+        var info=$('<div id="insert" class="alert alert-success" role="alert"></div>').html('<strong>查询成功!</strong>');
+        insert.after(info); 
+       
+  }
+
+  
+  
+  function updatePrintReportStatusByStuId(stuId){
+	  var url = "/yx/welcome/updatePrintReportStatusByStuId" + "/" + stuId;
+	    $.get(url,
+	    function(data) {
+	        $("#" + stuId).html("已打印");
+	        $("#btnId" + stuId + " > " + "a").attr("disabled", "disabled");
+	    },
+	    "text");
+	  
+  }
 </script>
 
 </head>
@@ -180,134 +202,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="navbar-default sidebar" style="min-height:48em;margin-top:0px;" role="navigation">
       <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
-          <li>
-            <a href="index.html">
-              <span class="glyphicon glyphicon-list-alt"></span>
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-print"></span>
-              Layouts
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="grids.html">Grid System</a>
-              </li>
-            </ul>
-            </li>
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-tint"></span>
-              Menu Levels
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="graphs.html">Graphs</a>
-              </li>
-              <li>
-                <a href="typography.html">Typography</a>
-              </li>
-            </ul>
-           </li>
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-plane"></span>
-              Mailbox
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="inbox.html">Inbox</a>
-              </li>
-              <li>
-                <a href="compose.html">Compose email</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="widgets.html">
-              <span class="glyphicon glyphicon-folder-open"></span>
-              Widgets
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-th"></span>
-              Forms
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="forms.html">Basic Forms</a>
-              </li>
-              <li>
-                <a href="validation.html">Validation</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-flash"></span>
-              Tables
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="basic_tables.html">Basic Tables</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-credit-card"></span>
-              Css
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="media.html">Media</a>
-              </li>
-              <li>
-                <a href="login.html">Login</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <span class="glyphicon glyphicon-th"></span>
-                                         现场迎新管理
-              <span class="fa arrow"/>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="/yx/welcome/checkIn">登记报到单打印状态</a>
-              </li>
-              <li>
-                <a href="/yx/welcome/militarySuppliesManagement">军训用品发送管理</a>
-              </li>
-              <li>
-                <a href="/yx/welcome/cardManagement">一卡通发放管理</a>
-              </li>
-              <li>
-                <a href="/yx/welcome/medicareManagment">医保办理管理</a>
-              </li>
-              <li>
-                <a href="/yx/welcome/sitePayment">现场缴费管理</a>
-              </li>
-              <li>
-                <a href="/yx/welcome/registerAndReport">注册报到管理</a>
-              </li>
-              <li>
-
-                <a href="/yx/welcome/fileSubmission">档案提交管理</a>
-              </li>
-
-            </ul>
-          </li>
+        	<%@ include  file="/layout/layout.jsp"%>
         </ul>
       </div>
     </div>
@@ -409,7 +304,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         <th>学生编号</th>
                         <th>学生姓名</th>
                         <th>年龄</th>
-                        <th>操作</th>
+                        <th>状态</th>
                         <th>操作</th>
                       </tr>
                     </thead>

@@ -5,13 +5,36 @@
 <mapper namespace="cn.edu.scau.yx.dao.DepartmentMapper">
   
   <select id="departmentCount"  resultType="int">
-  	SELECT
-		COUNT(d.id)
-	FROM
+  	select
+		count(d.id)
+	from
 		department d
   </select>
   
-  <select id="findByDepartmentName" parameterType="String" resultType="Department" >
+  <select id="findAllDepartmentName" resultType="String">
+     select
+        name
+     from 
+        department
+  </select>
+  
+  <select id="findAllDepartment" resultType="Department">
+     select
+		d.id,
+		d.name,
+		d.president,
+		d.vice_president,
+		d.address,
+		d.phone,
+		d.zip_code,
+		d.network_address,
+		d.description
+     from 
+        department d
+  </select>  
+  
+  <select id="findByName" parameterType="string" resultType="Department" >
+  <bind name="dpname" value="'%' + dpname + '%'"/>
   	SELECT
 		d.id,
 		d.name,
@@ -27,6 +50,26 @@
 	<where>
 		<if test="dpname !=null and dpname != ''">
         d.name like #{dpname}
+		</if>
+	</where>
+  </select>
+  
+    <select id="findById" parameterType="int" resultType="Department" >
+  	SELECT
+		d.id,
+		d.name,
+		d.president,
+		d.vice_president,
+		d.address,
+		d.phone,
+		d.zip_code,
+		d.network_address,
+		d.description
+	FROM
+		department d
+	<where>
+		<if test="dpid !=null and dpid != ''">
+        d.id = {dpid}
 		</if>
 	</where>
   </select>
@@ -47,22 +90,22 @@
   			name = #{name},
   		</if>
   		<if test="president != null">
-  	 		president = #{president}
+  	 		president = #{president},
   		</if>
   		<if test="vicePresident != null">
-  	 		vice_president = #{vicePresident}
+  	 		vice_president = #{vicePresident},
   		</if>
   		<if test="address != null">
-  	 		address = #{address}
+  	 		address = #{address},
   		</if>
   		<if test="phone != null">
-  	 		phone = #{phone}
+  	 		phone = #{phone},
   		</if>
   		<if test="zipCode != null">
-  	 		zip_code = #{zipCode}
+  	 		zip_code = #{zipCode},
   		</if>
   		<if test="networkAddress != null">
-  	 		network_address = #{networkAddress}
+  	 		network_address = #{networkAddress},
   		</if>
   		<if test="description != null">
   	 		description = #{description}

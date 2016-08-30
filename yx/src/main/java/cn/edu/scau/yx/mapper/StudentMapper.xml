@@ -11,15 +11,19 @@
 				s.student_name,
 				s.stu_id,
 				s.age,
+				ss.print_report           'studentStatus.printReport',
 				c.name                    'class1.name'
 				
 			 from  
                 	 student 			  s 
                 left join  class  		  c    on  s.class_id       = 	 c.id
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
 			where 
 	 			s.stu_id		 = #{stuId} and 
 	 			s.student_name = #{studentName}
   </select>
+  
+
   
   <select id="findById"  parameterType="Student" resultType="Student">
             SELECT
@@ -27,19 +31,275 @@
 				s.student_name,
 				s.stu_id,
 				s.age,
+			    ss.print_report           'studentStatus.printReport',
 				c.name                    'class1.name'
 				
 			 from  
                 	 student 			  s 
                 left join  class  		  c    on  s.class_id       = 	 c.id
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
 			where 
 	 			s.id = #{id}
   </select>
  
+  <select id="findByName" parameterType="String" resultType="Student" >
+  <bind name="stuname" value="'%' + stuname + '%'"/>
+  	SELECT
+		w.stu_id,
+		w.stuname `name`,
+		w.stuid `id`,
+		w.age,
+		w.people,
+		w.birthdate,
+		w.home,
+		w.phone_number,
+		w.father_name,
+		w.father_work,
+		w.father_phone,
+		w.mother_name,
+		w.mother_work,
+		w.mother_phone,
+		w.class_id "class1.id",
+		w.clname "class1.name",
+		w.grade_id "class1.grade.id",
+		w.grname "class1.grade.name",
+		w.major_id "class1.major.id",
+		w.maname "class1.major.name",
+		w.department_id "class1.major.department.id",
+		w.dename "class1.major.department.name"
+	FROM
+		(
+			SELECT
+		        stu.stu_id,
+		        stu.student_name AS stuname,
+		        stu.id AS stuid,
+		        stu.age,
+		        stu.people,
+		        stu.birthdate,
+		        stu.home,
+		        stu.phone_number,
+		        stu.father_name,
+		        stu.father_work,
+		        stu.father_phone,
+		        stu.mother_name,
+		        stu.mother_work,
+		        stu.mother_phone,
+		        stu.class_id,
+				cl.`name` AS clname,
+				cl.grade_id,
+				gr.`name` AS grname,
+				cl.major_id,
+				ma.`name` AS maname,
+				ma.department_id,
+				de.`name` AS dename
+			FROM
+				student stu
+			LEFT JOIN class cl ON cl.id = stu.class_id
+			LEFT JOIN grade gr ON cl.grade_id = gr.id
+			LEFT JOIN major ma ON cl.major_id = ma.id
+			LEFT JOIN department de ON ma.department_id = de.id
+			ORDER BY stu.stu_id DESC
+		) w
+	<where>
+		<if test="stuname !=null and stuname != ''">
+        w.stuname like #{stuname}
+		</if>
+	</where>
+  </select>
+  
+  <select id="findByClassId" parameterType="int" resultType="Student" >
+  	SELECT
+		w.stu_id,
+		w.stuname `studentName`,
+		w.stuid `id`,
+		w.age,
+		w.people,
+		w.birthdate,
+		w.home,
+		w.phone_number,
+		w.father_name,
+		w.father_work,
+		w.father_phone,
+		w.mother_name,
+		w.mother_work,
+		w.mother_phone,
+		w.class_id "class1.id",
+		w.clname "class1.name",
+		w.grade_id "class1.grade.id",
+		w.grname "class1.grade.name",
+		w.major_id "class1.major.id",
+		w.maname "class1.major.name",
+		w.department_id "class1.major.department.id",
+		w.dename "class1.major.department.name"
+	FROM
+		(
+			SELECT
+		        stu.stu_id,
+		        stu.student_name AS stuname,
+		        stu.id AS stuid,
+		        stu.age,
+		        stu.people,
+		        stu.birthdate,
+		        stu.home,
+		        stu.phone_number,
+		        stu.father_name,
+		        stu.father_work,
+		        stu.father_phone,
+		        stu.mother_name,
+		        stu.mother_work,
+		        stu.mother_phone,
+		        stu.class_id,
+				cl.`name` AS clname,
+				cl.grade_id,
+				gr.`name` AS grname,
+				cl.major_id,
+				ma.`name` AS maname,
+				ma.department_id,
+				de.`name` AS dename
+			FROM
+				student stu
+			LEFT JOIN class cl ON cl.id = stu.class_id
+			LEFT JOIN grade gr ON cl.grade_id = gr.id
+			LEFT JOIN major ma ON cl.major_id = ma.id
+			LEFT JOIN department de ON ma.department_id = de.id
+			ORDER BY stu.stu_id DESC
+		) w
+		
+	<where>
+		<if test="clid !=null">
+        w.class_id = #{clid}
+		</if>
+	</where>
+  </select>
+  
+    <select id="findByStudentId" parameterType="int" resultType="Student" >
+  	SELECT
+		w.stu_id,
+		w.stuname `studentName`,
+		w.stuid `id`,
+		w.age,
+		w.people,
+		w.birthdate,
+		w.home,
+		w.phone_number,
+		w.father_name,
+		w.father_work,
+		w.father_phone,
+		w.mother_name,
+		w.mother_work,
+		w.mother_phone,
+		w.class_id "class1.id",
+		w.clname "class1.name",
+		w.grade_id "class1.grade.id",
+		w.grname "class1.grade.name",
+		w.major_id "class1.major.id",
+		w.maname "class1.major.name",
+		w.department_id "class1.major.department.id",
+		w.dename "class1.major.department.name"
+	FROM
+		(
+			SELECT
+		        stu.stu_id,
+		        stu.student_name AS stuname,
+		        stu.id AS stuid,
+		        stu.age,
+		        stu.people,
+		        stu.birthdate,
+		        stu.home,
+		        stu.phone_number,
+		        stu.father_name,
+		        stu.father_work,
+		        stu.father_phone,
+		        stu.mother_name,
+		        stu.mother_work,
+		        stu.mother_phone,
+		        stu.class_id,
+				cl.`name` AS clname,
+				cl.grade_id,
+				gr.`name` AS grname,
+				cl.major_id,
+				ma.`name` AS maname,
+				ma.department_id,
+				de.`name` AS dename
+			FROM
+				student stu
+			LEFT JOIN class cl ON cl.id = stu.class_id
+			LEFT JOIN grade gr ON cl.grade_id = gr.id
+			LEFT JOIN major ma ON cl.major_id = ma.id
+			LEFT JOIN department de ON ma.department_id = de.id
+			ORDER BY stu.stu_id DESC
+		) w
+		
+	WHERE
+        w.stu_id = #{stuid}
+
+  </select>
+  
+  <delete id="deleteStudent" parameterType="int" >
+  	DELETE FROM student WHERE stu_id=#{stuid}
+  </delete>
+  
+  <insert id="insertStudent" parameterType="Student" useGeneratedKeys="true">
+  	INSERT INTO student(stu_id,student_name,id,age,people,birthdate,home,phone_number,father_name,father_work,father_phone,mother_name,mother_work,mother_phone,class_id)
+  	VALUES(#{stuId},#{studentName},#{id},#{age},#{people},#{birthdate},#{home},#{phoneNumber},#{fatherName},#{fatherWork},#{fatherPhone},#{motherName},#{motherWork},#{motherPhone},#{class1.id})
+  </insert>
+  
+   <update id="updateStudent" parameterType="Student" >
+  	UPDATE student
+  	<set>
+  		<if test="studentName != null">
+  	 		student_name = #{studentName},
+  		</if>
+  		<if test="id != null">
+  	 		id = #{id},
+  		</if>
+  		<if test="age != null">
+  	 		age = #{age},
+  		</if>
+  		<if test="people != null">
+  	 		people = #{people},
+  		</if>
+  		<if test="birthdate != null">
+  			birthdate = #{birthdate},
+  		</if>
+  		<if test="home != null">
+  	 		home = #{home},
+  		</if>
+  		<if test="phoneNumber != null">
+  	 		phone_number = #{phoneNumber},
+  		</if>
+  		<if test="fatherName != null">
+  	 		father_name = #{fatherName},
+  		</if>
+  		<if test="fatherWork != null">
+  	 		father_work = #{fatherWork},
+  		</if>
+  		<if test="fatherPhone != null">
+  	 		father_phone = #{fatherPhone},
+  		</if>
+  		<if test="motherName != null">
+  	 		mother_name = #{motherName},
+  		</if>
+  		<if test="motherWork != null">
+  	 		mother_work = #{motherWork},
+  		</if>
+  		<if test="motherPhone != null">
+  	 		mother_phone = #{motherPhone},
+  	 	</if>
+  	 	 <if test="class1.id != null">
+  	 		class_id = #{class1.id},
+  	 	</if>
+  	 	 <if test="clothesSize != null">
+  	 		clothes_size = #{clothesSize}
+  	 	</if>
+  	</set>
+  	WHERE stu_id = #{stuId}
+  </update>
   
   <select id="findOneCardPassStatus"  parameterType="map" resultType="Student">
            select 
            		c.name                   'class1.name',
+           		s.stu_id                 'stuId',
            		s.student_name  ,
            		ocp.one_card_pass_id     'oneCardPass.oneCardPassId' ,
            		ss.one_card              'studentStatus.oneCard'
@@ -60,13 +320,35 @@
   </select>
   
   
+  
+  <select id="findMilitaryReceiveState"  parameterType="map" resultType="Student">
+           select 
+           		c.name                   'class1.name',
+           		s.stu_id                 'stuId',
+           		s.student_name  ,
+           		ss.military_receive      'studentStatus.militaryReceive'
+           from  
+                	       student        s 
+                left join  class  		  c    on  s.class_id       = 	 c.id
+                left join  student_status ss   on  ss.student_id    =    s.stu_id
+                left join  grade          g    on  g.id				=    c.grade_id
+                left join  major          m    on  m.id             =    c.major_id   
+                left join  department     d    on  d.id				=    m.department_id
+            where
+                d.name =    #{department}  and
+                m.name =    #{major}       and
+                g.name= 	#{grade}       and
+                c.name= 	#{Class}
+                
+  </select>
+    
   <select id="findFeeInfoById"  parameterType="map"  resultType="Student">
            select 
            		s.id            ,
+           	    s.stu_id                            'stuId',
            		s.student_name  ,
            		c.name								'class1.name'	       ,
            		ptf.schooling   					'payTheFee.schooling'  ,
-           		ptf.textbooks   					'payTheFee.textbooks'  ,
            		ptf.administrative_fee  			'payTheFee.administrativeFee',
            		ptf.medical_insurance_fee   		'payTheFee.medicalInsuranceFee',
            		ptf.militare_training_clothes_fee   'payTheFee.militaryTrainingClothesFee',
@@ -83,10 +365,10 @@
   <select id="findFeeInfoStuIdAndName"  parameterType="map"  resultType="Student">
            select 
            		s.id            ,
+           	    s.stu_id                            'stuId',
            		s.student_name  ,
            		c.name								'class1.name'	       ,
            		ptf.schooling   					'payTheFee.schooling'  ,
-           		ptf.textbooks   					'payTheFee.textbooks'  ,
            		ptf.administrative_fee  			'payTheFee.administrativeFee',
            		ptf.medical_insurance_fee   		'payTheFee.medicalInsuranceFee',
            		ptf.militare_training_clothes_fee   'payTheFee.militaryTrainingClothesFee',
@@ -151,7 +433,7 @@
   <select id="loadRegisterStateByStuIdAndName"  parameterType="map"  resultType="Student">
            select 
            		s.id            ,
-           		c.name								'class1.name'	       ,
+           		c.name								 'class1.name'	       ,
            		s.stu_id,
            		s.student_name  ,
            		ss.register   					     'studentStatus.register'  

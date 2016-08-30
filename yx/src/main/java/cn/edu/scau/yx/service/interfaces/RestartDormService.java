@@ -2,6 +2,8 @@ package cn.edu.scau.yx.service.interfaces;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.scau.yx.entity.D;
 import cn.edu.scau.yx.entity.DS;
 
@@ -38,4 +40,8 @@ public interface RestartDormService {
 	
 	//根据id修改宿舍学生信息
 	int updateById(int sId,DS ds);
+	
+	////根据条件查询宿舍学生信息列表
+	List<DS> getListByCondition(String areaName,String keyWord);
+	
 }

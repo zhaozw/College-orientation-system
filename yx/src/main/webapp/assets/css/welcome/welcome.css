@@ -1,32 +1,31 @@
 body {
     background-color: #f2f4f8;
     font-size: 14px;
-}/*  整体风格的字体和图标大小 */
+}/*  鏁翠綋椋庢牸鐨勫瓧浣撳拰鍥炬爣澶у皬 */
 
 #wrapper > nav > ul > li > a{
     color: #ffffff;
     text-decoration: none;
-}/* 导航栏上a标签无下划线以及白色风格的文字和图标*/
+}/* 瀵艰埅鏍忎笂a鏍囩鏃犱笅鍒掔嚎浠ュ強鐧借壊椋庢牸鐨勬枃瀛楀拰鍥炬爣*/
 
 
 .navbar-default .navbar-toggle {
     border-color: #fff;
     background-color: #337ab7 !important;
-}/*响应式时宽度不够时的设置*/
+}/*鍝嶅簲寮忔椂瀹藉害涓嶅鏃剁殑璁剧疆*/
 
 
 nav.top1.navbar.navbar-default.navbar-static-top {
     margin-bottom: 0;
-    border-color:#ffffff;
     background-color:#337ab7;
-}/* 导航栏上整体风格*/
+}/* 瀵艰埅鏍忎笂鏁翠綋椋庢牸*/
 
 
 .navbar-default .navbar-brand {
     color: #fff !important;
     font-size: 21px;
     font-weight: 500;
-}/* 导航栏上navbar-brand的整体设置*/
+}/* 瀵艰埅鏍忎笂navbar-brand鐨勬暣浣撹缃�*/
 
 
 .user-menu {
@@ -36,45 +35,44 @@ nav.top1.navbar.navbar-default.navbar-static-top {
     float: right;
     list-style: none;
     padding: 0;
-}/*导航栏上右侧部分的位置距离*/
+}/*瀵艰埅鏍忎笂鍙充晶閮ㄥ垎鐨勪綅缃窛绂�*/
 
 
 #wrapper > nav > ul > li > ul > li > a{
     color:#337ab7;
     font-size: 14px;
-}/*导航栏下拉菜单的列表项的大小和颜色*/
+}/*瀵艰埅鏍忎笅鎷夎彍鍗曠殑鍒楄〃椤圭殑澶у皬鍜岄鑹�*/
 
 
 .navbar-default.sidebar {
     background-color: #ffffff;
-    margin-top:0;
-}/*侧边栏的背景颜色和紧贴顶部导航栏*/
+    margin-top:50px;
+}/*渚ц竟鏍忕殑鑳屾櫙棰滆壊鍜岀揣璐撮《閮ㄥ鑸爮*/
 
 
 .table th, .table td {
     text-align: center;
-}/*表格的标题和内容居中*/
+}/*琛ㄦ牸鐨勬爣棰樺拰鍐呭灞呬腑*/
 
 
 .sidebar ul > li > a {
     color: #337ab7;
-}/*侧边栏上的a标签的颜色风格*/
+}/*渚ц竟鏍忎笂鐨刟鏍囩鐨勯鑹查鏍�*/
 
 
 #side-menu li:hover{
     background-color:#f2f4f8;
-}/*侧边栏上的a标签的颜色风格*/
+}/*渚ц竟鏍忎笂绉诲姩鍒發i鏍囩鏃秎i鑳屾櫙鑹茬殑鍙樺寲鎴愮伆鑹�*/
 
 
 #side-menu li.active{
     background-color:#337ab7;
-    color:#ffffff;
-}/*侧边栏上选中li项时的背景颜色*/
+}/*渚ц竟鏍忎笂閫変腑li椤规椂鐨勮儗鏅鑹�(鑳屾櫙鍙樻垚钃濊壊锛岃�屾枃瀛楀拰鍥炬爣鍙樻垚鐧借壊)*/
 
 
 #side-menu li.active > a{
     color:#ffffff;
-}
+}/*渚ц竟鏍忎笂閫変腑li椤筧鏃剁殑鑳屾櫙棰滆壊(鏂囧瓧鍜屽浘鏍囧彉鎴愮櫧鑹�)*/
 
 
 #side-menu li.active > ul{
@@ -84,8 +82,8 @@ nav.top1.navbar.navbar-default.navbar-static-top {
 
 
 #side-menu li ul{
-    padding-left: 20px;
-}/*侧边栏上选中li的子项整体左移*/
+    padding-left: 0px;
+}/*渚ц竟鏍忎笂閫変腑li鐨勫瓙椤规暣浣撲笉宸︾Щ鑰屾槸瀵归綈*/
 
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
@@ -99,20 +97,20 @@ nav.top1.navbar.navbar-default.navbar-static-top {
     background: #ffffff;
     padding: 38px 15px 15px 15px;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
-}/*卡片式风格的相关属性*/
+}/*鍗＄墖寮忛鏍肩殑鐩稿叧灞炴��*/
 
 
 .r3_counter_box {
     min-height: 0;
-}/*原有的卡片式风格最小高度限制*/
+}/*鍘熸湁鐨勫崱鐗囧紡椋庢牸鏈�灏忛珮搴﹂檺鍒�*/
 
 
 span.input-group-addon.btn:hover{
     background-color:#3399cc;
-}/*移动查询按钮时的背景色变化*/
+}/*绉诲姩鏌ヨ鎸夐挳鏃剁殑鑳屾櫙鑹插彉鍖�*/
 
 
 span.input-group-addon.btn{ 
     color:#ffffff;
     background-color: #5bc0de;
-}/*查询按钮常规设置*/
+}/*鏌ヨ鎸夐挳甯歌璁剧疆*/

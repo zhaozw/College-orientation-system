@@ -1,554 +1,396 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Validation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="keywords" content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+<title>Validation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords"
+	content="Modern Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-  <link href="/yx/assets/css/bootstrap.min.css" rel='stylesheet' type='text/css' />
-  <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
-  <link href="/yx/assets/css/font-awesome.css" rel="stylesheet">
-  <script src="/yx/assets/js/jquery.min.js"></script>
-  <link href='http://fonts.useso.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
-  <script src="/yx/assets/js/bootstrap.min.js"></script>
+<link href="/yx/assets/css/bootstrap.min.css" rel='stylesheet'
+	type='text/css' />
+<link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
+<link href="/yx/assets/css/font-awesome.css" rel="stylesheet">
+<script src="/yx/assets/js/jquery.min.js"></script>
+<script src="/yx/assets/js/bootstrap.min.js"></script>
+<link href="/yx/assets/css/welcome/welcome.css" type="text/css" rel='stylesheet' />
+<link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/yjq.css"/>
 
-  <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+
+<!-- Bootstrap Select链接 -->
+<link href="/yx/assets/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="/yx/assets/js/bootstrap-select.min.js"></script>
+
 <script type="text/javascript">
-function loadInfo(){
-	
-	var college=$("#college").val();
-	var major=$("#major").val();
-	var Class=$("#Class").val();
-	alert(college+major+Class);
-	
-	}
 
+$(function(){
+	
+	 var url = "/yx/welcome/findAllDepartmentName";
+	    $.get(url,
+	    function(data) {
+	    	
+	    	var div1=$("#page-wrapper > div > div.col_1.box > div.col-md-12 > div:nth-child(1) > div > div:nth-child(1) > div");
+	    	var select=$('<select title="== 请选择学院 ==" class="selectpicker form-control" id="department" data-width="fit"></select>');
+	    	div1.empty();
+	    	div1.html(select);
+	    	var options="";
+	    	if(data.length>0){ 
+	    		for(var i=0;i<data.length;i++){ 
+	    			select.append("<option>"+data[i]+"</option>"); 
+	    		}
+	    		
+	    	}
+	    	
+	    
+	    	$('.selectpicker').selectpicker();
+	    	
+	    	$("#department").change(function(){
+	    		majorSelectContentChange();
+	    	});
+	    	
+	    	
+	    	
+	    },
+	    "json");
+	    
+	    
+	    
+	    
+});
+
+
+     function majorSelectContentChange(){
+var url="/yx/welcome/findAllMajorNameByDeaprtmentName/"+$("#department").val();
+$.get(url,
+	    function(data) {
+	
+	var div1=$("#page-wrapper > div > div.col_1.box > div.col-md-12 > div:nth-child(1) > div > div:nth-child(2) > div");
+	var select=$('<select title="== 请选择专业 ==" class="selectpicker form-control" id="major" data-width="fit"></select>');
+	div1.empty();
+	div1.html(select);
+	var options="";
+	if(data.length>0){ 
+		for(var i=0;i<data.length;i++){ 
+			select.append("<option>"+data[i]+"</option>"); 
+		}
+		
+	}
+	
+
+	$('.selectpicker').selectpicker();
+	
+	$("#major").change(function(){
+		classSelectContentChange();
+	});
+	
+	       
+	    },
+	    "json");
+}
+     
+     
+     
+     function classSelectContentChange(){
+   	  var url="/yx/welcome/findAllClassNameByMajorName/"+$("#major").val();
+   	  $.get(url,
+   	  	    function(data) {
+   	  	
+   	  	var div1=$("#page-wrapper > div > div.col_1.box > div.col-md-12 > div:nth-child(1) > div > div:nth-child(4) > div");
+   	  	var select=$('<select title="== 请选择班级 ==" class="selectpicker form-control" id="Class" data-width="fit"></select>');
+   	  	div1.empty();
+   	  	div1.html(select);
+   	  	var options="";
+   	  	if(data.length>0){ 
+   	  		for(var i=0;i<data.length;i++){ 
+   	  			select.append("<option>"+data[i]+"</option>"); 
+   	  		}
+   	  		
+   	  	}
+   	  	
+
+   	  	$('.selectpicker').selectpicker();
+   	  	
+   	  	       
+   	  	    },
+   	  	    "json");
+   	  }
+
+
+
+function loadCardInfo() {
+
+    var college = $("#department").val();
+    var major = $("#major").val();
+    var Class = $("#Class").val();
+    var grade = $("#grade").val();
+
+    var url = "/yx/welcome/loadMilitaryReceiveState/" + college + "/" + major + "/" + grade + "/" + Class;
+    $.get(url,
+    function(data) {
+
+        var tbody = $("#page-wrapper > div > div.col_1 > div.col-md-12 > div.panel.panel-warning > div.panel-body.no-padding > table > tbody");
+        var insert =$("#page-wrapper > div > div.col_1.box > div.col-md-12 > div:nth-child(1)");
+        	tbody.empty("tr");
+        	$("#insert").remove();
+        
+      
+       
+        
+        if(data==null||data.length==0){
+        	var info=$('<div id="insert" class="alert alert-danger" role="alert"></div>').html('<strong>查询失败！</strong>请确认选择项是否正确！');
+        	    insert.after(info);
+        	    
+       	   return;
+        }
+        
+        
+        $.each(data,
+        function(index, student) {
+            var tr = $("<tr></tr>");
+            tr.append($("<td></td>").html(college));
+            tr.append($("<td></td>").html(major));
+            tr.append($("<td></td>").html(grade));
+            tr.append($("<td></td>").html(student.class1.name));
+            tr.append($("<td></td>").html(student.studentName));
+            tr.append($("<td></td>").html("1"));
+            tr.append($("<td></td>").html("1"));
+            tr.append($("<td></td>").html("1"));
+            tr.append($("<td></td>").html("1"));
+
+            if (student.studentStatus.militaryReceive == 0) {
+                var militaryReceive = "未领取";
+                tr.append($("<td></td>").attr("id", student.stuId).html(militaryReceive));
+                tr.append($("<td></td>").attr("id", 'btnId' + student.stuId).html("<a type='button' class='btn-info btn-sm btn'  onclick='updateMiltaryReceiveStatusByStuId(" + student.stuId + ")'>领取</a>"));
+            } else {
+                var militaryReceive = "已领取";
+                tr.append($("<td></td>").html(militaryReceive));
+                tr.append($("<td></td>").html('<a type="button" class="btn-info btn-sm btn" disabled=“disabled”>领取</a>'));
+
+            }
+            tbody.append(tr);
+            
+          
+        });
+        
+        var info=$('<div id="insert" class="alert alert-success" role="alert"></div>').html('<strong>查询成功！</strong>以下是查询到的结果！');
+        insert.after(info);
+
+    },
+    "json");
+
+}
+
+function updateMiltaryReceiveStatusByStuId(stuId) {
+    var url = "/yx/welcome/updateMiltaryReceiveStatusByStuId" + "/" + stuId;
+    $.get(url,
+    function(data) {
+        $("#" + stuId).html("已领取");
+        $("#btnId" + stuId + " > " + "a").attr("disabled", "disabled");
+    },
+    "text");
+}
 </script>
+
+
 </head>
 <body>
-  <div id="wrapper">
-    <!-- Navigation -->
-    <nav class="top1 navbar navbar-default navbar-static-top  navbar-inverse" role="navigation">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.html">迎新系统</a>
-      </div>
-      <!-- /.navbar-header -->
-      <ul class="nav navbar-nav navbar-right">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"> <i class="fa fa-comments-o"></i>
-            <span class="badge">4</span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-menu-header"> <strong>Messages</strong>
-              <div class="progress thin">
-                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                  <span class="sr-only">40% Complete (success)</span>
-                </div>
-              </div>
-            </li>
-            <li class="avatar">
-              <a href="#">
-                <img src="images/1.png" alt=""/>
-                <div>New message</div>
-                <small>1 minute ago</small>
-                <span class="label label-info">NEW</span>
-              </a>
-            </li>
-            <li class="avatar">
-              <a href="#">
-                <img src="images/2.png" alt=""/>
-                <div>New message</div>
-                <small>1 minute ago</small>
-                <span class="label label-info">NEW</span>
-              </a>
-            </li>
-            <li class="avatar">
-              <a href="#">
-                <img src="images/3.png" alt=""/>
-                <div>New message</div>
-                <small>1 minute ago</small>
-              </a>
-            </li>
-            <li class="avatar">
-              <a href="#">
-                <img src="images/4.png" alt=""/>
-                <div>New message</div>
-                <small>1 minute ago</small>
-              </a>
-            </li>
-            <li class="avatar">
-              <a href="#">
-                <img src="images/5.png" alt=""/>
-                <div>New message</div>
-                <small>1 minute ago</small>
-              </a>
-            </li>
-            <li class="avatar">
-              <a href="#">
-                <img src="images/pic1.png" alt=""/>
-                <div>New message</div>
-                <small>1 minute ago</small>
-              </a>
-            </li>
-            <li class="dropdown-menu-footer text-center">
-              <a href="#">View all messages</a>
-            </li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
-            <img src="images/1.png" alt=""/>
-            <span class="badge">9</span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-menu-header text-center"> <strong>Account</strong>
-            </li>
-            <li class="m_2">
-              <a href="#"> <i class="fa fa-bell-o"></i>
-                Updates
-                <span class="label label-info">42</span>
-              </a>
-            </li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-envelope-o"></i>
-                Messages
-                <span class="label label-success">42</span>
-              </a>
-            </li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-tasks"></i>
-                Tasks
-                <span class="label label-danger">42</span>
-              </a>
-            </li>
-            <li>
-              <a href="#">
-                <i class="fa fa-comments"></i>
-                Comments
-                <span class="label label-warning">42</span>
-              </a>
-            </li>
-            <li class="dropdown-menu-header text-center">
-              <strong>Settings</strong>
-            </li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-user"></i>
-                Profile
-              </a>
-            </li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-wrench"></i>
-                Settings
-              </a>
-            </li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-usd"></i>
-                Payments
-                <span class="label label-default">42</span>
-              </a>
-            </li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-file"></i>
-                Projects
-                <span class="label label-primary">42</span>
-              </a>
-            </li>
-            <li class="divider"></li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-shield"></i>
-                Lock Profile
-              </a>
-            </li>
-            <li class="m_2">
-              <a href="#">
-                <i class="fa fa-lock"></i>
-                Logout
-              </a>
-            </li>
-          </ul>
-        </li>
-      </ul>
-      <form class="navbar-form navbar-right">
-        <input type="text" class="form-control" value="Search/yx/assets." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search/yx/assets.';}"></form>
-    </nav>
-    <div class="navbar-default sidebar" role="navigation"  style="min-height:48em;margin-top:0">
-      <div class="sidebar-nav navbar-collapse">
-        <ul class="nav" id="side-menu">
-          <li>
-            <a href="index.html">
-              <i class="fa fa-dashboard fa-fw nav_icon"></i>
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-laptop nav_icon"></i>
-              Layouts
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="grids.html">Grid System</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-indent nav_icon"></i>
-              Menu Levels
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="graphs.html">Graphs</a>
-              </li>
-              <li>
-                <a href="typography.html">Typography</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-envelope nav_icon"></i>
-              Mailbox
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="inbox.html">Inbox</a>
-              </li>
-              <li>
-                <a href="compose.html">Compose email</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="widgets.html">
-              <i class="fa fa-flask nav_icon"></i>
-              Widgets
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-check-square-o nav_icon"></i>
-              Forms
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="forms.html">Basic Forms</a>
-              </li>
-              <li>
-                <a href="validation.html">Validation</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-table nav_icon"></i>
-              Tables
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="basic_tables.html">Basic Tables</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-sitemap fa-fw nav_icon"></i>
-              Css
-              <span class="fa arrow"></span>
-            </a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="media.html">Media</a>
-              </li>
-              <li>
-                <a href="login.html">Login</a>
-              </li>
-            </ul>
-            <!-- /.nav-second-level --> </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-sitemap fa-fw nav_icon"></i>
-              现场迎新管理
-              <span class="fa arrow"/>
-            </a>
-            <ul class="nav nav-second-level">
+	<div id="wrapper">
+		<nav
+			class="top1 navbar navbar-default navbar-static-top  navbar-inverse"
+			role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="index.html">迎新系统</a>
+		</div>
+		<ul class="user-menu">
+			<li class="dropdown pull-right"><a href="#"
+				class="dropdown-toggle" data-toggle="dropdown"> <span
+					class="glyphicon glyphicon-user"></span> User <span class="caret"></span>
+			</a>
+				<ul class="dropdown-menu" role="menu">
+					<li><a href="#"> <span class="glyphicon glyphicon-user"></span>
+							Profile
+					</a></li>
+					<li><a href="#"> <span class="glyphicon glyphicon-cog"></span>
+							Settings
+					</a></li>
+					<li><a href="#"> <span class="glyphicon glyphicon-log-out"></span>
+							Logout
+					</a></li>
+				</ul></li>
+		</ul>
 
-              <li>
-                <a href="checkIn.html">登记报到单打印状态</a>
-              </li>
-              <li>
-                <a href="militarySuppliesManagement.html">军训用品发送管理</a>
-              </li>
-              <li>
-                <a href="studySuppliesManagement.html">学习用品发放管理</a>
-              </li>
-              <li>
-                <a href="cardManagement.html">一卡通发放管理</a>
-              </li>
-              <li>
-                <a href="medicareManagment.html">医保办理管理</a>
-              </li>
-              <li>
-                <a href="sitePayment.html">现场缴费管理</a>
-              </li>
-              <li>
-                <a href="departmentReport.html">院系报到管理</a>
-              </li>
-              <li>
-                <a href="fileSubmission.html">档案提交管理</a>
-              </li>
+		</nav>
+		<div class="navbar-default sidebar" role="navigation"
+			style="min-height: 48em">
+			<div class="sidebar-nav navbar-collapse">
+				<ul class="nav" id="side-menu">
+					<%@ include  file="/layout/layout.jsp"%>
+				</ul>
+			</div>
+			<!-- /.sidebar-collapse -->
+		</div>
+		<!-- /.navbar-static-side -->
+		<div id="page-wrapper" style="background-color: #f2f4f8">
+			<div class="graphs">
 
-            </ul>
-          </li>
-        </ul>
-      </div>
-      <!-- /.sidebar-collapse --> </div>
-    <!-- /.navbar-static-side -->
-    <div id="page-wrapper" style="background-color:#f2f4f8">
-      <div class="graphs">
+				<div class="col_3">
+					<div class="col-md-12">
+						<div class="r3_counter_box" style="margin-left: -14px;">
+							<div class="stats">
+								<h5>
+									<strong>军训用品发送管理</strong>
+								</h5>
+							</div>
+						</div>
+					</div>
 
-        <div class="col_3">
-          <div class="col-md-12">
-            <div class="r3_counter_box">
-              <div class="stats">
-                <h5>
-                  <strong>军训用品发送管理</strong>
-                </h5>
-                <span>New Index</span>
-              </div>
-            </div>
-          </div>
-          <div class="clearfix"></div>
-        </div>
+					<div class="clearfix"></div>
+				</div>
 
-        <div class="col_1"  style="margin-top:1em">
+				<div class="col_1  box" style="margin-top: 1em">
 
-          <div class="col-md-12">
-            <div class="box">
-              <div class="control-group  col-md-3">
-                <div class="controls">
-                  <label class="control-label">
-                    <strong>学院</strong>
-                  </label>
-                  <select  id="college">
-                    <option>信息学院</option>
-                    <option>软件学院</option>
-                    <option>农学院</option>
-                    <option>外国语学院</option>
-                  </select>
-                </div>
-              </div>
+					<div class="col-md-12">
+						<div>
 
-              <div class="control-group  col-md-3">
-                <div class="controls">
-                  <label class="control-label">
-                    <strong>专业</strong>
-                  </label>
-                  <select id="major">
-                    <option>软件专业</option>
-                    <option>软件学院</option>
-                    <option>农学院</option>
-                    <option>外国语学院</option>
-                  </select>
-                </div>
-              </div>
+							<div class="row">
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select title="== 请选择学院 ==" class="selectpicker form-control"
+											id="department" data-width="fit">
+											<option>信息学院</option>
+											<option>软件学院</option>
+											<option>农学院</option>
+											<option>外国语学院</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select title="== 请选择专业 ==" class="selectpicker form-control"
+											id="major" data-width="fit">
+											<option>软件工程</option>
+											<option>网络工程</option>
+											<option>计算机网络</option>
+										</select>
+									</div>
+								</div>
 
-              <div class="control-group  col-md-3">
-                <div class="controls">
-                  <label class="control-label">
-                    <strong>班级</strong>
-                  </label>
-                  <select  id="Class">
-                    <option>R1</option>
-                    <option>R2</option>
-                    <option>R3</option>
-                    <option>R4</option>
-                  </select>
-                </div>
-              </div>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select title="== 请选择年级 ==" class="selectpicker form-control"
+											id="grade" data-width="fit">
+											<option>2013级</option>
+											<option>2014级</option>
+											<option>2015级</option>
+											<option>2016级</option>
+										</select>
+									</div>
+								</div>
 
-              <button type="submit" style="margin-top:-4px" class="btn btn-info" onclick="loadInfo()">Search</button>
+								<div class="col-xs-2">
+									<div class="form-group">
+										<select title="== 请选择班级 ==" class="selectpicker form-control"
+											id="Class" data-width="fit">
+											<option>R1</option>
+											<option>R2</option>
+											<option>R3</option>
+											<option>R4</option>
+										</select>
+									</div>
+								</div>
 
-            </div>
+								<div class="col-xs-2">
+									<button class="btn btn-info" onclick="loadCardInfo()">Search</button>
+								</div>
+							</div>
 
-            <div class="panel panel-warning" style="border-color: #5bc0b2;" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="">
-              <div class="panel-heading" style="background-color: #5bc0de;border-color: #5bc0b2;">
-                <h2>下面是查询到的军训用品统计信息</h2>
-                <div class="panel-ctrls" data-actions-container="" data-action-collapse="{&quot;target&quot;: &quot;.panel-body&quot;}">
-                  <span class="button-icon has-bg">
-                    <i class="ti ti-angle-down"></i>
-                  </span>
-                </div>
-              </div>
-              <div class="panel-body no-padding" style="display: block;">
-                <table class="table table-striped  table-bordered">
-                  <thead>
-                    <tr class="success">
-                      <th>班级</th>
-                      <th>姓名</th>
-                      <th>军训服码数</th>
-                      <th>鞋子码数</th>
-                      <th>水壶数</th>
-                      <th>军帽数</th>
-                      <th>状态</th>
-                      <th>操作</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>R1</td>
-                      <td>张继科</td>
-                      <td>170cm</td>
-                      <td>43</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>未领取</td>
-                      <td>
-                        <a type="button" class="btn-info btn-sm btn">领取</a>
-                      </td>
-                    </tr>
 
-                    <tr>
-                      <td>R1</td>
-                      <td>张继科</td>
-                      <td>170cm</td>
-                      <td>43</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>未领取</td>
-                      <td>
-                        <a type="button" class="btn-info btn-sm btn">领取</a>
-                      </td>
-                    </tr>
 
-                    <tr>
-                      <td>R1</td>
-                      <td>张继科</td>
-                      <td>170cm</td>
-                      <td>43</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>未领取</td>
-                      <td>
-                        <a type="button" class="btn-info btn-sm btn">领取</a>
-                      </td>
-                    </tr>
 
-                    <tr>
-                      <td>R1</td>
-                      <td>张继科</td>
-                      <td>170cm</td>
-                      <td>43</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>未领取</td>
-                      <td>
-                        <a type="button" class="btn-info btn-sm btn">领取</a>
-                      </td>
-                    </tr>
+						</div>
 
-                    <tr>
-                      <td>R1</td>
-                      <td>张继科</td>
-                      <td>170cm</td>
-                      <td>43</td>
-                      <td>1</td>
-                      <td>1</td>
-                      <td>未领取</td>
-                      <td>
-                        <a type="button" class="btn-info btn-sm btn">领取</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+						<div class="panel panel-warning" style="border-color: #5bc0b2;"
+							data-widget="{&quot;draggable&quot;: &quot;false&quot;}"
+							data-widget-static="">
+							<div class="panel-heading"
+								style="background-color: #5bc0de; border-color: #5bc0b2;">
+								<h2>下面是查询到的军训用品领取信息</h2>
+								<div class="panel-ctrls" data-actions-container=""
+									data-action-collapse="{&quot;target&quot;: &quot;.panel-body&quot;}">
+									<span class="button-icon has-bg"> <i
+										class="ti ti-angle-down"></i>
+									</span>
+								</div>
+							</div>
+							<div class="panel-body no-padding" style="display: block;">
+								<table class="table table-striped  table-bordered">
+									<thead>
+										<tr class="success">
+											<th>学院</th>
+											<th>专业</th>
+											<th>年级</th>
+											<th>班级</th>
+											<th>姓名</th>
+											<th>军帽</th>
+											<th>军服</th>
+											<th>军鞋</th>
+											<th>水壶</th>
+											<th>状态</th>
+											<th>操作</th>
+										</tr>
+									</thead>
+									<tbody>
+									</tbody>
+								</table>
+							</div>
 
-                <nav style="text-align:center">
-                  <ul class="pagination">
-                    <li class="disabled">
-                      <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">«</span>
-                      </a>
-                    </li>
-                    <li class="active">
-                      <a href="#">
-                        1
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li class="">
-                      <a href="#">
-                        2
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li class="">
-                      <a href="#">
-                        3
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li class="">
-                      <a href="#">
-                        4
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li class="">
-                      <a href="#">
-                        5
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li class="">
-                      <a href="#">
-                        6
-                        <span class="sr-only">(current)</span>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" aria-label="Next">
-                        <span aria-hidden="true">»</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
+						</div>
 
-              </div>
-            </div>
-          </div>
+					</div>
+					<nav style="text-align:center">
+					<ul class="pagination">
+						<li class="disabled"><a href="#" aria-label="Previous"> <span
+								aria-hidden="true">«</span>
+						</a></li>
+						<li class="active"><a href="#"> 1 <span class="sr-only">(current)</span>
+						</a></li>
+						<li class=""><a href="#"> 2 <span class="sr-only">(current)</span>
+						</a></li>
+						<li class=""><a href="#"> 3 <span class="sr-only">(current)</span>
+						</a></li>
+						<li class=""><a href="#"> 4 <span class="sr-only">(current)</span>
+						</a></li>
+						<li class=""><a href="#"> 5 <span class="sr-only">(current)</span>
+						</a></li>
+						<li class=""><a href="#"> 6 <span class="sr-only">(current)</span>
+						</a></li>
+						<li><a href="#" aria-label="Next"> <span
+								aria-hidden="true">»</span>
+						</a></li>
+					</ul>
+					</nav>
+					<div class="copy_layout">
+						<p>
+							Copyright &copy; 2016.Company name All rights reserved.More
+							Templates <a href="http://www.cssmoban.com/" target="_blank"
+								title="迎新系统">迎新系统</a>
+						</p>
+					</div>
+				</div>
 
-          <div class="clearfix"></div>
-        </div>
-
-      </div>
-    </div>
-    <!-- /#page-wrapper --> </div>
-  <!-- /#wrapper -->
-  <!-- Nav CSS -->
-  <link href="/yx/assets/css/custom.css" rel="stylesheet">
-  <!-- Metis Menu Plugin JavaScript -->
-  <script src="/yx/assets/js/metisMenu.min.js"></script>
-  <script src="/yx/assets/js/custom.js"></script>
+			</div>
+		</div>
+	</div>
+	<link href="/yx/assets/css/custom.css" rel="stylesheet">
+	<script src="/yx/assets/js/metisMenu.min.js"></script>
+	<script src="/yx/assets/js/custom.js"></script>
 </body>
 </html>

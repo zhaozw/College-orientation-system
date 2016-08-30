@@ -8,6 +8,7 @@ public class StudentStatus {
 	private int register;
 	private int getKey;
 	private int fileSubmit;
+	private int militaryReceive;
 
 	public int getFileSubmit() {
 		return fileSubmit;
@@ -71,6 +72,14 @@ public class StudentStatus {
 		return "StudentStatus [studentId=" + studentId + ", printReport=" + printReport + ", oneCard=" + oneCard
 				+ ", medicalInsurance=" + medicalInsurance + ", register=" + register + ", getKey=" + getKey
 				+ ", fileSubmit=" + fileSubmit + "]";
+	}
+
+	public int getMilitaryReceive() {
+		return militaryReceive;
+	}
+
+	public void setMilitaryReceive(int militaryReceive) {
+		this.militaryReceive = militaryReceive;
 	}
 	
 	

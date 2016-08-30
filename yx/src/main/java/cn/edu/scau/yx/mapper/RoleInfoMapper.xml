@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.RoleInfoMapper">
+   <insert id="insertRolePowerInfo" parameterType="map">
+    INSERT INTO 
+           role_power_info(role_id,power_id)
+    VALUES
+   <foreach item="item" index="index" collection="list"
+      separator="," >
+    
+  	 (#{roleId},#{item})
+  </foreach>
+  	 
+   </insert>
+  <delete id="deleteRolePowerList" parameterType="int" >
+  	 DELETE FROM role_power_info WHERE role_id =#{roleId}
+   </delete>
+
+
+   <select id="findRoleByName"  parameterType="String" resultType="RoleInfo">
+     <bind name="roleName" value="'%' + _parameter + '%'"/>
+  	select
+		ri.role_id     'roleId',
+		ri.role_name   'roleName',
+		ri.description 'description'
+	from
+		role_info ri
+    where
+     	role_name  like #{roleName}
+  </select>
+  
+  <select id="findPowerListByRoleId"  parameterType="int" resultType="PowerInfo">
+  	select
+  		pi.power_id    'powerId',
+  		pi.power_name  'powerName'
+	from
+			       role_power_info   rpi
+		left join  power_info  		 pi        on   pi.power_id   =  rpi.power_id
+    where
+     	rpi.role_id  = #{roleId}
+  </select>
+  
+   <select id="findByRoleId" parameterType="int" resultType="RoleInfo">
+     SELECT *
+	 FROM role_info WHERE role_id = #{roleId);
+   </select>
+  
+   <delete id="deleteRoleInfo" parameterType="int" >
+  	 DELETE FROM role_info WHERE role_id =#{roleId}
+   </delete>
+  
+   <update id="updateRoleInfo" parameterType="RoleInfo" >
+	 UPDATE role_info 
+	 <set>
+	     <if test="roleId != null">
+	  		 role_id = #{roleId},
+	  	 </if>
+	  	 <if test="roleName != null">
+	  		 role_name = #{roleName},
+	  	 </if>
+	  	 <if test="description != null">
+	  	 	 description = #{description}
+	  	 </if>
+	  	</set>
+	  	WHERE role_id = #{roleId}
+   </update>
+  
+   <insert id="insertRoleInfo" parameterType="RoleInfo">
+  	 INSERT INTO role_info(role_id,role_name,description)
+  	 VALUES(#{roleId}, #{roleName}, #{description})
+   </insert>
+   
+   <select id="viewRoleInfo"  resultType="roleInfo">
+	  SELECT *
+	  FROM role_info
+   </select>
+   
+   <select id="findAllsByUserId" resultType="roleInfo">
+	   SELECT
+		role_info.role_id,
+		role_info.role_name,
+		role_info.description
+		FROM
+		user_info
+		INNER JOIN user_role_info ON user_role_info.user_id = user_info.user_id
+		INNER JOIN role_info ON user_role_info.role_id = role_info.role_id
+	WHERE user_info.user_id = #{id}
+   </select>
+</mapper>

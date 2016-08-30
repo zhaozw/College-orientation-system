@@ -7,7 +7,11 @@
  */
 package cn.edu.scau.yx.dao;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.scau.yx.entity.Class;
 
 /**
@@ -21,13 +25,17 @@ public interface ClassMapper {
 
 	//int stuCount(int clid);
 	
-	List<Class> findByClassName(String clname);
+	List<Class> findByName(@Param("clname")String clname);
 	
-	//Class findByClassName(String clname);
+	Class findById(int clid);
 	
 	int deleteClass(int clid);
 	
 	int insertClass(Class classes);
 	
 	int updateClass(Class classes);
+
+	ArrayList<String> findAllClassNameByMajorName(String majorName);
+	
+	ArrayList<Class> findClass(@Param("majorId")int majorId,@Param("gradeId") int gradeId);
 }

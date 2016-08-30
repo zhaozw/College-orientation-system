@@ -1,6 +1,7 @@
+
 package cn.edu.scau.yx.entity;
 
-import org.aspectj.weaver.AjAttribute.PrivilegedAttribute;
+import java.sql.Date;
 
 public class Student {
 	private int stuId;
@@ -9,7 +10,7 @@ public class Student {
 	private String id;
 	private int age;
 	private String people;
-	private String birthdate;
+	private Date birthdate;
 	private String enrollState;
 	private String home;
 	private String phoneNumber;
@@ -19,9 +20,11 @@ public class Student {
 	private String motherName;
 	private String motherWork;
 	private String motherPhone;
+	private int clothesSize;
     private OneCardPass oneCardPass;
 	private StudentStatus  studentStatus;
 	private PayTheFee payTheFee;
+	private String resultMessage;
 	
 	public OneCardPass getOneCardPass() {
 		return oneCardPass;
@@ -88,11 +91,11 @@ public class Student {
 		this.people = people;
 	}
 
-	public String getBirthdate() {
+	public Date getBirthdate() {
 		return birthdate;
 	}
 
-	public void setBirthdate(String birthdate) {
+	public void setBirthdate(Date birthdate) {
 		this.birthdate = birthdate;
 	}
 
@@ -185,6 +188,22 @@ public class Student {
 				+ fatherWork + ", fatherPhone=" + fatherPhone + ", motherName=" + motherName + ", motherWork="
 				+ motherWork + ", motherPhone=" + motherPhone + ", oneCardPass=" + oneCardPass + ", studentStatus="
 				+ studentStatus + ", payTheFee=" + payTheFee + "]";
+	}
+
+	public String getResultMessage() {
+		return resultMessage;
+	}
+
+	public void setResultMessage(String resultMessage) {
+		this.resultMessage = resultMessage;
+	}
+
+	public int getClothesSize() {
+		return clothesSize;
+	}
+
+	public void setClothesSize(int clothesSize) {
+		this.clothesSize = clothesSize;
 	}
 
 	

@@ -6,19 +6,9 @@
     <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
   
-  <!-- 
-  	<![CDATA[
-	  	Tomcat, Jetty, JBoss, and GlassFish  默认 Servlet的名字  "default"
-		Google App Engine 默认 Servlet的名字  "_ah_default"
-		Resin 默认 Servlet的名字  "resin-file"
-		WebLogic 默认 Servlet的名字   "FileServlet"
-		WebSphere  默认 Servlet的名字  "SimpleFileServlet"
-  	]]>
-   -->
   <servlet-mapping>
   	<servlet-name>default</servlet-name>
   	<url-pattern>/assets/*</url-pattern>

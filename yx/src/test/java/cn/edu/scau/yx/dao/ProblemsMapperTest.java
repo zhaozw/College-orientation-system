@@ -29,10 +29,8 @@ public class ProblemsMapperTest {
 	@Test
 	public void TestFindById(){
 		
-		int problemsId=102;
+		int problemsId=101;
 		Problems problems = problemsMapper.findById(problemsId);
-		
-		System.out.println(problems.getUserInfoAns().getUserName());
 		System.out.println("实体problems="+problems);
 	}
 	

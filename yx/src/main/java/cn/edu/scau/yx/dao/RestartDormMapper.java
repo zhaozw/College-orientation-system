@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import cn.edu.scau.yx.entity.D;
 import cn.edu.scau.yx.entity.DS;
+import cn.edu.scau.yx.entity.Problems;
 
 /**
  * 
@@ -41,6 +42,11 @@ public interface RestartDormMapper {
 	
 	//根据id修改宿舍学生信息
 	int updateDsById(@Param("sId") int sId,@Param("ds") DS ds);
+	
+	//根据条件查询宿舍学生信息列表
+	
+	List<DS> findWithKey(@Param("areaName") String areaName,@Param("keyWord") String keyWord);
+
 	
 	
 	

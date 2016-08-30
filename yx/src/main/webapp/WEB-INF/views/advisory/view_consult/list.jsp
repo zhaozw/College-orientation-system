@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>  
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -35,8 +36,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="/yx/assets/css/dorm.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/yx/assets/css/layout.css">
     <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/dorm/hjd.css"/>
     <!-- <link rel="stylesheet" type="text/css" href="../css/all.css"> -->
-
+	<link href="/yx/assets/css/bootstrap-select.min.css" rel="stylesheet">
+    <script src="/yx/assets/js/bootstrap-select.min.js"></script>
 </head>
 <body>
 <div id="wrapper">
@@ -51,6 +55,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </button>
             <a class="navbar-brand" href="../cd_index.html">迎新系统</a>
         </div>
+        <ul class="user-menu">
+        <li class="dropdown pull-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            User
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-user"></span>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-cog"></span>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+        
          <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
@@ -244,33 +278,32 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
         </div>
         
             <!-- 333 -->
-         <div class="col_1"  style="margin-top:1em">
+         <div class="col_1"  style="margin-top:-3em">
 
         <div class="col-md-12">
-          <div class="box">
+          <div class="">
             <div class="control-group  col-md-3">
               <div class="controls">
-                <label class="control-label">
+                <!-- <label class="control-label">
                   <strong>审核状态</strong>
-                </label>
-                <select id="selectAudit">
+                </label> -->
+                <select id="selectAudit" title="== 请选择审核状态    ==" class="selectpicker form-control" data-width="fit">
                   <option></option>
                   <option>通过</option>
                   <option>未通过</option>
+                  <option>未审查</option>
                 </select>
               </div>
             </div>
 
             <div class="control-group  col-md-3">
               <div class="controls">
-                <label class="control-label">
-                  <strong>权限状态</strong>
-                </label>
-                <select id="selectAuthority">
-                  <option></option>
+                <select id="selectAuthority" title="== 请选择权限状态 ==" class="selectpicker form-control" data-width="fit">
+                 <option></option>
                   <option>全部可见</option>
                   <option>问题不显示</option>
                   <option>仅学生可见</option>
+                  <option>不限</option>
                 </select>
               </div>
             </div>
@@ -278,9 +311,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
              <div class="search">
                 <div class="input-append input-prepend">
                     <span class="add-on"><i class="icon-search"></i></span>
-                    <input type="text" name="s" id="keyWord" placeholder="请输入关键字" value="" class="placeholder">
-                    <input type="button" class="btn btn-primary" id="searchBtn" value="搜索"/>
-                    <button type="submit" class="btn btn-primary"><a href="../view_consult/type_config.html">类型配置</a></button>
+                    <div class="col-md-4" style="display:inline;">
+                    <input type="text" name="s" id="keyWord" placeholder="请输入关键字"  class="form-control1" style="height:34px;">
+                    </div>
+                    <input type="button" class="btn btn-info " id="searchBtn" value="搜索"/>
+                  <!-- <button  class="btn btn-info">类型配置</button>  -->
                 </div>
             </div>
            <!-- <button type="submit" style="margin-top:-4px" class="btn btn-info">Search</button> -->
@@ -309,6 +344,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <th>咨询者</th>
                     <th>咨询时间</th>
                     <th>操作</th>
+                    <th>操作</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -320,15 +356,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <td>${pb.problemsTheme.themeName }</td>
                     <td>${pb.content }</td>
                     <td>${pb.userInfoAsk.userName }</td>
-                    <td>${pb.time }</td>
+                    <td><fmt:formatDate value="${pb.time }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                     <td>
                       <a type="button" class="btn-info btn-sm btn details" href="#" 
                       data-toggle="modal" data-target="#detail" detailId="${pb.problemsId}" 
               	>详情</a>
-                      <a type="button" class="btn-info btn-sm btn dels" href="#" 
+                     
+                    </td>
+                    
+                     <td>
+                     <a type="button" class="btn-danger btn-sm btn dels" href="#" 
                       data-toggle="modal" data-target="#del"  delId="${pb.problemsId }" 
                       >删除</a>
-                    </td>
+                      </td>
                   </tr>
                   </c:forEach>
                 </tbody>
@@ -449,22 +489,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                 <tr>
                                     <th>审核状态</th>
                                     <td colspan="3" id="d_audit">
-                                    <span><input type="radio">通过</span>
-                                    <span><input type="radio">不通过</span>
+                                    <span><input type="radio" name="audit11" value="通过">通过</span>
+                                    <span><input type="radio" name="audit11" value="不通过">不通过</span>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>权限状态</th>
                                      <td colspan="3" id="d_authority">
-                                        <span><input type="radio">全部可见</span>
-                                        <span><input type="radio">问题不显示</span>
-                                        <span><input type="radio">仅学生可见</span>
+                                        <span><input type="radio" name="authority11" value="全部可见">全部可见</span>
+                                        <span><input type="radio" name="authority11" value="问题不显示">问题不显示</span>
+                                        <span><input type="radio" name="authority11" value="仅学生可见">仅学生可见</span>
                                      </td>
                                 </tr>
                                 <tr>
                                     <th>回复内容</th>
                                     <td colspan="3" id="d_ansContent">
-                                        <textarea cols="40">
+                                        <textarea cols="40" id="d_answer">
                                             
                                         </textarea>
                                     </td>
@@ -481,8 +521,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                         </div><!-- /.table-responsive -->
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">回复</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  	<button type="button" class="btn btn-info" id="reply">回复</button>
                   </div>
                 </div>
               </div>
@@ -542,21 +582,24 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					 .attr("detailId",datas.problemsId)
 					 ;
 					var a2=$("<a></a>");
-					a2.attr({href:"#",type:"button",class:"btn-info btn-sm btn dels"});
+					a2.attr({href:"#",type:"button",class:"btn-danger btn-sm btn dels"});
 					a2.attr("data-toggle","modal")
 					 .attr("data-target","#del")
 					 .attr("delId",datas.problemsId)
 					 ;
-					var td=$("<td></td>");
 					tr.append($("<td></td>").append(input));
 					tr.append($("<td></td>").html(datas.problemsId));
 					tr.append($("<td></td>").html(datas.problemsTheme.themeName));
 					tr.append($("<td></td>").html(datas.content));
 					tr.append($("<td></td>").html(datas.userInfoAsk.userName));
-					tr.append($("<td></td>").html(datas.time));
-					td.append(a1.html("详情"));
-					td.append(a2.html("删除"));
-					tr.append(td)
+					//<fmt:formatDate value="${pb.time }" pattern="yyyy-MM-dd HH:mm:ss"/>
+					var time=new Date( datas.time ).Format('yyyy-MM-dd hh:mm:ss');
+					tr.append($("<td></td>").html(time));
+					
+					
+					tr.append($("<td></td>").html(a1.html("详情")));
+					tr.append($("<td></td>").html(a2.html("删除")));
+					
 					tbody.append(tr);	
 				});
 							
@@ -575,13 +618,44 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			var url="/yx/advisory/" + problemsId + "/detail";
 			$.get(url,function(details){
 				//alert(details.time);
-				//console.log(details);    
+				//console.log(details);  
+				$("#reply").attr("replyId",details.problemsId);
 				$("#d_theme").html(details.problemsTheme.themeName);
 				$("#d_asker").html(details.userInfoAsk.userName);
 				$("#d_askContent").html(details.content);
-				$("#d_askTime").html(details.time);
-				//$("#d_audit").html(details.);
-				//$("#d_authority").html(details.);
+				var time=new Date( details.time ).Format('yyyy-MM-dd hh:mm:ss');
+				$("#d_askTime").html(time);
+				var input1=$("input:radio[name='audit11']").eq(0).val();
+				var input11=$("input:radio[name='audit11']").eq(1).val();
+				var input2=$("input:radio[name='authority11']").eq(0).val();
+				//alert(input2);
+				var input22=$("input:radio[name='authority11']").eq(1).val();
+				//alert(input22);
+				var input222=$("input:radio[name='authority11']").eq(2).val();
+				//alert(input222);
+				if(input1 == details.audit){
+					$("input:radio[name='audit11']").eq(0).attr("checked",true);
+				}else if(input11 == details.audit){
+					$("input:radio[name='audit11']").eq(1).attr("checked",true);
+				}else{
+					$("input:radio[name='audit11']").eq(3).attr("checked",true);
+				}
+				
+				if(input2==details.authority){
+					$("input:radio[name='authority11']").eq(0).attr("checked",true);
+				}else if(input22 == details.authority){
+					$("input:radio[name='authority11']").eq(1).attr("checked",true);
+				}else if(input222 == details.authority){
+					$("input:radio[name='authority11']").eq(2).attr("checked",true);
+				}else{
+					$("input:radio[name='authority11']").eq(3).attr("checked",true);
+					//$("input:radio[name='authority11']").attr("checked",false); //让页面中的radio都置于“未选中”状态
+				}
+				//alert(input2);
+				//$("input:radio[name='audit11']").eq(0).attr("checked",true);
+				//$("input:radio[name='authority11']").eq(details.authority).attr("checked",true);
+				//$("#d_audit").val(details.audit);
+				//$("#d_authority").find("input").val(details.authority);
 				if(details.answer){
 					$("#d_ansContent").html(details.answer);
 				}else{
@@ -594,14 +668,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					var td2=$("<td></td>");
 					td2.attr({"colspan":3,"id":"d_ansContent"});
 					var t=$("<textarea></textarea>");
-					t.attr("cols",'40');
+					t.attr("cols",'40')
+					  .attr("id","d_answer");
+					
 					
 					tr.append(td2.append(t));
 					
 				}
 				
 				if(details.ansTime){
-					$("#d_ansTime").html(details.ansTime);
+					$("#d_ansTime").html(new Date( details.ansTime ).Format('yyyy-MM-dd hh:mm:ss'));
 				}else{
 					$("#d_ansTime").html(null);
 				}
@@ -637,7 +713,71 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				}
 			},"text");
 		}
+	
+		//详情页的单选框
+		$(function(){
+			//$("#d_audit")
+		});
 		
+		
+		/*
+		获取单选框的值有三种方式：
+		1、$('input:radio:checked').val()；
+		2、$("input[type='radio']:checked").val();
+		3、$("input[name='rd']:checked").val();
+		*/
+		
+		//回复功能
+		$("#reply").on('click',function(){
+			var bt=$(this);
+			var replyId=bt.attr('replyId');
+			
+			/*$(function(){
+				$("input").click(function(){
+					if($(this).attr("checked")){
+						var audit=$("input[name='audit11']:checked").val();
+						alert("选中了");
+					}
+				});
+			});*/
+			
+			var audit=$("input[name='audit11']:checked").val();
+			var authority = $("input[name='authority11']:checked").val();
+			var answer=$("#d_answer").val();
+			//alert(answer);
+			var ansPersonId=10000;
+			//alert(audit);
+			//alert(authority);
+			reply(replyId,audit,authority,answer,ansPersonId);
+		});
+		function reply(replyId,audit,authority,answer,ansPersonId){
+			var url="/yx/advisory/"+ replyId + "/reply";
+			$.post(url,{replyId:replyId,audit:audit,authority:authority,answer:answer,ansPersonId:ansPersonId},function(updateCount){
+				if(updateCount!=0){
+					var url="/yx/advisory/list";
+					window.location.href=url;
+				}else{
+					alert("更新回复出错");
+				}
+			});
+		}
+		
+		//时间格式转换
+		Date.prototype.Format = function (fmt) { //author: meizz 
+		    var o = {
+		        "M+": this.getMonth() + 1, //月份 
+		        "d+": this.getDate(), //日 
+		        "h+": this.getHours(), //小时 
+		        "m+": this.getMinutes(), //分 
+		        "s+": this.getSeconds(), //秒 
+		        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+		        "S": this.getMilliseconds() //毫秒 
+		    };
+		    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+		    for (var k in o)
+		    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+		    return fmt;
+		}
 		
 </script>
 

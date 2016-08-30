@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -35,6 +36,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <link href="/yx/assets/css/dorm.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="/yx/assets/css/layout.css">
     <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/dorm/hjd.css"/>
     <!-- <link rel="stylesheet" type="text/css" href="/yx/assets/css/all.css"> -->
 
 </head>
@@ -51,6 +54,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </button>
             <a class="navbar-brand" href="../cd_index.html">迎新系统</a>
         </div>
+        <ul class="user-menu">
+        <li class="dropdown pull-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            User
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-user"></span>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-cog"></span>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+        
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
@@ -255,19 +288,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">学生姓名</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control1" id="stuName" placeholder="${detail.student.studentName }" name="student.studentName">
+                            <input type="text" class="form-control1" id="stuName" value="${detail.student.studentName }" name="student.studentName">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">学号</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control1" id="stuId" placeholder="${detail.student.stuId }" name="student.stuId">
+                            <input type="text" class="form-control1" id="stuId" value="${detail.student.stuId }" name="student.stuId">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="disabledinput" class="col-sm-2 control-label">宿舍区</label>
                        <div class="col-sm-8">
-                             <select id="selector1" class="form-control1" name="areaName">
+                             <select id="selector1" class="form-control1 selectpicker" name="areaName" value="${detail.d.areaId}">
                                 <option></option>
                                 <option value="111">华山区</option> <!-- value="112"-->
                                 <option value="222">五山区</option>
@@ -281,26 +314,25 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                      <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">楼栋号</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control1" id="building" placeholder="${detail.d.buildingId }" name="d.buildingId">
+                            <input type="text" class="form-control1" id="building" value="${detail.d.buildingId }" name="d.buildingId">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword" class="col-sm-2 control-label">楼层号</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control1" id="floor" placeholder="${detail.d.floorId }" name="d.floorId">
+                            <input type="text" class="form-control1" id="floor" value="${detail.d.floorId }" name="d.floorId">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="focusedinput" class="col-sm-2 control-label">宿舍号</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control1" id="dorm" placeholder="${detail.d.dormId }" name="d.dormId">
+                            <input type="text" class="form-control1" id="dorm" value="${detail.d.dormId }" name="d.dormId">
                         </div>
                     </div>
                      <div class="row">
-		                <div class="col-sm-8 col-sm-offset-2">
-		                    <button class="btn-success btn" type="submit" updateId="${detail.sId}" id="sub">Submit</button>
-		                    <button class="btn-default btn">Cancel</button>
-		                    <button class="btn-inverse btn">Reset</button>
+		                 <div class="col-sm-8 col-sm-offset-3">
+		                  <button class="btn-default btn">Cancel</button>
+		                   <button class="btn-info btn" type="submit" updateId="${detail.sId}" id="sub">Submit</button>
 		                </div>
 		            </div><br><br>
                 </form>
@@ -334,16 +366,20 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		var areaId=$("#selector1").val();
 		var areaName=$("#selector1").find("option:selected").text();
 		var stuName=$("#stuName").val();
-		var stuId=$("#stuId");
+		var stuId=$("#stuId").val();
 		var buildingId =$("#building").val();
 		var floorId = $("#floor").val();
 		var dormId =$("#dorm").val();
+		
 		add(sId,areaId,areaName,stuName,stuId,buildingId,floorId,dormId);
 	});
 	
 	function add(sId,areaId,areaName,stuName,stuId,buildingId,floorId,dormId){
-		var url="/yx/dormModule/dormStu/" + sId + "/update";
-		$.post(url,{sId:sId,areaId:areaId,areaName:areaName,stuName:stuName,stuId:stuId,buildingId:buildingId,floorId:floorId,dormId:dormId},function(updateCount){
+		var url="/yx/dormModule/dormStu" + "/update/" + sId;
+		
+		$.post(url,{sId:sId,areaId:areaId,areaName:areaName,stuName:stuName,
+		stuId:stuId,buildingId:buildingId,floorId:floorId,dormId:dormId},function(updateCount){
+			
 			if(updateCount!=0){
 				var url="/yx/dormModule/dormStu/list";
 				window.location.href=url;
@@ -352,8 +388,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				var url="/yx/dormModule/dormStu/list";
 				window.location.href=url;
 			}
+			
 		});
 	}
+	
+	$(function(){
+		$("#selector1").find("option[value='"+ ${detail.d.areaId}+"']").attr("selected",true);
+	});
 </script>
 
 

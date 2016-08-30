@@ -32,9 +32,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     <!-- 引入自己的css和js文件-->
     <script src="/yx/assets/js/dorm.js"></script>
-    <link href="/yx/assets/css/dorm.css" rel="stylesheet" type="text/css">
+   <!-- <link href="/yx/assets/css/dorm.css" rel="stylesheet" type="text/css">-->
     <link rel="stylesheet" type="text/css" href="/yx/assets/css/layout.css">
     <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css"/>
+    <link type="text/css" rel='stylesheet' href="/yx/assets/css/dorm/hjd.css"/>
+    <link href="/yx/assets/css/bootstrap-select.min.css" rel="stylesheet">
+    <script src="/yx/assets/js/bootstrap-select.min.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="/yx/assets/css/all.css"> -->
 
 </head>
@@ -51,6 +55,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             </button>
             <a class="navbar-brand" href="../cd_index.html">迎新系统</a>
         </div>
+        <ul class="user-menu">
+        <li class="dropdown pull-right">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="glyphicon glyphicon-user"></span>
+            User
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-user"></span>
+                Profile
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-cog"></span>
+                Settings
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <span class="glyphicon glyphicon-log-out"></span>
+                Logout
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+        
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
@@ -242,9 +276,50 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                 </div>
             </div>
             
-            
-            
-            
+            <div class="col_1"  style="margin-top:-3em">
+            <div class="">
+          <!--  <div class="control-group  col-md-3">
+              <div class="controls">
+                 <label class="control-label">
+                  <strong>审核状态</strong>
+                </label>
+                <select id="selectArea" title="== 请选择宿舍区   ==" class="selectpicker form-control" data-width="fit">
+                  <option></option>
+                  <option>华山区</option>
+                  <option>五山区</option>
+                  <option>启林区</option>
+                  <option>燕山区</option>
+                  <option>东区</option>
+                  <option>泰山区</option>
+                </select>
+              </div>
+            </div> -->
+		<!-- 
+            <div class="control-group  col-md-3">
+              <div class="controls">
+                <select id="selectAuthority" title="== 请选择权限状态 ==" class="selectpicker form-control" data-width="fit">
+                 <option></option>
+                  <option>全部可见</option>
+                  <option>问题不显示</option>
+                  <option>仅学生可见</option>
+                  <option>不限</option>
+                </select>
+              </div>
+            </div>
+		 -->
+             <div class="search">
+                <div class="input-append input-prepend">
+                    <span class="add-on"><i class="icon-search"></i></span>
+                    <div class="col-md-4" style="display:inline;">
+                    <input type="text" name="s" id="keyWord" placeholder="请输入关键字"  class="form-control1" style="height:34px;">
+                    </div>
+                    <input type="button" class="btn btn-info " id="searchBtn" value="搜索"/>
+                </div>
+            </div>
+           <!-- <button type="submit" style="margin-top:-4px" class="btn btn-info">Search</button> -->
+           
+          </div>
+         </div>
             
             <div class="panel panel-warning" style="border-color: #5bc0b2;" data-widget="{&quot;draggable&quot;: &quot;false&quot;}" data-widget-static="">
             <div class="panel-heading" style="background-color: #5bc0de;border-color: #5bc0b2;">
@@ -262,13 +337,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <th>
                        <input type="checkbox" class="checkbox" onclick="$('input[name*=\'check\']').prop('checked',this.checked);" />
                     </th>
-                    <th>序号</th>
                     <th>学生姓名</th>
                     <th>学号</th>
                     <th>宿舍区</th>
                     <th>楼栋号</th>
                     <th>楼层号</th>
                     <th>宿舍号</th>
+                    <th>操作</th>
                     <th>操作</th>
                   </tr>
                 </thead>
@@ -278,7 +353,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                     <td>
                       <input name="check" type="checkbox" class="checkbox">
                     </td>
-                    <td>1</td>
                     <td>${ds.student.studentName }</td>
                     <td>${ds.student.stuId}</td>
                     <td>${ds.d.areaName}</td>
@@ -292,7 +366,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                       <a type="button" class="btn-info btn-sm btn details" href="/yx/dormModule/dormStu/${ds.sId }/detail" 
                        detailId="${ds.sId}" 
               	>修改</a>
-                      <a type="button" class="btn-info btn-sm btn dels" href="#" 
+              	</td>
+              	<td>
+                      <a type="button" class="btn-danger btn-sm btn dels" href="#" 
                       data-toggle="modal" data-target="#del"  delId="${ds.sId }" 
                       >删除</a>
                     </td>
@@ -391,7 +467,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </body>
 
 <script type="text/javascript">
-//功能3：删除数据并使用ajax重写
+
+
+//功能3：删除数据并使用ajax控制跳转
 		$("#dorm-list").on('click','.dels',function(){
 			var a=$(this);
 			var dormStudentId=a.attr('delId');
@@ -419,7 +497,59 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			},"text");
 		}
 		
-//修改：		
+
+	//搜索功能:ajax请求数据并重写
+		$("#searchBtn").on('click', function() {
+			search();
+		});
+		
+		function search(){
+			
+			var keyWord=$("#keyWord").val();
+			var Area="";
+			//alert(Area);
+
+			var url="/yx/dormModule/dormStu/search";
+			$.get(url,{keyWord:keyWord},function(datas){
+				//console.log(datas);
+				var tbody=$("#dorm-list > tbody");
+				tbody.empty("tr");
+				
+				
+				$.each(datas,function(index,datas){
+					var tr=$("<tr></tr>");
+					var input=$("<input></input>");
+					input.attr({name:"check",type:"checkbox",class:"checkbox"});
+					var a1=$("<a></a>");
+					a1.attr({href:"#",type:"button",class:"btn-info btn-sm btn details"});
+					a1.attr("data-toggle","modal")
+					 .attr("data-target","#detail")
+					 .attr("detailId",datas.sId)
+					 ;
+					var a2=$("<a></a>");
+					a2.attr({href:"#",type:"button",class:"btn-danger btn-sm btn dels"});
+					a2.attr("data-toggle","modal")
+					 .attr("data-target","#del")
+					 .attr("delId",datas.sId)
+					 ;
+					tr.append($("<td></td>").append(input));
+					tr.append($("<td></td>").html(datas.student.studentName));
+					tr.append($("<td></td>").html(datas.student.stuId));
+					tr.append($("<td></td>").html(datas.d.areaName));
+					tr.append($("<td></td>").html(datas.d.buildingId));
+					tr.append($("<td></td>").html(datas.d.floorId));
+					tr.append($("<td></td>").html(datas.d.dormId));
+					
+					
+					tr.append($("<td></td>").html(a1.html("详情")));
+					tr.append($("<td></td>").html(a2.html("删除")));
+					
+					tbody.append(tr);	
+				});
+							
+			},"json");
+			
+		}
 		
 		
 </script>

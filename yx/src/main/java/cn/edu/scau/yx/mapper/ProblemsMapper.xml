@@ -88,15 +88,17 @@
 			problems_id = #{problemsId}
 	</delete>
 	
-	<update id="updateContentById" parameterType="int">
+	<update id="updateContentById" parameterType="Problems">
 		UPDATE problems
-		SET audit = #{audit},
-			authority = #{authority}',
-			answer = #{answer},
-			ans_time = #{ansTime},
-			ans_person_id = #{ansPersonId}
+		SET audit = #{problems.audit},
+			authority = #{problems.authority},
+			answer = #{problems.answer},
+			ans_time = (
+				select NOW()
+			),
+			ans_person_id = #{problems.userInfoAns.userId}
 		WHERE
-			problems_id = #{problemsId};
+			problems_id = #{problems.problemsId};
 	</update>
 	
 	<select id="findAll" resultType="Problems">
@@ -258,5 +260,4 @@
 		AND keyWord LIKE #{keyWord};
 	</select>
 	-->
-	
 </mapper>

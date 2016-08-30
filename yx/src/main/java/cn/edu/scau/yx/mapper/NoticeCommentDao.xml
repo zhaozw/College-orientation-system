@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.scau.yx.dao.NoticeCommentDao">
+<select id="findAll">
+		SELECT
+			nc_id,
+			nu_id,
+			pi_id,
+			nc_create_date
+		FROM
+			notice_comment
+	</select>
+
+<select id="findAllReportedComment">
+		SELECT
+			nc_id,
+			nu_id,
+			pi_id,
+			nc_create_date,
+			repnu_id
+		FROM
+			notice_comment
+		where
+			repnu_id is not null
+	</select>
+	
+	<select id="findCommentById" parameterType="int" resultType="NoticeComment">
+		SELECT
+			nc_id,
+			nu_id,
+			pi_id,
+			nc_content,
+			nc_create_date,
+		FROM
+			notice_comment
+		where
+			nc_id=#{ncId}	
+	</select>
+	
+	<insert id="insertComment" parameterType="NoticeComment" >
+  	INSERT INTO column _info(nc_id,nu_id, pi_id, nc_content, nc_create_date)
+	VALUES (#{ncId},#{nuId},#{piId},#{ncContent},#{ncCreateDate})
+  </insert>
+  
+  <update id="updateComment" parameterType="NoticeComment">
+		UPDATE column_info
+		SET warn_ai_id=#{warnAiId}
+			rep_nu_id=#{repNuId}
+		WHERE
+			ci_id = #{ciId};
+	</update>
+</mapper>

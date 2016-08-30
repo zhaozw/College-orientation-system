@@ -1,6 +1,10 @@
 package cn.edu.scau.yx.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cn.edu.scau.yx.dao.MajorMapper;
 import cn.edu.scau.yx.entity.Major;
@@ -13,16 +17,27 @@ import cn.edu.scau.yx.service.interfaces.MajorService;
  *@date 2016年8月23日下午3:42:57
  *@version v1.0
  */
+@Service
 public class MajorServiceImpl implements MajorService {
+	
+	@Autowired
 	private MajorMapper majorMapper;
 
 	/* (non-Javadoc)
 	 * @see cn.edu.scau.yx.service.interfaces.MajorService#findByMajorName(java.lang.String)
 	 */
 	@Override
-	public List<Major> findByMajorName(String mjname) {
-		List<Major> majors = majorMapper.findByMajorName(mjname);
+	public List<Major> findByName(String mjname) {
+		List<Major> majors = majorMapper.findByName(mjname);
 		return majors;
+	}
+	
+	@Override
+	public Major findById(int mjid) {
+		if(mjid == 0)
+			throw new RuntimeException("error!");
+		Major major = majorMapper.findById(mjid);
+		return major;
 	}
 
 	/* (non-Javadoc)
@@ -60,5 +75,19 @@ public class MajorServiceImpl implements MajorService {
         }
 		return true;
 	}
+
+	@Override
+	public ArrayList<String> findAllMajorNameByDeaprtmentName(String departmentName) {
+		// TODO Auto-generated method stub
+		return majorMapper.findAllMajorNameByDeaprtmentName(departmentName);
+	}
+
+	@Override
+	public ArrayList<Major> findMajorsByDepartment(int departmentId) {
+		ArrayList<Major> majors = majorMapper.findMajorsByDepartment(departmentId);
+		return majors;
+	}
+
+
 
 }

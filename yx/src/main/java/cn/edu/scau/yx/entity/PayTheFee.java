@@ -4,7 +4,6 @@ public class PayTheFee {
     private int studentId;
     private int hadPaidTheFee;
     private int schooling;
-    private int textBooks;
     private int administrativeFee;
     private int medicalInsuranceFee;
     private int militaryTrainingClothesFee;
@@ -26,12 +25,6 @@ public class PayTheFee {
 	public void setSchooling(int schooling) {
 		this.schooling = schooling;
 	}
-	public int getTextBooks() {
-		return textBooks;
-	}
-	public void setTextBooks(int textBooks) {
-		this.textBooks = textBooks;
-	}
 	public int getAdministrativeFee() {
 		return administrativeFee;
 	}
@@ -50,13 +43,6 @@ public class PayTheFee {
 	public void setMilitaryTrainingClothesFee(int militaryTrainingClothesFee) {
 		this.militaryTrainingClothesFee = militaryTrainingClothesFee;
 	}
-	@Override
-	public String toString() {
-		return "PayTheFee [studentId=" + studentId + ", hadPaidTheFee=" + hadPaidTheFee + ", schooling=" + schooling
-				+ ", textBooks=" + textBooks + ", administrativeFee=" + administrativeFee + ", medicalInsuranceFee="
-				+ medicalInsuranceFee + ", militaryTrainingClothesFee=" + militaryTrainingClothesFee + "]";
-	}
-	
 	
     
     

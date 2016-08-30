@@ -1,17 +1,8 @@
-/**
- *@author Bruce 
- *@email 2594570106@qq.com
- *@decription TODO
- *@date
- *@version v1.0
- */
 package cn.edu.scau.yx.controller;
 
-import java.util.List;
-
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -26,7 +17,7 @@ import cn.edu.scau.yx.service.interfaces.DepartmentService;
  *@version v1.0
  */
 @Controller
-@RequestMapping("/education")
+@RequestMapping("/education/department")
 public class DepartmentController {
 	@Autowired
 	private DepartmentService departmentService;
@@ -41,42 +32,44 @@ public class DepartmentController {
 		return "education/findDepartment";
 	}
 	
-	@RequestMapping("/updateDepartment")
-	public String updateDepartment(){
-		return "education/updateDepartment";
-	}
-	
-	@RequestMapping("/viewDepartment")
-	public String viewDepartment(){
-		return "education/viewDepartment";
-	}
-	
-	@RequestMapping("/home")
+	@RequestMapping("/index")
 	public String home(){
-		return "home/index";
-	}
-	
-	@RequestMapping("/find/{dpname}")
-	public @ResponseBody List<Department> findByDepartmentName(@PathVariable("dpname")String dpname) {
-		List<Department> departments = departmentService.findByDepartmentName(dpname);
-		return departments;
-	}
-	
-	@RequestMapping("/insert/{department}")
-	public @ResponseBody Boolean insertDepartmentName(@PathVariable("department")Department department) {
-		Boolean count = departmentService.insertDepartment(department);
-		return count;
-	}
-	
-	@RequestMapping("/update/{department}")
-	public @ResponseBody Boolean updateDepartmentName(@PathVariable("department")Department department) {
-		Boolean count = departmentService.updateDepartment(department);
-		return count;
+		return "education/index";
 	}
 	
 	@RequestMapping("/find")
-	public @ResponseBody Boolean deleteDepartmentName(@PathVariable("dpid")int dpid) {
-		Boolean count = departmentService.deleteDepartment(dpid);
-		return count;
+	public @ResponseBody ArrayList<Department> findByName(String dpname) {
+		if(dpname == null){
+			dpname = "";
+		}
+		ArrayList<Department> departments = (ArrayList<Department>) departmentService.findByName(dpname);
+		return departments;
 	}
+	
+	@RequestMapping("/insert")
+	public String insertDepartment(Department department) {
+		if(departmentService.insertDepartment(department))
+			return "education/findDepartment";
+		else
+		    return "education/index";
+	    
+	}
+	
+	@RequestMapping("/update")
+	public String updateDepartment(Department department) {
+		if(departmentService.updateDepartment(department))
+			return "education/findDepartment";
+		else
+			return "education/index";
+	}
+	
+	@RequestMapping("/delete")
+	public String deleteDepartment(int dpid) {
+		if( departmentService.deleteDepartment(dpid))
+			return "education/findDepartment";
+		else
+			return "education/index";	
+	}
+	
+
 }

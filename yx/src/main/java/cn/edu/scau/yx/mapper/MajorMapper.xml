@@ -4,7 +4,49 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.scau.yx.dao.MajorMapper">
     
-  <select id="findByMajorName" parameterType="String" resultType="Major" >
+  <select id="findByName" parameterType="String" resultType="Major" >
+  <bind name="mjname" value="'%' + mjname + '%'"/>
+  SELECT
+  m.id,
+  m.mjname `name`,
+  m.introduce,
+  m.department_id "department.id",
+  m.dpname "department.name",
+  m.president "department.president",
+  m.vice_president "department.vicePresident",
+  m.address "department.address",
+  m.phone "department.phone",
+  m.zip_code "department.zipCode",
+  m.network_address "department.networkAddress",
+  m.description "department.description"
+	FROM
+		(
+			SELECT
+				mj.id,
+				mj.`name` AS mjname,
+				mj.introduce,
+				mj.department_id,
+				dp.`name` AS dpname,
+				dp.president,
+				dp.vice_president,
+				dp.address,
+				dp.phone,
+				dp.zip_code,
+        dp.network_address,
+        dp.description
+			FROM
+				major mj
+			LEFT JOIN department dp ON mj.department_id = dp.id
+			ORDER BY mj.id DESC
+		) m
+	<where>
+		<if test="mjname !=null and mjname != ''">
+        m.mjname like #{mjname}
+		</if>
+	</where>
+  </select>
+ 
+  <select id="findById" parameterType="int" resultType="Major" >
   SELECT
   m.id,
   m.mjname,
@@ -39,8 +81,8 @@
 			ORDER BY mj.id DESC
 		) m
 	<where>
-		<if test="mjname !=null and mjname != ''">
-        m.mjname like #{mjname}
+		<if test="mjid !=null">
+        m.id = #{mjid}
 		</if>
 	</where>
   </select>
@@ -61,7 +103,7 @@
   			name = #{name},
   		</if>
   		<if test="introduce != null">
-  	 		introduce = #{introduce}
+  	 		introduce = #{introduce},
   		</if>
   		<if test="department.id != null">
   	 		department_id = #{department.id}
@@ -69,4 +111,29 @@
   	</set>
   	WHERE id = #{id}
   </update>
+  
+  <select id="findAllMajorNameByDeaprtmentName" resultType="String">
+         select 
+           		m.name
+           from  
+                	 major 			      m 
+                left join  department     d    on  m.department_id    =      d.id
+            where
+                d.name   =   #{departmentName}
+  </select>
+
+	<select id="findMajorsByDepartment" parameterType="int"
+		resultType="Major">
+		SELECT
+		m.id,
+		m.name,
+		m.introduce
+		FROM
+		major m
+		<where>
+			<if test="departmentId !=null">
+				m.department_id = #{departmentId}
+			</if>
+		</where>
+	</select>
 </mapper>

@@ -1,6 +1,8 @@
 package cn.edu.scau.yx.service.interfaces;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import cn.edu.scau.yx.entity.Class;
 
 /**
@@ -17,7 +19,14 @@ public interface ClassService {
 	 * @param clname 要查找的班级名
 	 * @return 班级实体
 	 */
-	public List<Class> findByClassName(String clname);
+	public List<Class> findByName(String clname);
+	
+	/**
+	 * 根据输入的id查找班级
+	 * @param clid 要查找的班级id
+	 * @return 班级实体
+	 */
+	public Class findById(int clid);
 	
 	/**
 	 * 根据输入的班级信息添加到数据库
@@ -38,5 +47,9 @@ public interface ClassService {
 	 * @return Boolean
 	 */
 	public Boolean deleteClass(int clid);
+	
+	ArrayList<String> findAllClassNameByMajorName(String majorName);
+
+	public ArrayList<Class> findClass(int majorId, int gradeId);
 
 }

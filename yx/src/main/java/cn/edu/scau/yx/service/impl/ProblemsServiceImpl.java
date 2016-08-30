@@ -38,4 +38,10 @@ public class ProblemsServiceImpl implements ProblemsService{
 		return problemsMapper.findWithKey(audit, authority, keyWord);
 	}
 
+	@Override
+	public int replyById(int problemsId,Problems problems) {
+		int updateCount = problemsMapper.updateContentById(problemsId,problems);
+		return updateCount;
+	}
+
 }

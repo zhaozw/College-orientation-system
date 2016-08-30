@@ -3,6 +3,7 @@
 /.setting/
 /.classpath
 /.project
+/pom.xml
 
 *.class
 
