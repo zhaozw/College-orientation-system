@@ -1,4 +1,5 @@
 package cn.edu.scau.yx.service.impl;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,6 @@ public class MessageServiceImpl implements MessageService {
 	
 	public List<Message> findByMessageTitle(String piTitle) {
 		List<Message> list = messageDao.findByMessageTitle(piTitle);
-		
 		return list;
 	}
 

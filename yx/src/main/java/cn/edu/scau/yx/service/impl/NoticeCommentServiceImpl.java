@@ -47,13 +47,20 @@ public class NoticeCommentServiceImpl implements NoticeCommentService{
 	}
 
 	
-	public int updateCommentById(int ncId) {
-		int count=noticeCommentDao.updateCommentById(ncId);
+	public int updateComment(NoticeComment comment) {
+		int count=noticeCommentDao.updateComment(comment);
 		if( count != 1 ){
 			throw new RuntimeException("error");
 		}
 		return 1;
 
+	}
+
+
+	
+	public List<NoticeComment> findFromMessage(int piId) {
+		List<NoticeComment> list=noticeCommentDao.findFromMessage(piId);
+		return list;
 	}
 	
 }

@@ -4,6 +4,8 @@ package cn.edu.scau.yx.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,10 +28,16 @@ public class AdvisoryController {
 	//获取咨询列表
 	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public String list(Model model){
-		//获取列表
-		List<Problems> list=problemsService.getList();
-		model.addAttribute("list",list);
-		return "advisory/view_consult/list";
+		try {
+			//获取列表
+			List<Problems> list=problemsService.getList();
+			model.addAttribute("list",list);
+			return "advisory/view_consult/list";
+		} catch (Exception e) {
+			model.addAttribute("errorMsg", "获取咨询信息失败");
+			return null;
+		}
+		
 	}
 	
 	
@@ -37,42 +45,50 @@ public class AdvisoryController {
 	@RequestMapping(value="/search",method=RequestMethod.GET)
 	@ResponseBody
 	public List<Problems> search(String audit,String authority,String keyWord,Model model){
-		if(audit!=null||authority!=null||keyWord!=null){
-			List<Problems> list=problemsService.getListByCondition(audit, authority, keyWord);
-//			model.addAttribute("list", list);
-			return list;
-		}else{
-			//获取列表
-			List<Problems> list=problemsService.getList();
-//			model.addAttribute("list",list);
-			return list;
+		try {
+			if(audit!=null||authority!=null||keyWord!=null){
+				List<Problems> list=problemsService.getListByCondition(audit, authority, keyWord);
+				//model.addAttribute("list", list);
+				return list;
+			}else{
+				//获取列表
+				List<Problems> list=problemsService.getList();
+//				model.addAttribute("list",list);
+				return list;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			model.addAttribute("errorMsg", "搜索咨询信息失败");
+			return null;
 		}
+		
 	}
 	
 	//弹出详情页面
 	@RequestMapping(value="/{problemsId}/detail",method=RequestMethod.GET)
 	public @ResponseBody Problems details(@PathVariable("problemsId") int problemsId){
 	
-//		List<Problems> detail = problemsService.getById(problemsId);
 		Problems detail = problemsService.getById(problemsId);
-//		if(detail == null){
-//			return "rediret:/advisory/list";
-//		}
-		//model.addAttribute("detail", detail);
 		return detail;
 	}
 	
 	//删除单条数据
 	@RequestMapping(value="/{problemsId}/del",method=RequestMethod.POST)
 	@ResponseBody
-	public int del(@PathVariable("problemsId") int problemsId){
-		int delCount=problemsService.delById(problemsId);
-		return delCount;
+	public int del(@PathVariable("problemsId") int problemsId,Model model){
+		try {
+			int delCount=problemsService.delById(problemsId);
+			return delCount;
+		} catch (Exception e) {
+			model.addAttribute("errorMsg", "删除数据失败");
+			return 0;
+		}
+		
 	}
 	
 	//回复咨询
 	@RequestMapping(value="/{replyId}/reply",method=RequestMethod.POST)
-	public @ResponseBody int reply(@PathVariable("replyId") Integer replyId,String audit,String authority,String answer,String ansPersonId){
+	public @ResponseBody int reply(@PathVariable("replyId") Integer replyId,String audit,String authority,String answer,String ansPersonId,Model model){
 		
 		Problems problems =new Problems();
 		UserInfo user=new UserInfo();
@@ -83,51 +99,63 @@ public class AdvisoryController {
 		problems.setUserInfoAns(user);
 		problems.setProblemsId(replyId);
 		
-		int updateCount = problemsService.replyById(Integer.valueOf(replyId),problems);
-		return updateCount;
-	}
-	
-	/*//删除时重新加载数据
-	@RequestMapping(value="/show",method=RequestMethod.POST)
-	@ResponseBody
-	public List<Problems> show(){
-		List<Problems> list=problemsService.getList();
-		return list;
-	}
-	
-//	@RequestMapping("/search")
-//	public String search(){
-//		return "advisory/view_consult/search_consult";
-//	}
-	
-	
-	
-	@RequestMapping("/test")
-	public String test(){
-		return "advisory/freshman_consult";
-	}
-	
-	@RequestMapping("/searchKey")
-	public @ResponseBody Problems searchKey(String key){
-		Problems problems =new Problems();
-		ProblemsTheme theme=new ProblemsTheme();
-		UserInfo user=new UserInfo();
-		problems.setProblemsId(100);
-//		problems.setTheme("创业");
-		problems.setContent("大众创业，万众创新");
-//		problems.setUserName("黄某某");
-		
-		Timestamp ts=new Timestamp(System.currentTimeMillis());
-		String time="2016-8-20 10:05:34";
 		try {
-			ts=Timestamp.valueOf(time);
+			int updateCount = problemsService.replyById(Integer.valueOf(replyId),problems);
+			return updateCount;
 		} catch (Exception e) {
-			e.printStackTrace();
+			model.addAttribute("errorMsg", "删除数据失败");
+			return 0;
 		}
-		problems.setTime(ts);
-		
-		
-		return problems;
 	}
-	*/
+	
+	@RequestMapping(value="/user/sendAdvisory")
+	public String sendAdvisory(){
+		return "usersAdvisory/add";
+	}
+	//添加用户咨询
+	@RequestMapping(value="/user/add")
+	public String addProblems(HttpSession session, Problems problems,Model model){
+		UserInfo user =(UserInfo) session.getAttribute("user");
+/*		int userId=1000;
+		UserInfo user= new UserInfo();
+		user.setUserId(userId);*/
+		problems.setUserInfoAsk(user);
+		//System.out.println(problems.getContent());
+		try {
+				problemsService.addProblems(problems);
+				return "redirect:/advisory/user/list";
+		} catch (Exception e) {
+			model.addAttribute("errorMsg", "发布咨询信息失败");
+			return "redirect:/advisory/user/sendAdvisory";
+		}
+		
+		
+	}
+	
+	//根据userId查询用户咨询列表
+	@RequestMapping(value="/user/list")
+	public String getuserProblemsList(HttpSession session,Model model){
+		//获取列表
+		/*int userId=1000;*/
+		UserInfo user =(UserInfo) session.getAttribute("user");
+		List<Problems> list=problemsService.getListByUserId(user.getUserId());
+		model.addAttribute("list",list);
+		return "usersAdvisory/list";
+	}
+	
+	//根据userId和关键字搜索用户咨询列表
+	@RequestMapping(value="/user/{userId}/search")
+	@ResponseBody
+	public List<Problems> getListByUserIdAndKey(@PathVariable("userId") Integer userId,String keyWord,Model model){
+		//int userId=1000;
+		
+		if(userId!=0 && keyWord!=null){
+			List<Problems> list=problemsService.getSearchByUserId(userId, keyWord);
+			return list;
+		}else{
+			//获取列表
+			List<Problems> list=problemsService.getList();
+			return list;
+		}
+	}
 }

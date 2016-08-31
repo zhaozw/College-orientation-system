@@ -24,4 +24,6 @@ public interface UserInfoMapper {
 	
 	int insertUserRoleInfo(@Param("list")ArrayList<String> list ,@Param("userId") int userId);
 	int deleteUserRoleList(@Param("userId") int userId);
+	
+	int reg(UserInfo userInfo);
 }

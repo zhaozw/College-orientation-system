@@ -56,166 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
 
-                    <li>
-                        <a href="#"><i class="fa"></i>宿舍管理模块<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                           <li>
-                                <a href="#"><i class="fa"></i>宿舍信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="/yx/dormModule/dorm/list">查询宿舍信息列表</a>
-                                    </li>
-                                    <li>
-                                        <a href="/yx/dormModule/dorm/addDorm">添加宿舍信息</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            
-                            <li>
-                                <a href="#"><i class="fa"></i>住宿学生信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                       <a href="/yx/dormModule/dormStu/list">住宿学生信息列表</a>
-                                    </li>
-                                    <li>
-                                        <a href="/yx/dormModule/dormStu/addDormStu">添加住宿学生信息</a>
-                                    </li>
-                                </ul>
-                            </li>
-                             <!-- <li>
-                                <a href="#"><i class="fa"></i>宿舍区信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="../views1/view_dorm_area.html">查看宿舍区信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views1/add_dorm_area.html">增加宿舍区信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views1/del_dorm_area.html">删除住户</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views1/edit_dorm_area.html">修改宿舍区信息</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa"></i>楼栋信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="../views2/view_building_d.html">查看楼栋信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views2/add_building_d.html">增加楼栋信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views2/del_building_d.html">删除楼栋信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views2/edit_building_d.html">修改楼栋信息</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa"></i>楼层信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="../views6/view_building_c.html">查看楼层信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views6/add_building_c.html">增加楼层信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views6/del_building_c.html">删除楼层信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views6/edit_building_c.html">修改楼层信息</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa"></i>宿舍基本信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="../views3/view_dorm_basic.html">查看宿舍基本信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views3/add_dorm_basic.html">增加宿舍基本信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views3/del_dorm_basic.html">删除宿舍基本信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views3/edit_dorm_basic.html">修改宿舍基本信息</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a href="#"><i class="fa"></i>宿舍学生信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="../views4/view_dorm_stu.html">查看宿舍学生信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views4/add_dorm_stu.html">增加宿舍学生信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views4/add_dorm_stu.html">不明白？？？批量增加宿舍学生信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views4/del_dorm_stu.html">删除宿舍学生信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views4/del_dorm_stu_more.html">批量删除宿舍学生信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views4/edit_dorm_stu.html">修改宿舍学生信息</a>
-                                    </li>
-                                </ul>
-                            </li>
-                           <li>
-                                <a href="#"><i class="fa"></i>宿舍迎新物品信息管理<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="../views5/view_wel_goods.html">查看宿舍迎新物品信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views5/add_wel_goods.html">增加宿舍迎新物品信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views5/add_wel_goods_more.html">批量增加宿舍迎新物品信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views5/edit_wel_goods.html">修改宿舍迎新物品信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views5/del_wel_goods.html">删除宿舍迎新物品信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views5/del_wel_goods_more.html">批量删除宿舍迎新物品信息</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views5/set_wel_goods_status.html">设置宿舍迎新物品状态</a>
-                                    </li>
-                                    <li>
-                                        <a href="../views5/set_wel_goods_status_more.html">批量设置宿舍迎新物品状态</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            -->
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
-
-                    <li>
-                        <a href="#"><i class="fa"></i>管理员管理咨询模块<span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li>
-                                <a href="/yx/advisory/list">咨询记录管理</a>
-                            </li>
-                        </ul>
-                        <!-- /.nav-second-level -->
-                    </li>
+                   <%@ include  file="/layout/layout.jsp"%>
                 </ul>
             </div>
             <!-- /.sidebar-collapse -->
@@ -298,7 +139,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </div>
 
 
+<script type="text/javascript">
 
+	$(document).ready(function() {
+		var msg = "<%=request.getParameter("errorMsg")%>";
+		console.log(msg);
+		if (msg && msg != 'null' && msg.length > 0) {
+			/* $('#error-msg').modal({
+				  keyboard: false
+				}); */
+				alert(msg);
+		}
+	});
+
+	
+</script>
 
 
     <!-- /#page-wrapper -->

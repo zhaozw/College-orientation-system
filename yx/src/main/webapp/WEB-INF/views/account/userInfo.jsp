@@ -127,6 +127,7 @@ $(function() {
           function(data) {
         	
         	  
+        	  
           },
           "json");
        
@@ -175,6 +176,16 @@ $(function() {
                         message: '用户密码不能为空！'
                     }
                 }
+            },
+            confirmPassword: {
+                validators: {
+                    notEmpty: {
+                        message: '请再次输入密码！'
+                    },identical: {
+                        field: 'modifiedPwd',
+                        message: '两次密码不一致!'
+                    }
+                }
             }
             ,
             modifiedUserAuth: {
@@ -200,9 +211,19 @@ $(function() {
         },
         function(data) {
       	
-      	  alert("修改成功!");
+        	 var userName = $("#searchUserName").val();
+             var url = "/yx/account/loadUserListByName/" + userName;
+             $.get(url,
+             function(userList) {
+     				
+             	
+             	dataDeal(userList);
+
+             },
+             "json");
+        	
         },
-        "json");
+        "text");
     	
     	
 
@@ -276,7 +297,7 @@ $(function() {
             tr.append($("<td></td>").html(user.userId));
             tr.append($("<td></td>").html(user.userName));
             tr.append($("<td></td>").html(user.age));
-            tr.append($("<td></td>").html(user.pwd));
+            tr.append($("<td></td>").html("****"));
             
             
             var td=$("<td></td>");
@@ -340,8 +361,9 @@ $(function() {
 		$("#modifiedUserName").val(userData.userName);
 		$("#modifiedAge").val(userData.age);
 		$("#modifiedPwd").val(userData.pwd);
+		$("#confirmPassword").val(userData.pwd);
 		
-		var div1=$("#modifiedUserForm > div.modal-body > div:nth-child(3)");
+		var div1=$("#modifiedUserForm > div.modal-body > div:nth-child(6)");
 		var label=$('<label for="modifiedUserAuth" style="margin-top:30px;font-size:16px;" class="control-label"><strong>分配角色<sup>*</sup></strong></label>');
 		var select=$(' <select class="selectpicker form-control col-md-3" name="modifiedUserAuth"  id="modifiedUserAuth" multiple></select>');
 		div1.empty();
@@ -417,95 +439,7 @@ $(function() {
     <div class="navbar-default sidebar" user="navigation" style="min-height: 48em">
       <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
-          <li>
-            <a href="index.html">
-              <i class="fa fa-dashboard fa-fw nav_icon"></i>Dashboard</a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-laptop nav_icon"></i>Layouts
-              <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="grids.html">Grid System</a></li>
-            </ul>
-            <!-- /.nav-second-level --></li>
-          <li>
-            <a href="#">
-              <i class="fa fa-indent nav_icon"></i>Menu Levels
-              <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="graphs.html">Graphs</a></li>
-              <li>
-                <a href="typography.html">Typography</a></li>
-            </ul>
-            <!-- /.nav-second-level --></li>
-          <li>
-            <a href="#">
-              <i class="fa fa-envelope nav_icon"></i>Mailbox
-              <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="inbox.html">Inbox</a></li>
-              <li>
-                <a href="compose.html">Compose email</a></li>
-            </ul>
-            <!-- /.nav-second-level --></li>
-          <li>
-            <a href="widgets.html">
-              <i class="fa fa-flask nav_icon"></i>Widgets</a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-check-square-o nav_icon"></i>Forms
-              <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="forms.html">Basic Forms</a></li>
-              <li>
-                <a href="validation.html">Validation</a></li>
-            </ul>
-            <!-- /.nav-second-level --></li>
-          <li>
-            <a href="#">
-              <i class="fa fa-table nav_icon"></i>Tables
-              <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="basic_tables.html">Basic Tables</a></li>
-            </ul>
-            <!-- /.nav-second-level --></li>
-          <li>
-            <a href="#">
-              <i class="fa fa-sitemap fa-fw nav_icon"></i>Css
-              <span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="media.html">Media</a></li>
-              <li>
-                <a href="login.html">Login</a></li>
-            </ul>
-            <!-- /.nav-second-level --></li>
-          <li>
-            <a href="#">
-              <i class="fa fa-sitemap fa-fw nav_icon"></i>现场迎新管理
-              <span class="fa arrow" /></a>
-            <ul class="nav nav-second-level">
-              <li>
-                <a href="checkIn">登记报到单打印状态</a></li>
-              <li>
-                <a href="militarySuppliesManagement">军训用品发送管理</a></li>
-              <li>
-                <a href="cardManagement">一卡通发放管理</a></li>
-              <li>
-                <a href="sitePayment">现场缴费管理</a></li>
-              <li>
-                <a href="registerAndReport">注册报到管理</a></li>
-              <li>
-                <a href="fileSubmission">档案提交管理</a></li>
-            </ul>
-          </li>
+             <%@ include  file="/layout/layout.jsp"%>
         </ul>
       </div>
       <!-- /.sidebar-collapse --></div>
@@ -535,7 +469,7 @@ $(function() {
                       <input type="text" class="form-control1 required" placeholder="例:林景峰" id="searchUserName" name="searchUserName" data-bv-notempty data-bv-notempty-message="用户名称不能为空！" /></div>
                   </div>
                 </div>
-                <div class="col-md-1 form-group">
+                <div class="col-md-5 form-group">
                   <button class="btn btn-info" type="submit" style="height: 40px;">
                     <span class="glyphicon glyphicon-search"></span>&nbsp;查询</button>
                 </div>
@@ -688,6 +622,15 @@ $(function() {
                         		      <span class="glyphicon glyphicon-user"></span>
                        			</span>
                           <input type="password"  class="form-control1"  id="modifiedPwd" name="modifiedPwd" placeholder="例:123456">
+                          </div>
+                        </div>
+                        <div class="form-group" style="margin-top:30px;font-size:16px;">
+                          <label for="confirmPassword" class="control-label" ><strong>再次输入用户密码<sup>*</sup></strong></label>
+                          <div class="input-group">
+                          		<span class="input-group-addon">
+                        		      <span class="glyphicon glyphicon-user"></span>
+                       			</span>
+                          <input type="password"  class="form-control1"  id="confirmPassword" name="confirmPassword" placeholder="">
                           </div>
                         </div>
                         <div class="form-group">

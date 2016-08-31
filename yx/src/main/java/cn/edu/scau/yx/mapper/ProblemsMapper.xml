@@ -52,31 +52,17 @@
 	
 	<insert id="insertProblems" parameterType="Problems">
 		INSERT INTO problems (
-			`problems_id`,
-			`user_id`,
-			`time`,
-			`content`,
-			`problems_theme_id`,
-			`audit`,
-			`authority`,
-			`is_del`,
-			`answer`,
-			`ans_time`,
-			`ans_person_id`
+			user_id,
+			time,
+			content,
+			problems_theme_id
 		)
 		VALUES
 			(
-				#{problemsId},
-				#{user.userId},
-				#{time},
+				#{userInfoAsk.userId},
+				(SELECT NOW()),
 				#{content},
-				#{problemsThemeId},
-				#{audit},
-				#{authority},
-				#{isDel},
-				#{answer},
-				#{ansTime},
-				#{user.ansPersonId}
+				#{problemsTheme.problemsThemeId}
 			);
 	</insert>
 	
@@ -145,6 +131,47 @@
 			</if>
 			<if test="authority!=null and authority!=''">
 				AND	authority LIKE #{authority}
+			</if>
+		</where>
+	</select>
+	
+	<select id="findByUserId" parameterType="int" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			p.time
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		WHERE user_id=#{userInfoAsk.userId}
+	</select>
+	
+	<select id="searchByUserId" resultType="Problems">
+		SELECT
+			p.problems_id,
+			pt.theme_name 'problemsTheme.theme_name',
+			p.content,
+			p.answer,
+			p.time
+			
+		FROM
+			`problems` p
+		LEFT JOIN problems_theme pt ON p.problems_theme_id=pt.problems_theme_id
+		LEFT JOIN user_info u ON p.user_id=u.user_id
+		<where>
+			
+			<if test="keyWord!=null and keyWord!=''">
+				 <!-- AND CONCAT(`content`,`audit`,`authority`,`answer`) LIKE #{keyWord} --> 
+				(p.`content` LIKE CONCAT('%',#{keyWord},'%')
+				OR answer LIKE CONCAT('%',#{keyWord},'%')
+				OR problems_id LIKE CONCAT('%',#{keyWord},'%')
+				OR u.user_name LIKE CONCAT('%',#{keyWord},'%')
+				OR pt.theme_name LIKE CONCAT('%',#{keyWord},'%')
+				)
+			</if>
+			<if test="userId!=null and userId!=''">
+				AND u.user_id LIKE #{userId}
 			</if>
 		</where>
 	</select>

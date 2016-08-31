@@ -38,46 +38,66 @@ public class WelcomeController {
 	@Autowired
 	private ClassService classService;
 	
+	
+	/*
+	 * 登记报到单打印状态页面
+	 */
 	@RequestMapping("/checkIn")
 	public String checkIn() {
 		return "welcome/checkIn";
 	}
 
+	/*
+	 * 军训用品发送管理页面
+	 */
 	@RequestMapping("/militarySuppliesManagement")
 	public String militarySuppliesManagement() {
 		return "welcome/militarySuppliesManagement";
 	}
-
-	@RequestMapping("/studySuppliesManagement")
-	public String studySuppliesManagement() {
-		return "welcome/studySuppliesManagement";
-	}
-
+	
+	
+	/*
+	 * 一卡通发送管理页面
+	 */
 	@RequestMapping("/cardManagement")
 	public String cardManagement() {
 		return "welcome/cardManagement";
 	}
 
-	@RequestMapping("/medicareManagment")
-	public String medicareManagment() {
-		return "welcome/medicareManagment";
-	}
-
+	
+	/*
+	 * 注册报到管理页面
+	 */
 	@RequestMapping("/registerAndReport")
 	public String registerAndReport() {
 		return "welcome/registerAndReport";
 	}
-
+    
+	
+	/*
+	 * 档案提交管理页面
+	 */
 	@RequestMapping("/fileSubmission")
 	public String fileSubmission() {
 		return "welcome/fileSubmission";
 	}
-
+    
+	/*
+	 * 现场缴费管理页面
+	 */
 	@RequestMapping("/sitePayment")
 	public String sitePayment() {
 		return "welcome/sitePayment";
 	}
-
+    
+	
+	
+	/**
+	 * 
+	 * @param stuId  学生编号ID
+	 * @param name	   学生姓名
+	 * @return		  Student类(携带着登记报到单打印信息以及学生的基本信息）
+	 */
 	@RequestMapping("/load1/{stuId}/{name}")
 	public @ResponseBody Student load1(@PathVariable("stuId") String stuId, @PathVariable("name") String name) {
 
@@ -89,7 +109,14 @@ public class WelcomeController {
 		return failDeal(result);
 
 	}
-
+    
+	
+	
+	/**
+	 * 
+	 * @param id      学生身份证
+	 * @return		  Student类(携带着登记报到单打印信息以及学生的基本信息）
+	 */
 	@RequestMapping("/load2/{id}")
 	public @ResponseBody Student load1(@PathVariable("id") String id) {
 

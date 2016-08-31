@@ -13,6 +13,19 @@
 			notice_comment
 	</select>
 
+<select id="findFromMessage" parameterType="int" resultType="NoticeComment">
+		SELECT
+			nc_id,
+			v_id,
+			pi_id,
+			nc_content,
+			nc_create_date
+		FROM
+			notice_comment 
+		where
+			pi_id=#{piId}
+	</select>
+	
 <select id="findAllReportedComment">
 		SELECT
 			nc_id,
@@ -40,8 +53,8 @@
 	</select>
 	
 	<insert id="insertComment" parameterType="NoticeComment" >
-  	INSERT INTO column _info(nc_id,nu_id, pi_id, nc_content, nc_create_date)
-	VALUES (#{ncId},#{nuId},#{piId},#{ncContent},#{ncCreateDate})
+  	INSERT INTO notice_comment( pi_id, nc_content, nc_create_date)
+	VALUES (#{piId},#{ncContent},NOW())
   </insert>
   
   <update id="updateComment" parameterType="NoticeComment">

@@ -37,4 +37,12 @@ public interface ProblemsService {
 	//回复
 	int replyById(int problemsId,Problems problems);
 	
+	//用户发布咨询
+	int addProblems(Problems problems);
+	
+	//根据用户Id查询咨询信息列表
+	List<Problems> getListByUserId(int userId);
+	
+	//根据用户Id和关键字搜索咨询信息列表
+	List<Problems> getSearchByUserId(int userId,String keyWord);
 }

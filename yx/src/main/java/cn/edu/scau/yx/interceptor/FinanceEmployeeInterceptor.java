@@ -63,7 +63,7 @@ public class FinanceEmployeeInterceptor implements HandlerInterceptor {
 		} 
 		
 			//否则，跳到登录界面
-			response.sendRedirect("/yx/login");
+			response.sendRedirect("/yx/index.jsp");
 			return false;
 		
 

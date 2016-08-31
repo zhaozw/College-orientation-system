@@ -36,6 +36,7 @@ import cn.edu.scau.yx.entity.UserInfo;
 13、迎新系统管理员WelcomeManager：管理发布内容、管理栏目、管理学校信息的评论管理、管理咨询系统
 14、学生Student：学生功能模块、咨询者咨询系统
 15、游客Visitor：登录，注册，评论，举报，收藏信息
+16、超级管理员SuperManager：所有权限
 */
 
 
@@ -63,7 +64,7 @@ public class FinanceTeacherInterceptor implements HandlerInterceptor {
 		} 
 		
 			//否则，跳到登录界面
-			response.sendRedirect("/yx/login");
+			response.sendRedirect("/yx/index.jsp");
 			return false;
 		
 

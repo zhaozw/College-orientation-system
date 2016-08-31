@@ -52,6 +52,11 @@ public class LoginController implements Serializable {
 			UserInfo user = null;
 			user = userInfoService.findByUserIdAndPwd(userInfo.getUserId(), userInfo.getPwd());
 			
+			if (user == null) {
+				return "redirect:/login";
+				
+			}
+			
 			//从数据库中获得 user 对应的角色
 			ArrayList<RoleInfo> roleInfos = (ArrayList<RoleInfo>) roleInfoService.getAllRoleInfosByUserId(user. getUserId());
 			
@@ -63,7 +68,7 @@ public class LoginController implements Serializable {
 				httpSession.setAttribute("user", user);
 				return "redirect:/account/userInfo";
 			} else {
-				return "forward:/yx/login";
+				return "forward:/yx/index.jsp";
 				
 			}
 			
@@ -75,56 +80,11 @@ public class LoginController implements Serializable {
 	}
 	
 	//跳转到 view/  UserInfo/addUser   .jsp
-	@RequestMapping("/reg")
+	@RequestMapping(value = "/reg", method=RequestMethod.GET)
 	public String reg(){
-		return "userInfo/reg";
+		return "account/reg";
 	}
-	
-	@RequestMapping("/register")
-	public String register(UserInfo userInfo){
-		int count=userInfoService.insertUserInfo(userInfo);
-		if(count>0){
-			return "forward:/userInfo/login";
-		}else{
-			return null;
-		}
-		//return "UserInfo/viewUser";
-	}
-	
-	@RequestMapping("/updateUser")
-	public String updateUser(){
-		return "userInfo/updateUser";
-	}
-	
-	
-	@RequestMapping("/viewUser")
-	public String viewUser(){
-		return "userInfo/viewUser";
-	}
-	
-	@RequestMapping("/home")
-	public String home(){
-		return "home/index";
-	}
-	
-	@RequestMapping("/find/{userId}")
-	public @ResponseBody UserInfo findByUserId(@PathVariable("userId")int userId) {
-		UserInfo userInfo = userInfoService.findByUserId(userId);
-		return userInfo;
-	}
-	
-	@RequestMapping("/insert/{userInfo}")
-	public @ResponseBody int insertUserInfoName(@PathVariable("userInfo")UserInfo UserInfo) {
-		int count = userInfoService.insertUserInfo(UserInfo);
-		return count;
-	}
-	
-	@RequestMapping("/update/{userInfo}")
-	public @ResponseBody int updateUserInfoName(@PathVariable("userInfo")UserInfo UserInfo) {
-		int count = userInfoService.updateUserInfo(UserInfo);
-		return count;
-	}
-	
+
 	
 	//注销
 	@RequestMapping("/logout")

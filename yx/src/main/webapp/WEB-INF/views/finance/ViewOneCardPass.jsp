@@ -56,7 +56,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							Profile</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-cog"></span>
 							Settings</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>
+					<li><a href="/yx/logout"><span class="glyphicon glyphicon-log-out"></span>
 							Logout</a></li>
 				</ul></li>
 		</ul>

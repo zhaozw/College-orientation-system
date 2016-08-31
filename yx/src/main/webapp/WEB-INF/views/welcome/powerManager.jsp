@@ -14,6 +14,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="/yx/assets/css/style.css" rel='stylesheet' type='text/css' />
 <link href="/yx/assets/css/font-awesome.css" rel="stylesheet">
 <script src="/yx/assets/js/jquery.min.js"></script>
+<link
+	href='http://fonts.useso.com/css?family=Roboto:400,100,300,500,700,900'
+	rel='stylesheet' type='text/css'>
 <script src="/yx/assets/js/bootstrap.min.js"></script>
 
 <link type="text/css" rel='stylesheet' href="/yx/assets/css/welcome/welcome.css" />
@@ -24,8 +27,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="/yx/assets/js/bootstrap-select.min.js"></script>
 
 <script type="text/javascript">
-
-var tempPowerListData;
 $(function() {
     $('#form2').bootstrapValidator({
         message: 'This value is not valid',
@@ -49,9 +50,11 @@ $(function() {
         
         
         var powerName = $("#searchPowerName").val();
+        alert("通过权限名"+powerName+"来查询该权限的详细信息");
+        return;
         
         
-        var url = "/yx/account/findPowerByName?"+"powerName=" + powerName;
+        var url = "/yx/welcome/loadFee1"+"&powerName=" + powerName;
         $.get(url,
         function(data) {
 
@@ -104,140 +107,16 @@ $(function() {
         }
     }).on('success.form.bv',
     function(e) {
-    	 e.preventDefault();
-   	  $("#addRoleModal").modal("hide");
-   	  var url = "/yx/account/addPower";
-         $.post(url,{
-       	  "powerName":$("#powerName").val(),
-       	  "powerId":$("#powerId").val(),
-       	  "description":$("#description").val()
-         },
-         function(data) {
-       	     
-       	     if(data>0){
-       	    	 alert("添加成功！");
-       	    	 return;
-       	     }
-       	     
-       	     alert("添加出错！");
-       	    	 
-         },
-         "json");
-    	
-    	
 
     });
 
-    $('#modifiedPowerForm').bootstrapValidator({
-        message: '该值不能为空!',
-        feedbackIcons: {
-            valid: 'glyphicon glyphicon-ok',
-            invalid: 'glyphicon glyphicon-remove',
-            validating: 'glyphicon glyphicon-refresh'
-        },
-        fields: {
-        	modifiedPowerName: {
-                validators: {
-                    notEmpty: {
-                        message: '权限名称不能为空！'
-                    }
-                }
-            },
-            modifiedPowerId: {
-                validators: {
-                    notEmpty: {
-                        message: '权限ID不能为空！'
-                    },
-                    regexp: {
-                        regexp: /^[0-9]+$/,
-                        message: '权限ID只能由数字组成'
-                    }
-                }
-            },
-            modifiedDescription: {
-                validators: {
-                    notEmpty: {
-                        message: '权限描述内容不能为空！'
-                    }
-                }
-            }
-        }
-    }).on('success.form.bv',
-    function(e) {
-    	
-    	
-    	
-    	e.preventDefault();
-  	  $("#modifiedPowerModal").modal("hide");
-  	
-  	 var url = "/yx/account/modifiedPower";
-     $.post(url,{
-   	  "modifiedPowerId":$("#modifiedPowerId").val(),
-   	  "modifiedPowerName":$("#modifiedPowerName").val(),
-   	  "modifiedDescription":$("#modifiedDescription").val(),
-     },
-     function(data) {
-    	 var powerName = $("#searchPowerName").val();
-         
-         
-         var url = "/yx/account/findPowerByName?"+"powerName=" + powerName;
-         $.get(url,
-         function(data) {
-
-         	dataDeal(data);
-
-         },
-         "json");
-   	 
-     },
-     "text");
-    	
-
-    });
+    
     
 
 });
 
 	function dataDeal(data){
 		
-		
-		
-		 var tbody = $("#page-wrapper > div > div.col_1 > div.col-md-12.box > div.panel.panel-warning > div.panel-body.no-padding > table > tbody");
-		 var insert=$("#page-wrapper > div > div.col_1 > div.col-md-12.box > div.clearfix");
-         	 tbody.empty("tr");
-             $("#insert").remove();
-             
-		if(data.length==0){
-	          
-	           var info=$('<div id="insert" class="alert alert-danger" role="alert"  style="margin-top: 20px;margin-bottom: 30px;"></div>').html('<strong>查询失败！</strong>该权限名称不存在！');
-		           insert.after(info); 
-	    	   return;
-	       }else{
-	        tempPowerListData=data;
-	       }
-		
-		
-
-        $.each(data,
-        function(index, power) {
-        	
-        	var tr = $('<tr id="tr'+power.powerId+'"></tr>');
-        	tr.append($("<td></td>").html("序号"+index));
-            tr.append($("<td></td>").html(power.powerId));
-            tr.append($("<td></td>").html(power.powerName));
-            tr.append($("<td></td>").html(power.powerDescription));
-            tr.append($("<td></td>").html('<a onclick="modifiedPowerByPowerId('+index+')" type="button" class="btn-info btn-sm btn" >修改</a>'));
-            tr.append($("<td></td>").html('<a onclick="deletePowerByPowerId('+power.powerId+')" type="button" class="btn-danger btn-sm btn" style="height:34px;">删除权限</a>'));
-            
-            
-            tbody.append(tr);
-            
-           
-        	
-        });
-      
-        var info=$('<div id="insert" class="alert alert-success" style="margin-top: 20px;margin-bottom: 30px;" role="alert"></div>').html('<strong>查询成功！</strong>以下是查询到的结果！');
-        insert.after(info);
 	}
 	
 	
@@ -245,34 +124,12 @@ $(function() {
 	
 	function deletePowerByPowerId(powerId){
 		
-		 var url = "/yx/account/deletePowerByPowerId/" + powerId;
-	        $.get(url,
-	        function(data) {
-					
-	        	if(data>0){
-	        	     alert("删除成功!")
-	        		$("#tr"+powerId).remove();
-	        	     return;
-	        	}
-	        	   alert("删除出错!")
-	        	
-
-	        },
-	        "json");
+		alert("通过权限ID删除权限");
 		
 	}
 	
-	function modifiedPowerByPowerId(index){
-		var powerData=tempPowerListData[index];
-		$("#modifiedPowerId").val(powerData.powerId);
-		$("#modifiedPowerName").val(powerData.powerName);
-		$("#modifiedDescription").val(powerData.powerDescription);
-		
-	  	
-	  	
-		$("#modifiedPowerModal").modal("show");
-	}
-		
+	
+	
 </script>
 
 
@@ -304,7 +161,7 @@ $(function() {
                 <span class="glyphicon glyphicon-cog"></span>Settings</a>
             </li>
             <li>
-              <a href="/yx/logout">
+              <a href="#">
                 <span class="glyphicon glyphicon-log-out"></span>Logout</a>
             </li>
           </ul>
@@ -313,8 +170,94 @@ $(function() {
     </nav>
     <div class="navbar-default sidebar" role="navigation" style="min-height: 48em">
       <div class="sidebar-nav navbar-collapse">
-           <ul class="nav" id="side-menu">
-              <%@ include  file="/layout/layout.jsp"%>
+        <ul class="nav" id="side-menu">
+          <li>
+            <a href="index.html">
+              <i class="fa fa-dashboard fa-fw nav_icon"></i>Dashboard</a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-laptop nav_icon"></i>Layouts
+              <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="grids.html">Grid System</a></li>
+            </ul>
+            <!-- /.nav-second-level --></li>
+          <li>
+            <a href="#">
+              <i class="fa fa-indent nav_icon"></i>Menu Levels
+              <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="graphs.html">Graphs</a></li>
+              <li>
+                <a href="typography.html">Typography</a></li>
+            </ul>
+            <!-- /.nav-second-level --></li>
+          <li>
+            <a href="#">
+              <i class="fa fa-envelope nav_icon"></i>Mailbox
+              <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="inbox.html">Inbox</a></li>
+              <li>
+                <a href="compose.html">Compose email</a></li>
+            </ul>
+            <!-- /.nav-second-level --></li>
+          <li>
+            <a href="widgets.html">
+              <i class="fa fa-flask nav_icon"></i>Widgets</a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-check-square-o nav_icon"></i>Forms
+              <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="forms.html">Basic Forms</a></li>
+              <li>
+                <a href="validation.html">Validation</a></li>
+            </ul>
+            <!-- /.nav-second-level --></li>
+          <li>
+            <a href="#">
+              <i class="fa fa-table nav_icon"></i>Tables
+              <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="basic_tables.html">Basic Tables</a></li>
+            </ul>
+            <!-- /.nav-second-level --></li>
+          <li>
+            <a href="#">
+              <i class="fa fa-sitemap fa-fw nav_icon"></i>Css
+              <span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="media.html">Media</a></li>
+              <li>
+                <a href="login.html">Login</a></li>
+            </ul>
+            <!-- /.nav-second-level --></li>
+          <li>
+            <a href="#">
+              <i class="fa fa-sitemap fa-fw nav_icon"></i>现场迎新管理
+              <span class="fa arrow" /></a>
+            <ul class="nav nav-second-level">
+              <li>
+                <a href="checkIn">登记报到单打印状态</a></li>
+              <li>
+                <a href="militarySuppliesManagement">军训用品发送管理</a></li>
+              <li>
+                <a href="cardManagement">一卡通发放管理</a></li>
+              <li>
+                <a href="sitePayment">现场缴费管理</a></li>
+              <li>
+                <a href="registerAndReport">注册报到管理</a></li>
+              <li>
+                <a href="fileSubmission">档案提交管理</a></li>
             </ul>
           </li>
         </ul>
@@ -346,13 +289,13 @@ $(function() {
                       <input type="text" class="form-control1 required" placeholder="例:浏览权限" id="searchPowerName" name="searchPowerName" data-bv-notempty data-bv-notempty-message="权限名称不能为空！" /></div>
                   </div>
                 </div>
-                <div class="col-md-5 form-group">
+                <div class="col-md-1 form-group">
                   <button class="btn btn-info" type="submit" style="height: 40px;">
                     <span class="glyphicon glyphicon-search"></span>&nbsp;查询</button>
                 </div>
               </form>
               <div class="col-md-1 form-group">
-                <button class="btn btn-success" style="height: 40px;" onclick="$('#addRoleModal').modal('show')">
+                <button class="btn btn-success" style="height: 40px;" onclick="$('#myModal').modal('show')">
                   <span class="glyphicon glyphicon-plus"></span>&nbsp;新增权限</button>
               </div>
             </div>
@@ -364,22 +307,22 @@ $(function() {
                 <table class="table table-striped  table-bordered">
                   <thead>
                     <tr class="success">
-                      <th>#</th>
                       <th>权限ID</th>
                       <th>权限ID名称</th>
                       <th>权限描叙</th>
-                      <th>操作</th>
-                      <th>操作</th>
-                     </tr>
+                      <th>操作</th></tr>
                   </thead>
                   <tbody>
+                    <td style="padding-top: 25px !important;">1</td>
+                    <td style="padding-top: 25px !important;">统计模块</td>
+                    <td style="padding-top: 25px !important;">可以执行统计模块提供的所有功能</td>
+                    <td>
+                      <a onclick="deletePowerByPowerId(1)" type="button" class="btn-danger btn-sm btn" style="height:34px;">删除权限</a>
+                    </td>
                   </tbody>
                 </table>
               </div>
-              
-              
-              
-              <div class="modal fade" id="addRoleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+              <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -421,61 +364,6 @@ $(function() {
                   </div>
                 </div>
               </div>
-              
-              
-              
-              
-                														<!-- 修改权限模态框开始 -->
-              <div class="modal fade" id="modifiedPowerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                      <h3 class="modal-title pull-center" id="exampleModalLabel1"><strong>修改权限操作</strong></h3>
-                    </div>
-                    <form id="modifiedPowerForm">
-                    <div class="modal-body">
-                        <div class="form-group">
-                          <label for="modifiedPowerId" class="control-label"  style="font-size:16px;"><strong>权限ID<sup>*</sup>(不可修改)</strong></label>
-                          <div class="input-group">
-                          		<span class="input-group-addon">
-                        		      <span class="glyphicon glyphicon-user"></span>
-                       			</span>
-                          		<input type="text" class="form-control1" id="modifiedPowerId" name="modifiedPowerId" disabled="disabled" placeholder="例:100000044">
-                          </div>
-                        </div>
-                        <div class="form-group" style="margin-top:30px;font-size:16px;">
-                          <label for="modifiedPowerName" class="control-label" ><strong>权限名称<sup>*</sup></strong></label>
-                          <div class="input-group">
-                          		<span class="input-group-addon">
-                        		      <span class="glyphicon glyphicon-user"></span>
-                       			</span>
-                          <input type="text"  class="form-control1"  id="modifiedPowerName" name="modifiedPowerName" placeholder="例:管理员">
-                          </div>
-                        </div>
-                        
-                        <div class="form-group">
-                          <label for="modifiedDescription" style="margin-top:30px;font-size:16px;" class="control-label"><strong>权限描述<sup>*</sup></strong></label>
-                          <textarea class="form-control1" style="border-radius: 4px;min-height: 78px;" id="modifiedDescription" name="modifiedDescription" placeholder="&nbsp;&nbsp;例:系统管理员用于管理整个迎新系统，拥有最高的权限。" ></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-info" data-dismiss="modal">关闭</button>
-                      <button type="submit" class="btn btn-info">保存修改</button>
-                    </div>
-                    </form>
-                  </div>
-                </div>
-              </div>
-              																<!-- 修改权限模态框结束 -->
-              
-              
-              
-              
-              
-              
             </div>
             <div class="copy_layout">
               <p>Copyright © 2016.Company name All rights reserved.More Templates

@@ -14,7 +14,7 @@
   </select>
 --> 
   
-  <select id="findByName" parameterType="String" resultType="Class" >
+  <select id="findByName" parameterType="String" resultType="class" >
   <bind name="clname" value="'%' + clname + '%'"/>
   	SELECT
 		w.id,
@@ -54,7 +54,7 @@
 	</where>
   </select>
   
-   <select id="findById" parameterType="int" resultType="Class" >
+   <select id="findById" parameterType="int" resultType="class" >
   	SELECT
 		w.id,
 		w.clname,
@@ -102,7 +102,7 @@
   	VALUES(#{id},#{name},#{teacher},#{stuNum},#{major.id},#{grade.id})
   </insert>
   
-   <update id="updateClass" parameterType="Class" >
+   <update id="updateClass" parameterType="class" >
   	UPDATE class
   	<set>
   		<if test="name != null">
@@ -134,7 +134,7 @@
                 m.name   =   #{majorName}
   </select>
   
-  <select id="findClass" parameterType="int" resultType="Class" >
+  <select id="findClass" parameterType="int" resultType="class" >
   	SELECT
 		w.id,
 		w.clname `name`,

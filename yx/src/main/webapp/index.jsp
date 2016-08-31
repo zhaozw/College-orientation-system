@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>添加年级信息</title>
+<title>迎新系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="keywords"
@@ -28,35 +28,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 <link type="text/css" rel='stylesheet'
 	href="/yx/assets/css/welcome/welcome.css" />
-<link href="/yx/assets/css/bootstrapValidator.min.css" rel="stylesheet">
-<script src="/yx/assets/js/bootstrapValidator.min.js"></script>
-
-<script type="text/javascript">
-	$(function() {
-		$('#grade').bootstrapValidator({
-			message : 'This value is not valid',
-			feedbackIcons : {
-				valid : 'glyphicon glyphicon-ok',
-				invalid : 'glyphicon glyphicon-remove',
-				validating : 'glyphicon glyphicon-refresh'
-			},
-			fields : {
-				name : {
-					validators : {
-						notEmpty : {
-							message : '年级名不能为空'
-						},
-						stringLength: {
-	                        max: 50,
-	                        message: '年级名长度不超过50位'
-	                    }
-					}
-				}
-			}
-		});
-
-	});
-</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -86,7 +57,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							Logout</a></li>
 				</ul></li>
 		</ul>
-		<div class="navbar-default sidebar" role="navigation">
+		<div class="navbar-default sidebar" role="navigation"
+			style="min-height: 40em">
 			<div class="sidebar-nav navbar-collapse">
 				<ul class="nav" id="side-menu">
 					<%@ include  file="/layout/layout.jsp"%>
@@ -95,34 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<!-- /.sidebar-collapse -->
 		</div>
 		<!-- /.navbar-static-side --> </nav>
-		<div id="page-wrapper">
-			<div class="graphs">
-				<div class="xs box">
-					<h3>年级增加</h3>
-					<div class="tab-content">
-						<div class="tab-pane active" id="horizontal-form">
-							<form id="grade" class="form-horizontal"
-								action="<%=request.getContextPath()%>/education/grade/insert"
-								accept-charset="UTF-8" method="post">
-								<div class="form-group">
-									<label for="name" class="col-sm-2 control-label">年级名</label>
-									<div class="col-sm-8">
-										<input type="text" class="form-control1" name="name" id="name"
-											placeholder="name">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-sm-8 col-sm-offset-7">
-										<button type="submit" class="btn-info btn">填写提交</button>
-										<button class="btn-default btn" type="reset">重置</button>
-									</div>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<div id="page-wrapper"></div>
 		<!-- /#page-wrapper -->
 	</div>
 	<!-- /#wrapper -->

@@ -393,7 +393,7 @@ $(function() {
                 <span class="glyphicon glyphicon-cog"></span>Settings</a>
             </li>
             <li>
-              <a href="#">
+              <a href="/yx/logout">
                 <span class="glyphicon glyphicon-log-out"></span>Logout</a>
             </li>
           </ul>

@@ -13,6 +13,11 @@ public interface NoticeCommentService {
 	 */
 	List<NoticeComment> findAllReportedComment();
 	/**
+	 * 根据信息查询其所有评论
+	 * @return
+	 */
+	List<NoticeComment> findFromMessage(int piId);
+	/**
 	 * 根据Id查找一条记录
 	 * @retrun
 	 */
@@ -31,5 +36,5 @@ public interface NoticeCommentService {
 	/**
 	 * 根据Id更新一条记录
 	 */
-	int updateCommentById(int ncId);
+	int updateComment(NoticeComment comment);
 }

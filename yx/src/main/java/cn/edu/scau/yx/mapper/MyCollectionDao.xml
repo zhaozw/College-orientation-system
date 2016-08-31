@@ -4,8 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.scau.yx.dao.MyCollectionDao">
 <insert id="insertCollection" parameterType="MyCollection" >
-  	INSERT INTO collection(co_id,pi_id,nu_id)
-	VALUES (#{coId},#{piId},#{nuId})
+  	INSERT INTO collection(pi_id,nu_id)
+	VALUES (#{piId},#{nuId})
   </insert>
   
   <delete id="delCollectionById" parameterType="int">

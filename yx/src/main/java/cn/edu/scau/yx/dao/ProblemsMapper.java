@@ -59,6 +59,19 @@ public interface ProblemsMapper {
 	 */
 	List<Problems> findAll();
 	
+	/**
+	 * 根据用户id查询咨询内容列表
+	 * @return
+	 */
+	List<Problems> findByUserId(int userId);
+	
+	/**
+	 * 根据用户id和关键字搜索咨询内容列表
+	 * @param userId
+	 * @return
+	 */
+	List<Problems> searchByUserId(@Param("userId") int userId,@Param("keyWord") String keyWord);
+	
 	
 	
 //	/**

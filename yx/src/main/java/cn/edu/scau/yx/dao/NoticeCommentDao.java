@@ -20,6 +20,11 @@ public interface NoticeCommentDao {
 	 */
 	NoticeComment findCommentById(int ncId);
 	/**
+	 * 根据信息查询其所有评论
+	 * @return
+	 */
+	List<NoticeComment> findFromMessage(int piId);
+	/**
 	 * 插入一条记录（一个实体）
 	 * @param comment
 	 * @return	返回影响行数 0：表示删除失败
@@ -33,6 +38,6 @@ public interface NoticeCommentDao {
 	/**
 	 * 根据Id更新一条记录
 	 */
-	int updateCommentById(int ncId);
+	int updateComment(NoticeComment comment);
 	
 }

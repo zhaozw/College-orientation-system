@@ -67,7 +67,7 @@
 	  		 user_name = #{userName},
 	  	 </if>
 	  	 <if test="age != null">
-	  	 	 age = #{age}
+	  	 	 age = #{age},
 	  	 </if>
 	  	 <if test="pwd != null">
 	  	 	 pwd = #{pwd}
@@ -85,4 +85,10 @@
 	  SELECT *
 	  FROM user_info
    </select>
+   
+    <insert id="reg" parameterType="UserInfo">
+  	  INSERT INTO userInfo(userId,userName,age,pwd)
+	  VALUES (#{userId},#{userName},#{age},#{pwd})
+   </insert>
+   
 </mapper>

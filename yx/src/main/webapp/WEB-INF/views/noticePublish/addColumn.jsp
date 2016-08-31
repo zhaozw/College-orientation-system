@@ -103,107 +103,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							Profile</a></li>
 					<li><a href="#"><span class="glyphicon glyphicon-cog"></span>
 							Settings</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>
+					<li><a href="/yx/logout"><span class="glyphicon glyphicon-log-out"></span>
 							Logout</a></li>
 				</ul></li>
 		</ul>
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse">
 				<ul class="nav" id="side-menu">
-					<li><a href="index.html"> <span
-							class="glyphicon glyphicon-list-alt"></span> Dashboard
-					</a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-print"></span>
-							Layouts <span class="fa arrow"></span>
-					</a>
-						<ul class="nav nav-second-level">
-							<li><a href="grids.html">Grid System</a></li>
-						</ul> <!-- /.nav-second-level --></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-tint"></span>
-							Menu Levels <span class="fa arrow"></span>
-					</a>
-						<ul class="nav nav-second-level">
-							<li><a href="graphs.html">Graphs</a></li>
-							<li><a href="typography.html">Typography</a></li>
-						</ul> <!-- /.nav-second-level --></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-plane"></span>
-							Mailbox <span class="fa arrow"></span>
-					</a>
-						<ul class="nav nav-second-level">
-							<li><a href="inbox.html">Inbox</a></li>
-							<li><a href="compose.html">Compose email</a></li>
-						</ul> <!-- /.nav-second-level --></li>
-					<li><a href="widgets.html"> <span
-							class="glyphicon glyphicon-folder-open"></span> Widgets
-					</a></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-th"></span>
-							Forms <span class="fa arrow"></span>
-					</a>
-						<ul class="nav nav-second-level">
-							<li><a href="forms.html">Basic Forms</a></li>
-							<li><a href="validation.html">Validation</a></li>
-						</ul> <!-- /.nav-second-level --></li>
-					<li><a href="#"> <span class="glyphicon glyphicon-flash"></span>
-							Tables <span class="fa arrow"></span>
-					</a>
-						<ul class="nav nav-second-level">
-							<li><a href="basic_tables.html">Basic Tables</a></li>
-						</ul> <!-- /.nav-second-level --></li>
-					<li><a href="#"> <span
-							class="glyphicon glyphicon-credit-card"></span> Css <span
-							class="fa arrow"></span>
-					</a>
-						<ul class="nav nav-second-level">
-							<li><a href="media.html">Media</a></li>
-							<li><a href="login.html">Login</a></li>
-						</ul> <!-- /.nav-second-level --></li>
-					<li><a href="#"><span
-							class="glyphicon glyphicon-credit-card"></span> 学校信息公布子系统<span
-							class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a href="#">公布信息管理模块</a>
-								<ul class="nav nav-second-level">
-									<li><a href="../message/addMessage.html">信息发布</a></li>
-									<li><a href="../message/findMessage.html">信息查询</a></li>
-
-								</ul></li>
-							<li><a href="#">栏目管理模块</a>
-								<ul class="nav nav-second-level">
-									<li><a href="addColumn.html">栏目增加</a></li>
-									<li><a href="findColumn.html">栏目查询</a></li>
-
-								</ul></li>
-								<!--
-							<li><a href="#">年级管理模块</a>
-								<ul class="nav nav-second-level">
-									<li><a href="#">年级信息增加</a></li>
-									<li><a href="#">年级信息查询</a></li>
-
-								</ul></li>
-							<li><a href="#">班级管理模块</a>
-								<ul class="nav nav-second-level">
-									<li><a href="#">班级信息增加</a></li>
-									<li><a href="#">班级信息查询</a></li>
-
-								</ul></li>
-								-->
-						</ul> <!-- /.nav-second-level --></li>
-					<li><a href="#"><span
-							class="glyphicon glyphicon-credit-card"></span> 学生信息管理子系统<span
-							class="fa arrow"></span></a>
-						<ul class="nav nav-second-level">
-							<li><a href="#">学生信息管理模块</a>
-								<ul class="nav nav-second-level">
-									<li><a href="#">学生信息增加</a></li>
-									<li><a href="#">学生信息查询</a></li>
-								</ul></li>
-							<li><a href="#">录取查询管理模块</a>
-								<ul class="nav nav-second-level">
-									<li><a href="#">录取信息导入</a></li>
-									<li><a href="#">录取信息查询</a></li>
-
-								</ul></li>
-						</ul> <!-- /.nav-second-level --></li>
+		<%@ include  file="/layout/layout.jsp"%>
 				</ul>
 			</div>
 			<!-- /.sidebar-collapse -->
@@ -245,7 +152,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-sm-8 col-sm-offset-2">
-											<button class="btn">确认导入</button>
+											<!-- <button class="btn">确认导入</button> -->
 											<button type="submit"
 												class="btn-success btn">填写提交</button>
 											<button class="btn-inverse btn" type="reset">重置</button>

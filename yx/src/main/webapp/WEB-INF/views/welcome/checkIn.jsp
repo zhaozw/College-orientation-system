@@ -189,7 +189,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
               </a>
             </li>
             <li>
-              <a href="#">
+              <a href="/yx/logout">
                 <span class="glyphicon glyphicon-log-out"></span>
                 Logout
               </a>

@@ -44,4 +44,24 @@ public class ProblemsServiceImpl implements ProblemsService{
 		return updateCount;
 	}
 
+	/**
+	 * 添加咨询记录
+	 */
+	@Override
+	public int addProblems(Problems problems) {
+		int addCount = problemsMapper.insertProblems(problems);
+		return addCount;
+	}
+
+	@Override
+	public List<Problems> getListByUserId(int userId) {
+		List<Problems> problems = problemsMapper.findByUserId(userId);
+		return problems;
+	}
+
+	@Override
+	public List<Problems> getSearchByUserId(int userId,String keyWord) {
+		return problemsMapper.searchByUserId(userId,keyWord);
+	}
+
 }
